@@ -4,5 +4,5 @@ syntax: regexp
 
 ^(?!\.hgrc|\.hgignore|\.vimrc|\.vim)
 ^\.viminfo$
-^\.vim/(backup|swap)/.*
+^\.vim/(backup|swap)/(?!this-dir-intentionally-left-blank)
 ^\.vim/db
