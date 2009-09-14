@@ -1,0 +1,10 @@
+[ui]
+username = sirex <sirexas@gmail.com>
+
+[extensions]
+hgext.extdiff =
+
+[extdiff]
+cmd.kdiff3 = kdiff
+cmd.meld = vdiff
+

@@ -1,0 +1,6 @@
+# vim: nospell
+
+syntax: regexp
+
+^(?!\.hgrc|\.hgignore)
+
