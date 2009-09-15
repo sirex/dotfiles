@@ -2,7 +2,7 @@
 
 syntax: regexp
 
-^(?!\.hgrc|\.hgignore|\.vimrc|\.vim|\.zshenv)
+^(?!\.hgrc|\.hgignore|\.vimrc|\.vim|\.zshenv|\.screenrc)
 ^\.viminfo$
 ^\.vim/(backup|swap)/.*
 ^\.vim/db
