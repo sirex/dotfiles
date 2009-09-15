@@ -5,6 +5,6 @@ username = sirex <sirexas@gmail.com>
 hgext.extdiff =
 
 [extdiff]
-cmd.kdiff3 = kdiff
-cmd.meld = vdiff
+cmd.kdiff = kdiff3
+cmd.vdiff = meld
 

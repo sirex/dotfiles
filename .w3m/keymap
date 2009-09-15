@@ -1,0 +1,16 @@
+keymap  n   UP
+keymap  e   DOWN
+keymap  C-n NEXT_PAGE
+keymap  C-e PREV_PAGE
+keymap  p   BACK
+keymap  i   PREV
+keymap  b   SEARCH_NEXT
+keymap  B   SEARCH_PREV
+keymap  R   EDIT
+keymap  L   RELOAD
+keymap  U   VIEW_IMAGE
+keymap  J   GOTO
+keymap  E   NEXT_LEFT_UP
+keymap  N   NEXT_RIGHT_DOWN
+keymap  m   BEGIN
+keymap  M   END
