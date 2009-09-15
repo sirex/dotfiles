@@ -6,4 +6,5 @@ syntax: regexp
 ^\.viminfo$
 ^\.vim/(backup|swap)/.*
 ^\.vim/db
+^\.vim/spell/(?!lt)
 ^\.w3m/(?!config|keymap)
