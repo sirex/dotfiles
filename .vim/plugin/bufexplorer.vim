@@ -300,21 +300,21 @@ function s:MapKeys()
     nnoremap <buffer> <silent> <tab> :call <SID>SelectBuffer("tab")<cr>
   endif
 
-  nnoremap <buffer> <silent> <F1>          :call <SID>ToggleHelp()<cr>
-  nnoremap <buffer> <silent> <2-leftmouse> :call <SID>SelectBuffer()<cr>
-  nnoremap <buffer> <silent> <cr>          :call <SID>SelectBuffer()<cr>
-  nnoremap <buffer> <silent> t             :call <SID>SelectBuffer("tab")<cr>
-  nnoremap <buffer> <silent> <s-cr>        :call <SID>SelectBuffer("tab")<cr>
-  nnoremap <buffer> <silent> d             :call <SID>RemoveBuffer("wipe")<cr>
-  nnoremap <buffer> <silent> D             :call <SID>RemoveBuffer("delete")<cr>
-  nnoremap <buffer> <silent> m             :call <SID>MRUListShow()<cr>
-  nnoremap <buffer> <silent> p             :call <SID>ToggleSplitOutPathName()<cr>
-  nnoremap <buffer> <silent> q             :call <SID>Close()<cr>
-  nnoremap <buffer> <silent> r             :call <SID>SortReverse()<cr>
-  nnoremap <buffer> <silent> R             :call <SID>ToggleShowRelativePath()<cr>
-  nnoremap <buffer> <silent> s             :call <SID>SortSelect()<cr>
-  nnoremap <buffer> <silent> u             :call <SID>ToggleShowUnlisted()<cr>
-  nnoremap <buffer> <silent> f             :call <SID>ToggleFindActive()<cr>
+  nnoremap <buffer> <silent> <F1>          ocall <SID>ToggleHelp()<cr>
+  nnoremap <buffer> <silent> <2-leftmouse> ocall <SID>SelectBuffer()<cr>
+  nnoremap <buffer> <silent> <cr>          ocall <SID>SelectBuffer()<cr>
+  nnoremap <buffer> <silent> t             ocall <SID>SelectBuffer("tab")<cr>
+  nnoremap <buffer> <silent> <s-cr>        ocall <SID>SelectBuffer("tab")<cr>
+  nnoremap <buffer> <silent> d             ocall <SID>RemoveBuffer("wipe")<cr>
+  nnoremap <buffer> <silent> D             ocall <SID>RemoveBuffer("delete")<cr>
+  nnoremap <buffer> <silent> m             ocall <SID>MRUListShow()<cr>
+  nnoremap <buffer> <silent> p             ocall <SID>ToggleSplitOutPathName()<cr>
+  nnoremap <buffer> <silent> q             ocall <SID>Close()<cr>
+  nnoremap <buffer> <silent> r             ocall <SID>SortReverse()<cr>
+  nnoremap <buffer> <silent> R             ocall <SID>ToggleShowRelativePath()<cr>
+  nnoremap <buffer> <silent> s             ocall <SID>SortSelect()<cr>
+  nnoremap <buffer> <silent> u             ocall <SID>ToggleShowUnlisted()<cr>
+  nnoremap <buffer> <silent> f             ocall <SID>ToggleFindActive()<cr>
 
   for k in ["G", "n", "N", "L", "M", "H"]
     exec "nnoremap <buffer> <silent>" k ":keepjumps normal!" k."<cr>"
