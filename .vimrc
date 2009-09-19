@@ -158,7 +158,7 @@ autocmd BufNewFile  *.html	0r ~/.vim/templates/xhtml.html
 
 " LEKPa langmap, works since Vim 7.2.109:
 " http://vim.svn.sourceforge.net/viewvc/vim?view=rev&revision=1366
-set langmap=/1,\\2,.3,\,4,f5,!6,w7,ų8,į9,(0,)-,:=,gw,re,lr,dt,čy,ju,ui,ėo,ęp,?[,=],'\\,ks,sd,tf,mg,ph,nj,ek,il,o:,y',žb,šn,bm,ū\,,ą.,h/,"!,{#,}$,F%,–^,W&,Ų*,Į(,“),“_,\;+,GW,RE,LR,DT,ČY,JU,UI,ĖO,ĘP,[{,]},_\|,KS,SD,TF,MG,PH,NJ,EK,IL,O\;,Y",ŽB,ŠN,BM,Ū<,Ą>,H?,
+set langmap=/1,\\2,.3,\,4,f5,!6,w7,ų8,į9,(0,)-,:=,gw,re,lr,dt,čy,ju,ui,ėo,ęp,?[,=],'\\,ks,sd,tf,mg,ph,nj,ek,il,o:,y',žb,šn,bm,ū\,,ą.,h/,\"!,{#,}$,F%,–^,W&,Ų*,Į(,“),“_,\;+,GW,RE,LR,DT,ČY,JU,UI,ĖO,ĘP,[{,]},_\|,KS,SD,TF,MG,PH,NJ,EK,IL,O\;,Y\",ŽB,ŠN,BM,Ū<,Ą>,H?,
 
 nnoremap = o
 
