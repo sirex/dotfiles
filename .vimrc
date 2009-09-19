@@ -43,25 +43,19 @@ else
     colors zen
 endif
 
-
-" mapings
-map <F1> oe ~/notes.txt<CR>
-map <F2> oe ~/.vim/db<CR>
-map <F3> oBufExplorer<CR>
-map <F4> ots <C-R><C-W><CR>
-map <F5> ob#<CR>
+" mappings
+map <F1> :e ~/notes.txt<CR>
+map <F2> :e ~/.vim/db<CR>
+map <F3> :BufExplorer<CR>
+map <F4> :ts <C-R><C-W><CR>
+map <F5> :b#<CR>
 map <F8> :sp changelog<CR>:
-vmap <F9> ocall ExecMySQL()<CR>
-nmap <F9> Vocall ExecMySQL()<CR>
-nmap <F11> (xxn(
-nmap <F12> (u//<ESC>n(
-vmap <F11> og/./normal (xx<CR>
-vmap <F12> og/./normal (u//<CR>
+vmap <F9> :call ExecMySQL()<CR>
+nmap <F9> V:call ExecMySQL()<CR>
 map <SPACE> ^
 imap <C-SPACE> <C-R>"
 cmap <C-SPACE> <C-R><C-W>
 map <C-TAB> <C-W>w
-
 
 " setting compiler (PHP)
 compiler cphp
@@ -158,100 +152,15 @@ endif
 
 
 
-autocmd BufNewFile  *.html	0r /home/sirex/.vim/templates/xhtml.html
+autocmd BufNewFile  *.html	0r ~/.vim/templates/xhtml.html
 
 
 
-""" LEKPa
-"set langmap=gw,re,lr,dt,čy,ju,ui,ėo,ęp,?[,=],'\\,ks,sd,tf,mg,ph,nj,ek,il,o;;,y',žb,šn,bm,ū\,,ą.,h/,/1,\\2,.3,\,4,f5,!6,w7,ų8,į9,(0,)–,:=,"!,{#,}$,F%,–^,W&,Ų*,Į(,)„,“–,\;+,GW,RE,LR,DT,ČY,JU,UI,ĖO,ĘP,[{,]},_|,KS,SD,TF,MG,PH,NJ,EK,IL,O:,Y",ŽB,ŠN,BM,Ū<,Ą>,H?
-" set langmap=nj,ek,il,ph,ui,UI,ju,šn,ŠN,ęp,čy,re,lr,o:,ėo,ĖO,ČY,ĘP,sd,SD,tf,TF,dt,DT,gw,GW,RE,mg,MG,LR,Ū<,Ą>,žb,ŽB,h/,Y\",bm,y\',O;;,ų*,NJ,ks,KS
-noremap / 1
-noremap \ 2
-noremap . 3
-noremap , 4
-noremap f 5
-noremap ! 6
-noremap w 7
-noremap ų 8
-noremap į 9
-noremap ( 0
-noremap ) -
-noremap : =
+" LEKPa langmap, works since Vim 7.2.109:
+" http://vim.svn.sourceforge.net/viewvc/vim?view=rev&revision=1366
+set langmap=/1,\\2,.3,\,4,f5,!6,w7,ų8,į9,(0,)-,:=,gw,re,lr,dt,čy,ju,ui,ėo,ęp,?[,=],'\\,ks,sd,tf,mg,ph,nj,ek,il,o:,y',žb,šn,bm,ū\,,ą.,h/,"!,{#,}$,F%,–^,W&,Ų*,Į(,“),“_,\;+,GW,RE,LR,DT,ČY,JU,UI,ĖO,ĘP,[{,]},_\|,KS,SD,TF,MG,PH,NJ,EK,IL,O\;,Y",ŽB,ŠN,BM,Ū<,Ą>,H?,
 
-noremap g w
-noremap r e
-noremap l r
-noremap d t
-noremap č y
-noremap j u
-noremap u i
-noremap ė o
-noremap ę p
-noremap ? [
-noremap = ]
-noremap ' \
-
-noremap k s
-noremap s d
-noremap t f
-noremap m g
-noremap p h
-noremap n j
-noremap e k
-noremap i l
-noremap o :
-noremap y '
-
-noremap ž b
-noremap š n
-noremap b m
-noremap ū ,
-noremap ą .
-noremap h /
-
-noremap " !
-noremap { #
-noremap } $
-noremap F %
-noremap – ^
-noremap W &
-noremap Ų *
-noremap Į (
-noremap “ )
-noremap “ _
-noremap ; +
-
-noremap G W
-noremap R E
-noremap L R
-noremap D T
-noremap Č Y
-noremap J U
-noremap U I
-noremap Ė O
-noremap Ę P
-noremap [ {
-noremap ] }
-"noremap _ |
-
-noremap K S
-noremap S D
-noremap T F
-noremap M G
-noremap P H
-noremap N J
-noremap E K
-noremap I L
-noremap O ;
-noremap Y "
-
-noremap Ž B
-noremap Š N
-noremap B M
-noremap Ū <
-noremap Ą >
-noremap H ?
-
+nnoremap = o
 
 " Return back where you was.
 nnoremap <c-p> <c-o>
@@ -281,8 +190,6 @@ inoremap <c-d> <c-k>
 nmap <C-MouseUp> 5zl
 nmap <C-MouseDown> 5zh
 
-nnoremap <c-k> :update<CR>
-inoremap <c-k> <ESC>:update<CR>a
-""" finish
-""" LEKPa
+nmap <c-k> :update<CR>
+imap <c-k> <ESC>:update<CR>a
 
