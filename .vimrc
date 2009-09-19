@@ -43,19 +43,25 @@ else
     colors zen
 endif
 
-" mappings
-map <F1> :e ~/notes.txt<CR>
-map <F2> :e ~/.vim/db<CR>
-map <F3> :BufExplorer<CR>
-map <F4> :ts <C-R><C-W><CR>
-map <F5> :b#<CR>
+
+" mapings
+map <F1> oe ~/notes.txt<CR>
+map <F2> oe ~/.vim/db<CR>
+map <F3> oBufExplorer<CR>
+map <F4> ots <C-R><C-W><CR>
+map <F5> ob#<CR>
 map <F8> :sp changelog<CR>:
-vmap <F9> :call ExecMySQL()<CR>
-nmap <F9> V:call ExecMySQL()<CR>
+vmap <F9> ocall ExecMySQL()<CR>
+nmap <F9> Vocall ExecMySQL()<CR>
+nmap <F11> (xxn(
+nmap <F12> (u//<ESC>n(
+vmap <F11> og/./normal (xx<CR>
+vmap <F12> og/./normal (u//<CR>
 map <SPACE> ^
 imap <C-SPACE> <C-R>"
 cmap <C-SPACE> <C-R><C-W>
 map <C-TAB> <C-W>w
+
 
 " setting compiler (PHP)
 compiler cphp
@@ -155,41 +161,5 @@ endif
 autocmd BufNewFile  *.html	0r ~/.vim/templates/xhtml.html
 
 
-
-" LEKPa langmap, works since Vim 7.2.109:
-" http://vim.svn.sourceforge.net/viewvc/vim?view=rev&revision=1366
-set langmap=/1,\\2,.3,\,4,f5,!6,w7,ų8,į9,(0,)-,:=,gw,re,lr,dt,čy,ju,ui,ėo,ęp,?[,=],'\\,ks,sd,tf,mg,ph,nj,ek,il,o:,y',žb,šn,bm,ū\,,ą.,h/,\"!,{#,}$,F%,–^,W&,Ų*,Į(,“),“_,\;+,GW,RE,LR,DT,ČY,JU,UI,ĖO,ĘP,[{,]},_\|,KS,SD,TF,MG,PH,NJ,EK,IL,O\;,Y\",ŽB,ŠN,BM,Ū<,Ą>,H?,
-
-nnoremap = o
-
-" Return back where you was.
-nnoremap <c-p> <c-o>
-" Return forward from where you was returned.
-nnoremap <c-i> <c-i>
-
-" Scroll half page down
-noremap <c-n> <c-d>
-" Scroll half page up
-noremap <c-e> <c-u>
-
-" Redo
-nnoremap <c-l> <c-r>
-
-" Go to link or tag.
-nnoremap <c-=>  <c-]>
-" Go from last link or tag.
-nnoremap <c-d> <c-t>
-
-" Go from last link or tag.
-inoremap <c-e> <c-p>
-
-" Digraph
-inoremap <c-d> <c-k>
-
-" Scrolling horizontally.
-nmap <C-MouseUp> 5zl
-nmap <C-MouseDown> 5zh
-
-nmap <c-k> :update<CR>
-imap <c-k> <ESC>:update<CR>a
+source ~/.vim/keymap/lekpa.vim
 
