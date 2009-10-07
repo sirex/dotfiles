@@ -3,8 +3,11 @@ username = sirex <sirexas@gmail.com>
 
 [extensions]
 hgext.extdiff =
+hgext.ftp = ~/.hgext/hgftp/ftp.py
 
 [extdiff]
 cmd.kdiff = kdiff3
 cmd.vdiff = meld
 
+
+# vim: ft=ini nospell
