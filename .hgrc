@@ -1,5 +1,6 @@
 [ui]
 username = sirex <sirexas@gmail.com>
+merge = meld
 
 [extensions]
 hgext.extdiff =
