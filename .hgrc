@@ -5,6 +5,7 @@ merge = meld
 [extensions]
 hgext.extdiff =
 hgext.ftp = ~/.hgext/hgftp/ftp.py
+hgext.convert = 
 
 [extdiff]
 cmd.kdiff = kdiff3
