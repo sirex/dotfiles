@@ -8,3 +8,4 @@ syntax: regexp
 ^\.vim/db
 ^\.vim/spell/(?!lt)
 ^\.w3m/(?!config|keymap)
+^\.vim/.VimballRecord$
