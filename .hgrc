@@ -6,7 +6,7 @@ hgext.extdiff =
 hgext.ftp = ~/.hgext/hgftp/ftp.py
 hgext.purge =
 hgext.rebase = 
-hgext.glog =
+hgext.graphlog =
 
 
 [extdiff]
