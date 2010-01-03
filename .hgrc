@@ -18,3 +18,4 @@ cmd.vdiff = meld
 
 [defaults]
 log = --limit 4
+glog = --limit 4
