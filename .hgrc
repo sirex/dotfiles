@@ -4,6 +4,8 @@ username = sirex <sirexas@gmail.com>
 [extensions]
 hgext.extdiff =
 hgext.ftp = ~/.hgext/hgftp/ftp.py
+hgext.purge =
+hgext.rebase = 
 
 
 [extdiff]
