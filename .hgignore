@@ -2,8 +2,11 @@
 
 syntax: regexp
 
-^(?!\.hgrc|\.hgignore|\.vimrc|\.vim|\.zshenv|\.screenrc|\.w3m|\.xrdb|\.Xresources|\.conkypanelrc|\.xinitrc)
+^(?!\.hgrc|\.hgignore|\.vimrc|\.vim|\.zshenv|\.screenrc|\.w3m|\.xrdb|\.Xresources|\.conkypanelrc|\.geeqie|\.xinitrc)
+^\.geeqie/(?!geeqierc)
 ^\.viminfo$
 ^\.vim/(backup|swap)/(?!this-dir-intentionally-left-blank)
 ^\.vim/db
+^\.vim/spell/(?!lt)
 ^\.w3m/(?!config|keymap)
+^\.vim/.VimballRecord$

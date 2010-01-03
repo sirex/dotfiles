@@ -1,15 +1,20 @@
 [ui]
 username = sirex <sirexas@gmail.com>
+merge = meld
 
 [extensions]
 hgext.extdiff =
 hgext.ftp = ~/.hgext/hgftp/ftp.py
+hgext.convert = 
 hgext.purge =
+hgext.fetch = 
 hgext.rebase = 
+hgext.churn =
+hgext.color = 
 hgext.graphlog =
 
-
 [extdiff]
-cmd.kdiff = kdiff3
 cmd.vdiff = meld
 
+[defaults]
+log = --limit 4

@@ -160,6 +160,5 @@ endif
 
 autocmd BufNewFile  *.html	0r ~/.vim/templates/xhtml.html
 
-
 source ~/.vim/keymap/lekpa.vim
 
