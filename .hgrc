@@ -1,5 +1,5 @@
 [ui]
-username = mantas
+username = sirex <sirexas@gmail.com>
 merge = kdiff3
 
 [extensions]
@@ -31,5 +31,3 @@ glog = --limit 4
 [hooks]
 precommit.syntax_check=/home/sirex/hg/hg-phpcheck/php_check.sh
 
-
-# vim: ft=ini nospell
