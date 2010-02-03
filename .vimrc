@@ -29,10 +29,16 @@ set textwidth=0
 set visualbell
 set linebreak
 set showcmd     " Show count of selected lines or characters
+set dictionary=~/.vim/dictionaries/phpfunclist
 let loaded_matchparen = 1
 
 set spell
 set spelllang=lt,en
+
+" Copy to clipboard
+vmap <INSERT> o!xclip -f -sel clip<CR>
+" Paste to clipboard
+nmap <INSERT> or!xclip -o -sel clip<CR>
 
 
 let g:zenburn_high_Contrast = 1

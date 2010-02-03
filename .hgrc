@@ -1,6 +1,6 @@
 [ui]
-username = sirex <sirexas@gmail.com>
-merge = meld
+username = mantas
+merge = kdiff3
 
 [extensions]
 hgext.extdiff =
@@ -11,11 +11,25 @@ hgext.fetch =
 hgext.rebase = 
 hgext.churn =
 hgext.color = 
+hgext.graphlog =
+hgext.mq =
+transplant =
+
 
 [extdiff]
 cmd.vdiff = meld
 
+[merge-tools]
+kdiff3.args=--L1 base --L2 local --L3 other $base $local $other -o $output
+
+
 [defaults]
 log = --limit 4
+glog = --limit 4
+
+
+[hooks]
+precommit.syntax_check=/home/sirex/hg/hg-phpcheck/php_check.sh
+
 
 # vim: ft=ini nospell

@@ -57,8 +57,8 @@ layout.save_window_positions: true
 
 layout.main_window.x: 118
 layout.main_window.y: 26
-layout.main_window.w: 960
-layout.main_window.h: 720
+layout.main_window.w: 1040
+layout.main_window.h: 243
 layout.main_window.maximized: false
 layout.main_window.hdivider_pos: 236
 layout.main_window.vdivider_pos: 200
