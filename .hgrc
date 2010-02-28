@@ -1,6 +1,9 @@
 [ui]
 username = sirex <sirexas@gmail.com>
-merge = meld
+merge = kdiff3
+
+[merge-tools]
+kdiff3.args = $base $local $other -o $output
 
 [extensions]
 hgext.extdiff =
@@ -12,6 +15,7 @@ hgext.rebase =
 hgext.churn =
 hgext.color = 
 hgext.graphlog =
+transplant = 
 
 [extdiff]
 cmd.vdiff = meld
@@ -19,3 +23,4 @@ cmd.vdiff = meld
 [defaults]
 log = --limit 4
 glog = --limit 4
+

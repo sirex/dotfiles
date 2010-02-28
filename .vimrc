@@ -31,7 +31,7 @@ set linebreak
 set showcmd     " Show count of selected lines or characters
 let loaded_matchparen = 1
 
-set spell
+"set spell
 set spelllang=lt,en
 
 
