@@ -2,7 +2,9 @@
 
 syntax: regexp
 
-^(?!\.hgrc|\.hgignore|\.vimrc|\.vim|\.zshenv|\.screenrc|\.w3m|\.xrdb|\.Xresources|\.conkypanelrc|\.geeqie|\.xinitrc)
+^(?!\.irssi|\.hgrc|\.hgignore|\.vimrc|\.vim|\.zshenv|\.screenrc|\.w3m|\.xrdb|\.Xresources|\.conkypanelrc|\.geeqie|\.xinitrc)
+^\.irssi/(?!scripts)
+^\.irssi/scripts/(?!notify.pl)
 ^\.geeqie/(?!geeqierc)
 ^\.viminfo$
 ^\.vim/(backup|swap)/(?!this-dir-intentionally-left-blank)
