@@ -31,6 +31,7 @@ set linebreak
 set showcmd     " Show count of selected lines or characters
 set dictionary=~/.vim/dictionaries/phpfunclist
 let loaded_matchparen = 1
+set formatoptions+=ro " Auto add * to /**  ... */ comments.
 
 set spell
 set spelllang=lt,en
@@ -81,6 +82,7 @@ if !exists("*Eatchar_")
 endif
 iabbr <silent> vd var_dump();<Left><Left><C-R>=Eatchar_('\s')<CR>
 iabbr <silent> pt <?php ?><Left><Left><Left>
+iabbr <silent> pp pp();<Left><Left><C-R>=Eatchar_('\s')<CR>
 
 " Replaces ymd with curren date in insert mode
 iabbr ymd <C-R>=strftime("%Y-%m-%d")<CR>
