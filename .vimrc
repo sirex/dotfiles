@@ -171,6 +171,25 @@ let g:user_zen_settings = {
 \        'snippets': {
 \            'djb': "{% block %}\n\t${child}|\n{% endblock %}\n\n",
 \        },
+\        'block_elements': 'djb',
+\    },
+\    'sql': {
+\        'snippets': {
+\            'sel': "SELECT *\nFROM `|`\n${child}",
+\            'selw': "SELECT *\nFROM `|`\nWHERE `` = ?\n${child}",
+\            'selwl': "SELECT *\nFROM `|`\nWHERE `` = ?\nLIMIT 1${child}",
+\        },
+\    },
+\    'php': {
+\        'extends': 'sql',
+\        'snippets': {
+\            'echo': "<?php echo |; ?>${child}",
+\            'foreach': "\n\n<?php foreach ($| as ): ?>\n\t${child}<?php endforeach; ?>\n\n",
+\        },
+\        'aliases': {
+\            'feach': 'foreach',
+\        },
+\        'block_elements': 'foreach',
 \    },
 \}
 
