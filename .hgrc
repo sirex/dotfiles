@@ -2,6 +2,9 @@
 username = sirex <sirexas@gmail.com>
 merge = kdiff3
 
+[merge-tools]
+kdiff3.args = $base $local $other -o $output
+
 [extensions]
 hgext.extdiff =
 hgext.ftp = ~/.hgext/hgftp/ftp.py

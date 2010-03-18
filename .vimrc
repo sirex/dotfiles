@@ -33,7 +33,7 @@ set dictionary=~/.vim/dictionaries/phpfunclist
 let loaded_matchparen = 1
 set formatoptions+=ro " Auto add * to /**  ... */ comments.
 
-set spell
+"set spell
 set spelllang=lt,en
 
 " Copy to clipboard
@@ -52,7 +52,6 @@ endif
 
 
 " mapings
-map <F1> oe ~/notes.txt<CR>
 map <F2> oe ~/.vim/db<CR>
 map <F3> oBufExplorer<CR>
 map <F4> ots <C-R><C-W><CR>
@@ -163,6 +162,17 @@ if !exists("*QuoteDelim")
       endif
     endf
 endif
+
+
+let g:user_zen_expandabbr_key = '<F1>'
+let g:user_zen_settings = {
+\  'indentation' : '    ',
+\    'html': {
+\        'snippets': {
+\            'djb': "{% block %}\n\t${child}|\n{% endblock %}\n\n",
+\        },
+\    },
+\}
 
 
 

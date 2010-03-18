@@ -91,7 +91,7 @@ hi SpecialChar     ctermfg=181 guifg=#dca3a3 cterm=bold gui=bold
 hi SpecialComment  ctermfg=108 guifg=#82a282 cterm=bold gui=bold
 hi Special         ctermfg=181 guifg=#cfbfaf
 hi SpecialKey      ctermfg=151 guifg=#9ece9e
-hi Statement       ctermfg=187 guifg=#e3ceab ctermbg=237 guibg=#3f3f3f gui=none
+hi Statement       ctermfg=187 guifg=#e3ceab guibg=#3f3f3f gui=none
 hi StatusLine      ctermfg=234 guifg=#1e2320 ctermbg=144 guibg=#acbc90
 hi StatusLineNC    ctermfg=236 guifg=#2e3330 ctermbg=108 guibg=#88b090
 hi StorageClass    ctermfg=249 guifg=#c3bf9f cterm=bold gui=bold
