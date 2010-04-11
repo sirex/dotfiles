@@ -30,7 +30,3 @@ kdiff3.args=--L1 base --L2 local --L3 other $base $local $other -o $output
 log = --limit 4
 glog = --limit 4
 
-
-[hooks]
-precommit.syntax_check=/home/sirex/hg/hg-phpcheck/php_check.sh
-
