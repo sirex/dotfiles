@@ -53,7 +53,7 @@ elif os.stat('/tmp/.mysql_lastrawresult.html')[ST_SIZE] > 0:
     # Save current buffer
     command('write')
     # Open result buffer
-    command('edit /tmp/.mysql_lastresult')
+    command('edit! /tmp/.mysql_lastresult')
     # Window must not wrap lins and, changes should be automaticaly saved
     command('setlocal nowrap')
     command('setlocal autowrite')
