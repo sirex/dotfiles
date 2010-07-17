@@ -2,7 +2,7 @@
 
 syntax: regexp
 
-^(?!\.irssi|\.hgrc|\.hgignore|\.vimrc|\.vim|\.zshenv|\.screenrc|\.w3m|\.xrdb|\.Xresources|\.conkypanelrc|\.geeqie|\.xinitrc|\.dreampie)
+^(?!\.irssi|\.hgrc|\.hgignore|\.vimrc|\.vim|\.zshenv|\.screenrc|\.w3m|\.xrdb|\.Xresources|\.conkypanelrc|\.geeqie|\.xinitrc|\.dreampie|\.mailcap|\.mpdconf)
 ^\.irssi/(?!scripts)
 ^\.irssi/scripts/(?!notify.pl)
 ^\.geeqie/(?!geeqierc)

@@ -29,7 +29,7 @@ Reminder:
 xterm*eightBitInput: false
 
 /* XTerm*VT100.geometry:116x44+10+10 */
-XTerm*VT100.geometry:116x44
+XTerm*VT100.geometry:94x38
 
 XTerm.VT100.translations:             #override\n\
         <Btn4Down>,<Btn4Up>: string(0x19)\n\

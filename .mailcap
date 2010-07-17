@@ -1,0 +1,7 @@
+image/*; muttbgrun qiv %s
+text/html; w3m %s; nametemplate=%s.html;
+text/html; w3m -dump %s; nametemplate=%s.html; copiousoutput;
+application/octet-stream; antiword %s; copiousoutput;
+application/pdf; muttbgrun xpdf '%s';
+application/pdf; pdftotext %s -; copiousoutput;
+application/msword; soffice '%s'
