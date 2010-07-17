@@ -21,6 +21,7 @@ transplant =
 
 [extdiff]
 cmd.vdiff = meld
+cmd.vkdiff = kdiff3
 
 [merge-tools]
 kdiff3.args=--L1 base --L2 local --L3 other $base $local $other -o $output

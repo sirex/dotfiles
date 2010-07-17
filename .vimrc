@@ -56,7 +56,8 @@ map <F2> oe ~/.vim/db<CR>
 map <F3> oBufExplorer<CR>
 map <F4> ots <C-R><C-W><CR>
 map <F5> ob#<CR>
-map <F8> :sp changelog<CR>:
+nmap <F8> o!php <C-R>%<CR>
+vmap <F8> ow !xargs -0 php -r<CR>
 vmap <F9> ocall ExecMySQL()<CR>
 nmap <F9> Vocall ExecMySQL()<CR>
 nmap <F11> (xxn(
@@ -68,6 +69,16 @@ imap <C-SPACE> <C-R>"
 cmap <C-SPACE> <C-R><C-W>
 map <C-TAB> <C-W>w
 
+
+" Display inprintable characters
+set list
+
+" Show Tab as >···
+set listchars=tab:>-,trail:·
+
+" Mark lines if they are longer than 100 symbols
+call matchadd('ErrorMsg', '  \+$', -1)
+call matchadd('ErrorMsg', '\%>100v.\+', -1)
 
 " setting compiler (PHP)
 compiler cphp
