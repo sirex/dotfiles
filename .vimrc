@@ -21,6 +21,9 @@ set nohlsearch
 set number
 set shell=zsh
 set shiftwidth=4
+
+
+
 set smartindent
 set softtabstop=4
 set tabstop=4
@@ -42,13 +45,7 @@ vmap <INSERT> o!xclip -f -sel clip<CR>
 nmap <INSERT> or!xclip -o -sel clip<CR>
 
 
-let g:zenburn_high_Contrast = 1
-if has("gui_running")
-    colors zenburn
-else
-    set t_Co=256
-    colors zen
-endif
+colors wombat256
 
 
 " mapings
@@ -56,6 +53,7 @@ map <F2> oe ~/.vim/db<CR>
 map <F3> oBufExplorer<CR>
 map <F4> ots <C-R><C-W><CR>
 map <F5> ob#<CR>
+map <F7> o!php ~/tmp/test.php \| less<CR>
 nmap <F8> o!php <C-R>%<CR>
 vmap <F8> ow !xargs -0 php -r<CR>
 vmap <F9> ocall ExecMySQL()<CR>
