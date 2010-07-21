@@ -46,7 +46,7 @@ nmap <INSERT> or!xclip -o -sel clip<CR>
 
 
 set t_Co=256
-colors slate
+colors wombat256
 
 
 " mapings
