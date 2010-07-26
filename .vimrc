@@ -69,16 +69,6 @@ cmap <C-SPACE> <C-R><C-W>
 map <C-TAB> <C-W>w
 
 
-" Display inprintable characters
-set list
-
-" Show Tab as >···
-set listchars=tab:>-,trail:·
-
-" Mark lines if they are longer than 100 symbols
-call matchadd('ErrorMsg', '  \+$', -1)
-call matchadd('ErrorMsg', '\%>100v.\+', -1)
-
 " setting compiler (PHP)
 compiler cphp
 
@@ -204,8 +194,28 @@ let g:user_zen_settings = {
 \}
 
 
+" Mark lines if they are longer than 100 symbols
+if !exists("*MarkLines")
+    func MarkLines()
+        let g:marklines_1 = matchadd('ErrorMsg', '  \+$', -1)
+        let g:marklines_2 = matchadd('ErrorMsg', '\%>100v.\+', -1)
+        set list
+        set listchars=tab:>-,trail:·
+    endfunc
+    func UnMarkLines()
+        if g:marklines_1 && g:marklines_2
+            call matchdelete(g:marklines_1)
+            call matchdelete(g:marklines_2)
+            set nolist
+            set listchars=tab:>-
+        endif
+    endfunc
+endif
 
+autocmd BufEnter  *.php call MarkLines()
+autocmd BufLeave  *.php call UnMarkLines()
 autocmd BufNewFile  *.html	0r ~/.vim/templates/xhtml.html
+
 
 source ~/.vim/keymap/lekpa.vim
 

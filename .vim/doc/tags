@@ -1,4 +1,5 @@
 COM()	php_manual.txt	/*COM()*
+ConqueTerm	conque_term.txt	/*ConqueTerm*
 DOTNET()	php_manual.txt	/*DOTNET()*
 LargeFile-copyright	LargeFile.txt	/*LargeFile-copyright*
 LargeFile.txt	LargeFile.txt	/*LargeFile.txt*
@@ -215,6 +216,13 @@ compact()	php_manual.txt	/*compact()*
 connection_aborted()	php_manual.txt	/*connection_aborted()*
 connection_status()	php_manual.txt	/*connection_status()*
 connection_timeout()	php_manual.txt	/*connection_timeout()*
+conque_term-bugs	conque_term.txt	/*conque_term-bugs*
+conque_term-changelog	conque_term.txt	/*conque_term-changelog*
+conque_term-contribute	conque_term.txt	/*conque_term-contribute*
+conque_term-requirements	conque_term.txt	/*conque_term-requirements*
+conque_term-settings	conque_term.txt	/*conque_term-settings*
+conque_term-todo	conque_term.txt	/*conque_term-todo*
+conque_term-usage	conque_term.txt	/*conque_term-usage*
 constant()	php_manual.txt	/*constant()*
 convert_cyr_string()	php_manual.txt	/*convert_cyr_string()*
 convert_uudecode()	php_manual.txt	/*convert_uudecode()*
