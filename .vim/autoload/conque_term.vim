@@ -310,9 +310,9 @@ function! conque_term#set_mappings(action) "{{{
     endif
 
     " map command to start stop the shell
-    if a:action == 'start'
-        nnoremap <F5> :<C-u>call conque_term#set_mappings('toggle')<CR>
-    endif
+    "if a:action == 'start'
+    "    nnoremap <F5> :<C-u>call conque_term#set_mappings('toggle')<CR>
+    "endif
 
 endfunction " }}}
 
