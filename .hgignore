@@ -20,3 +20,4 @@ syntax: glob
 .vim/spell/lt.utf-8.add.spl
 .buildout/eggs/
 .buildout/downloads/
+.buildout/cache/
