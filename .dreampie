@@ -9,6 +9,7 @@ autofold = True
 autofold-numlines = 30
 viewer = u''
 init-code = u''
+expects-str = 'execfile chdir open run runeval'
 ask-on-quit = False
 matplotlib-ia-warn = True
 recall-1-char-commands = False

@@ -17,6 +17,8 @@ hgext.color =
 hgext.graphlog =
 hgext.mq =
 transplant =
+hgext.bookmarks =
+hggit =
 
 
 [extdiff]

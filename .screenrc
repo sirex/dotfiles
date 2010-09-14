@@ -11,11 +11,12 @@ monitor on
 # Turn off the splash screen
 startup_message off
 
-# 256 colors
-term screen-256color
-
-# From http://www4.informatik.uni-erlangen.de/~jnweiger/screen-faq.html
-# Q: My xterm scrollbar does not work with screen.
-# A: The problem is that xterm will not allow scrolling if the alternate text buffer is selected. The standard definitions of the termcap initialize capabilities ti and te switch to and from the alternate text buffer. (The scrollbar also does not work when you start e.g. ‘vi’). You can tell screen not to use these initialisations by adding the line “termcapinfo xterm ti@:te@” to your ~/.screenrc file. 
-termcapinfo xterm ti@:te@
+#terminfo and termcap for nice 256 color terminal
+# allow bold colors - necessary for some reason
+attrcolor b ".I"
+# tell screen how to set colors. AB = background, AF=foreground
+termcapinfo xterm "Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm"
+termcapinfo xterm-color "Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm"
+# erase background with current bg color
+defbce "on"
 
