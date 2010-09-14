@@ -3,7 +3,9 @@ if has("syntax")
   syntax on
 endif
 
-set autoindent
+filetype on
+filetype plugin on
+
 set background=dark
 set backspace=indent,start
 set backup
@@ -11,7 +13,6 @@ set backupdir=~/.vim/backup
 set directory=~/.vim/swap
 set encoding=utf-8
 set fileencodings=ucs-bom,utf-8,windows-1257
-set expandtab
 set foldmethod=marker
 set guifont=Terminus\ 8
 set guioptions=aegirLt
@@ -20,15 +21,15 @@ set incsearch
 set nohlsearch
 set number
 set shell=zsh
-set shiftwidth=4
 
-
-
-set smartindent
+set expandtab
+set textwidth=79
+set tabstop=8
 set softtabstop=4
-set tabstop=4
+set shiftwidth=4
+set autoindent
+set smartindent
 set tags=./tags,./../tags,./../../tags,tags,$VIM/tags,$VIM/phptags
-set textwidth=0
 set visualbell
 set linebreak
 set showcmd     " Show count of selected lines or characters
@@ -212,9 +213,13 @@ if !exists("*MarkLines")
     endfunc
 endif
 
-autocmd BufEnter  *.php call MarkLines()
-autocmd BufLeave  *.php call UnMarkLines()
-autocmd BufNewFile  *.html	0r ~/.vim/templates/xhtml.html
+autocmd BufEnter  *.php,*.py call MarkLines()
+"autocmd BufLeave  *.php,*.py call UnMarkLines()
+autocmd BufNewFile  *.html 0r ~/.vim/templates/xhtml.html
+autocmd FileType python set omnifunc=pythoncomplete#Complete
+autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
+autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 
 
 source ~/.vim/keymap/lekpa.vim

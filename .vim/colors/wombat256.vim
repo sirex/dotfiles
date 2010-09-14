@@ -265,6 +265,7 @@ call <SID>X("WarningMsg",	"ff0000",	"",			"")
 			"DiffChange
 			"DiffDelete
 			"DiffText
+call <SID>X("SpellBad",		"",	"8D0B0B",			"")
 
 " syntax highlighting
 call <SID>X("Number",		"e5786d",	"",			"none")
