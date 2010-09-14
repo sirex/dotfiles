@@ -2,7 +2,7 @@
 
 syntax: regexp
 
-^(?!\.irssi|\.hgrc|\.hgext|\.hgignore|\.vimrc|\.vim|\.zshenv|\.screenrc|\.w3m|\.xrdb|\.Xresources|\.conkypanelrc|\.geeqie|\.xinitrc|\.dreampie|\.mailcap|\.mpdconf)
+^(?!\.irssi|\.hgrc|\.hgext|\.hgignore|\.vimrc|\.vim|\.zshenv|\.screenrc|\.w3m|\.xrdb|\.Xresources|\.conkypanelrc|\.geeqie|\.xinitrc|\.dreampie|\.mailcap|\.mpdconf|\.ctags|\.buildout)
 ^\.irssi/(?!scripts)
 ^\.irssi/scripts/(?!notify.pl)
 ^\.geeqie/(?!geeqierc)
@@ -18,3 +18,5 @@ syntax: glob
 .vim/.netrwhist
 .vim/spell/lt.utf-8.add
 .vim/spell/lt.utf-8.add.spl
+.buildout/eggs/
+.buildout/downloads/
