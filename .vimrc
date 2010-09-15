@@ -41,9 +41,9 @@ set formatoptions+=ro " Auto add * to /**  ... */ comments.
 set spelllang=lt,en
 
 " Copy to clipboard
-vmap <INSERT> o!xclip -f -sel clip<CR>
+vmap <INSERT> :!xclip -f -sel clip<CR>
 " Paste to clipboard
-nmap <INSERT> or!xclip -o -sel clip<CR>
+nmap <INSERT> :r!xclip -o -sel clip<CR>
 
 
 set t_Co=256
