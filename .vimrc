@@ -77,6 +77,10 @@ no <c-j> <c-d>
 " Scroll half page up
 no <c-k> <c-u>
 
+" Autocomplete
+ino <c-k> <c-p>
+ino <c-j> <c-n>
+
 
 " setting compiler (PHP)
 compiler cphp
