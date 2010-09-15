@@ -51,23 +51,31 @@ colors wombat256
 
 
 " mapings
-map <F2> oe ~/.vim/db<CR>
-map <F3> oBufExplorer<CR>
-map <F4> ots <C-R><C-W><CR>
-map <F5> ob#<CR>
-map <F7> o!php ~/tmp/test.php \| less<CR>
-nmap <F8> o!php <C-R>%<CR>
-vmap <F8> ow !xargs -0 php -r<CR>
-vmap <F9> ocall ExecMySQL()<CR>
-nmap <F9> Vocall ExecMySQL()<CR>
-nmap <F11> (xxn(
-nmap <F12> (u//<ESC>n(
-vmap <F11> og/./normal (xx<CR>
-vmap <F12> og/./normal (u//<CR>
-map <SPACE> ^
-imap <C-SPACE> <C-R>"
-cmap <C-SPACE> <C-R><C-W>
-map <C-TAB> <C-W>w
+map     <F2> :update<CR>
+imap    <F2> <ESC>:update<CR>a
+map     <F3> :BufExplorer<CR>
+map     <F4> :ts <C-R><C-W><CR>
+map     <F5> :b#<CR>
+vmap    <F9> :call ExecMySQL()<CR>
+nmap    <F9> V:call ExecMySQL()<CR>
+nmap    <F11> (xxn(
+nmap    <F12> (u//<ESC>n(
+vmap    <F11> :g/./normal (xx<CR>
+vmap    <F12> :g/./normal (u//<CR>
+map     <SPACE> ^
+imap    <C-SPACE> <C-R>"
+cmap    <C-SPACE> <C-R><C-W>
+map     <C-TAB> <C-W>w
+
+" Return back where you was.
+nn <c-h> <c-o>
+" Return forward from where you was returned.
+nn <c-l> <c-i>
+
+" Scroll half page down
+no <c-j> <c-d>
+" Scroll half page up
+no <c-k> <c-u>
 
 
 " setting compiler (PHP)
@@ -220,7 +228,3 @@ autocmd FileType python set omnifunc=pythoncomplete#Complete
 autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-
-
-source ~/.vim/keymap/lekpa.vim
-
