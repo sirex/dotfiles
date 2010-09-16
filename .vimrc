@@ -81,15 +81,11 @@ no <c-k> <c-u>
 ino <c-k> <c-p>
 ino <c-j> <c-n>
 
+let g:user_zen_expandabbr_key = '<F1>'
+
 let g:surround_{char2nr("i")} = "{% if\1 \r..*\r &\1 %}\r{% endif %}"
 let g:surround_{char2nr("c")} = "{% comment\1 \r..*\r &\1 %}\r{% endcomment %}"
 let g:surround_{char2nr("k")} = "{% block\1 \r..*\r &\1 %}\r{% endblock %}"
-
-" setting compiler (PHP)
-compiler cphp
-
-" Replaces ymd with curren date in insert mode
-iabbr ymd <C-R>=strftime("%Y-%m-%d")<CR>
 
 " visual incrementing
 if !exists("*Incr")
@@ -112,61 +108,24 @@ if !exists("*Incr")
 endif
 vnoremap <c-a> :call Incr()<cr>
 
-let g:user_zen_expandabbr_key = '<F1>'
-let g:user_zen_settings = {
-\  'indentation' : '    ',
-\    'html': {
-\        'snippets': {
-\            'djb': "{% block %}\n\t${child}|\n{% endblock %}\n\n",
-\        },
-\        'block_elements': 'djb',
-\    },
-\    'sql': {
-\        'snippets': {
-\            'sel': "SELECT *\nFROM `|`\n${child}",
-\            'selw': "SELECT *\nFROM `|`\nWHERE `` = ?\n${child}",
-\            'selwl': "SELECT *\nFROM `|`\nWHERE `` = ?\nLIMIT 1${child}",
-\        },
-\    },
-\    'php': {
-\        'extends': 'sql',
-\        'snippets': {
-\            'echo': "<?php echo |; ?>${child}",
-\            'foreach': "\n\n<?php foreach ($| as ): ?>\n\t${child}<?php endforeach; ?>\n\n",
-\        },
-\        'aliases': {
-\            'feach': 'foreach',
-\        },
-\        'block_elements': 'foreach',
-\    },
-\}
+if has("autocmd")
+    autocmd BufNewFile  *.html 0r ~/.vim/templates/xhtml.html
 
+    " Mark lines if they are longer than 100 symbols
+    autocmd FileType python,php call matchadd('ErrorMsg', '  \+$', -1)
+    autocmd FileType python,php call matchadd('ErrorMsg', '\%>100v.\+', -1)
 
-" Mark lines if they are longer than 100 symbols
-if !exists("*MarkLines")
-    func MarkLines()
-        let g:marklines_1 = matchadd('ErrorMsg', '  \+$', -1)
-        let g:marklines_2 = matchadd('ErrorMsg', '\%>100v.\+', -1)
-        set list
-        set listchars=tab:>-,trail:·
-    endfunc
-    func UnMarkLines()
-        if g:marklines_1 && g:marklines_2
-            call matchdelete(g:marklines_1)
-            call matchdelete(g:marklines_2)
-            set nolist
-            set listchars=tab:>-
-        endif
-    endfunc
+    " Mark traling spaces and highlight tabs
+    autocmd FileType python,php set list
+    autocmd FileType python,php set listchars=tab:>-,trail:·
+
+    " Omnicomplete
+    autocmd FileType python set omnifunc=pythoncomplete#Complete
+    autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+    autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
+    autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+
+    " SnipMate
+    autocmd FileType python set ft=python.django
+    autocmd FileType html set ft=htmldjango.html
 endif
-
-autocmd BufEnter  *.php,*.py call MarkLines()
-"autocmd BufLeave  *.php,*.py call UnMarkLines()
-autocmd BufNewFile  *.html 0r ~/.vim/templates/xhtml.html
-autocmd FileType python set omnifunc=pythoncomplete#Complete
-autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
-autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-
-autocmd FileType python set ft=python.django " For SnipMate
-autocmd FileType html set ft=htmldjango.html " For SnipMate
