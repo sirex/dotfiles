@@ -40,15 +40,10 @@ set formatoptions+=ro " Auto add * to /**  ... */ comments.
 "set spell
 set spelllang=lt,en
 
-" Copy to clipboard
-vmap <INSERT> :!xclip -f -sel clip<CR>
-" Paste to clipboard
-nmap <INSERT> :r!xclip -o -sel clip<CR>
-
-
 set t_Co=256
 colors wombat256
 
+let mapleader = ","
 
 " mapings
 map     <F2> :update<CR>
@@ -67,6 +62,11 @@ imap    <C-SPACE> <C-R>"
 cmap    <C-SPACE> <C-R><C-W>
 map     <C-TAB> <C-W>w
 
+" Copy to clipboard
+vmap <INSERT> :!xclip -f -sel clip<CR>
+" Paste to clipboard
+nmap <INSERT> :r!xclip -o -sel clip<CR>
+
 " Return back where you was.
 nn <c-h> <c-o>
 " Return forward from where you was returned.
@@ -81,20 +81,12 @@ no <c-k> <c-u>
 ino <c-k> <c-p>
 ino <c-j> <c-n>
 
+let g:surround_{char2nr("i")} = "{% if\1 \r..*\r &\1 %}\r{% endif %}"
+let g:surround_{char2nr("c")} = "{% comment\1 \r..*\r &\1 %}\r{% endcomment %}"
+let g:surround_{char2nr("k")} = "{% block\1 \r..*\r &\1 %}\r{% endblock %}"
 
 " setting compiler (PHP)
 compiler cphp
-
-" Abbreavtions
-if !exists("*Eatchar_")
-    func Eatchar_(pat)
-      let c = nr2char(getchar())
-      return (c =~ a:pat) ? '' : c
-    endfunc
-endif
-iabbr <silent> vd var_dump();<Left><Left><C-R>=Eatchar_('\s')<CR>
-iabbr <silent> pt <?php ?><Left><Left><Left>
-iabbr <silent> pp pp();<Left><Left><C-R>=Eatchar_('\s')<CR>
 
 " Replaces ymd with curren date in insert mode
 iabbr ymd <C-R>=strftime("%Y-%m-%d")<CR>
@@ -119,63 +111,6 @@ if !exists("*Incr")
     endfunction
 endif
 vnoremap <c-a> :call Incr()<cr>
-
-
-inoremap ( ()<ESC>i
-inoremap [ []<ESC>i
-inoremap { <c-r>=OpenBracket()<CR>
-inoremap ) <c-r>=ClosePair(')')<CR>
-inoremap ] <c-r>=ClosePair(']')<CR>
-inoremap } <c-r>=CloseBracket()<CR>
-inoremap " <c-r>=QuoteDelim('"')<CR>
-inoremap ' <c-r>=QuoteDelim("'")<CR>
-
-if !exists("*ClosePair")
-    function ClosePair(char)
-      if getline('.')[col('.') - 1] == a:char
-        return "\<Right>"
-      else
-        return a:char
-      endif
-    endf
-endif
-
-if !exists("*OpenBracket")
-    function OpenBracket()
-      if len(getline('.')) == col('.') - 1
-        return "{\<CR>}\<ESC>k$"
-      else
-        return "{}\<ESC>i"
-      endif
-    endf
-endif
-if !exists("*CloseBracket")
-    function CloseBracket()
-      if len(getline('.')) == col('.') - 1
-        return "\<CR>}\<ESC>k$"
-      else
-        return "}"
-      endif
-    endf
-endif
-
-if !exists("*QuoteDelim")
-    function QuoteDelim(char)
-      let line = getline('.')
-      let col = col('.')
-      if line[col - 2] == "\\"
-        "Inserting a quoted quotation mark into the string
-        return a:char
-      elseif line[col - 1] == a:char
-        "Escaping out of the string
-        return "\<Right>"
-      else
-        "Starting a string
-        return a:char.a:char."\<ESC>i"
-      endif
-    endf
-endif
-
 
 let g:user_zen_expandabbr_key = '<F1>'
 let g:user_zen_settings = {
@@ -232,3 +167,6 @@ autocmd FileType python set omnifunc=pythoncomplete#Complete
 autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+
+autocmd FileType python set ft=python.django " For SnipMate
+autocmd FileType html set ft=htmldjango.html " For SnipMate
