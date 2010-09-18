@@ -1,6 +1,6 @@
 # Always show all opened windows.
 hardstatus alwayslastline
-hardstatus string '%{= kG}%-Lw%{= kW}%50> %n%f* %t%{= kG}%+Lw%< %{= kG}%-=%c:%s%{-}'
+hardstatus string '%{= kG}%-Lw%{= kW}%50> %n%f* %t%{= kG}%+Lw%<'
 
 # Don't leave output of last opened program like Vim.
 altscreen on
