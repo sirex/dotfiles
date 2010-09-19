@@ -14,8 +14,7 @@ set directory=~/.vim/swap
 set encoding=utf-8
 set fileencodings=ucs-bom,utf-8,windows-1257
 set foldmethod=marker
-set guifont=Terminus\ 8
-set guioptions=aegirLt
+set guifont=Terminus\ 12
 set ignorecase
 set incsearch
 set nohlsearch
