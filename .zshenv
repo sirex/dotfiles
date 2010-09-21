@@ -15,12 +15,24 @@ alias -g ....='../../..'
 alias -g .....='../../../..'
 alias -g ......='../../../../..'
 alias -g .......='../../../../../..'
-alias less="w3m"
-alias man="w3mman"
 alias -g G='| grep -i'
 alias -g L='| less'
+alias -g C='| wc -l'
+alias -g X='| xargs'
+
+alias -s py=vim
+alias -s cfg=vim
+alias -s rc=vim
+alias -s html=vim
+alias -s txt=vim
+alias -s php=vim
+alias -s org=w3m
+alias -s lt=w3m
+alias -s com=w3m
 
 # no glob
 alias find="noglob find"
 alias findgrep="noglob findgrep"
 
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path ~/.zsh/cache
