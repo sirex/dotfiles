@@ -83,7 +83,7 @@ ino <c-j> <c-n>
 
 nmap <silent> <Leader>f :LustyFilesystemExplorer<CR>
 nmap <silent> <Leader>r :LustyFilesystemExplorerFromHere<CR>
-nmap <silent> <Leader>b :LustyBufferExplorer<CR>
+nmap <silent> <Leader>d :LustyBufferExplorer<CR>
 nmap <silent> <Leader>g :LustyBufferGrep<CR>
 
 let g:user_zen_expandabbr_key = '<F1>'
