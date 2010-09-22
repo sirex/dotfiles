@@ -35,6 +35,7 @@ set showcmd     " Show count of selected lines or characters
 set dictionary=~/.vim/dictionaries/phpfunclist
 let loaded_matchparen = 1
 set formatoptions+=ro " Auto add * to /**  ... */ comments.
+set hidden
 
 "set spell
 set spelllang=lt,en
@@ -79,6 +80,11 @@ no <c-k> <c-u>
 " Autocomplete
 ino <c-k> <c-p>
 ino <c-j> <c-n>
+
+nmap <silent> <Leader>f :LustyFilesystemExplorer<CR>
+nmap <silent> <Leader>r :LustyFilesystemExplorerFromHere<CR>
+nmap <silent> <Leader>b :LustyBufferExplorer<CR>
+nmap <silent> <Leader>g :LustyBufferGrep<CR>
 
 let g:user_zen_expandabbr_key = '<F1>'
 
