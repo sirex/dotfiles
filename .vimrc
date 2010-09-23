@@ -36,6 +36,7 @@ set dictionary=~/.vim/dictionaries/phpfunclist
 let loaded_matchparen = 1
 set formatoptions+=ro " Auto add * to /**  ... */ comments.
 set hidden
+set wildignore=*.pyc,CVS
 
 "set spell
 set spelllang=lt,en
