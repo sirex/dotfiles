@@ -1,0 +1,48 @@
+/* #define COLOR_BG                  #3f3f3f */
+#define COLOR_BG                  #aaaaaa
+
+#define COLOR_TERM_BLACK          COLOR_BG
+#define COLOR_TERM_DARK_RED       #705050
+#define COLOR_TERM_DARK_GREEN     #60b48a
+#define COLOR_TERM_DARK_YELLOW    #dfaf8f
+#define COLOR_TERM_DARK_BLUE      #506070
+#define COLOR_TERM_DARK_MAGENTA   #dc8cc3
+#define COLOR_TERM_DARK_CYAN      #8cd0d3
+#define COLOR_TERM_LIGHT_GRAY     COLOR_FG
+
+#define COLOR_TERM_DARK_GRAY      #709080
+#define COLOR_TERM_LIGHT_RED      #dca3a3
+#define COLOR_TERM_LIGHT_GREEN    #c3bf9f
+#define COLOR_TERM_LIGHT_YELLOW   #f0dfaf
+#define COLOR_TERM_LIGHT_BLUE     #94bff3
+#define COLOR_TERM_LIGHT_MAGENTA  #ec93d3
+#define COLOR_TERM_LIGHT_CYAN     #93e0e3
+#define COLOR_TERM_WHITE          #ffffff
+
+
+URxvt*foreground: #dcdccc
+URxvt*background: #3f3f3f
+
+URxvt*color0: #3f3f3f
+URxvt*color1: #705050
+URxvt*color2: #60b48a
+URxvt*color3: #dfaf8f
+URxvt*color4: #506070
+URxvt*color5: #dc8cc3
+URxvt*color6: #8cd0d3
+URxvt*color7: #dcdccc
+
+URxvt*color8: #709080
+URxvt*color9: #dca3a3
+URxvt*color10: #c3bf9f
+URxvt*color11: #f0dfaf
+URxvt*color12: #94bff3
+URxvt*color13: #ec93d3
+URxvt*color14: #93e0e3
+URxvt*color15: #ffffff
+
+URxvt.font:  -xos4-terminus-medium-r-normal--14-140-72-72-c-80-iso10646-1
+
+URxvt.scrollstyle: next
+URxvt.scrollBar_right: True
+URxvt.geometry: 88x42
