@@ -37,6 +37,7 @@ let loaded_matchparen = 1
 set formatoptions+=ro " Auto add * to /**  ... */ comments.
 set hidden
 set wildignore=*.pyc,CVS
+set mouse=a
 
 "set spell
 set spelllang=lt,en
