@@ -41,7 +41,11 @@ URxvt*color13: #ec93d3
 URxvt*color14: #93e0e3
 URxvt*color15: #ffffff
 
-URxvt.font:  -xos4-terminus-medium-r-normal--14-140-72-72-c-80-iso10646-1
+URxvt.cursorColor: yellow
+URxvt*cursorUnderline: false
+
+URxvt.font: xft:Terminus:pixelsize=14:antialias=false
+URxvt.boldFont: xft:Terminus:bold:pixelsize=14:antialias=false
 
 URxvt.scrollstyle: next
 URxvt.scrollBar_right: True
