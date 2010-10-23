@@ -9,6 +9,7 @@
 #export LANG=lt_LT.UTF-8
 
 #mail-notification &
+setxkbmap -option caps:backspace
 xrdb -merge ~/.Xresources &
 
 #exec ck-launch-session startlxde

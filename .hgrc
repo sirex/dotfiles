@@ -18,7 +18,7 @@ hgext.graphlog =
 hgext.mq =
 transplant =
 hgext.bookmarks =
-hggit =
+#hgext.hggit =
 
 
 [extdiff]
