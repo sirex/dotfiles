@@ -19,6 +19,8 @@ alias -g G='| grep -i'
 alias -g L='| less'
 alias -g C='| wc -l'
 alias -g X='| xargs'
+alias -g V='| vim -'
+alias -g XV='| xargs vim'
 
 alias -s py=vim
 alias -s cfg=vim
