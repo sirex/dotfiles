@@ -9,7 +9,6 @@ kdiff3.args = $base $local $other -o $output
 hgext.extdiff =
 hgext.ftp = ~/.hgext/hgftp/ftp.py
 hgext.convert = 
-hgext.purge =
 hgext.fetch = 
 hgext.rebase = 
 hgext.churn =
@@ -19,6 +18,7 @@ hgext.mq =
 transplant =
 hgext.bookmarks =
 #hgext.hggit =
+hgsubversion =
 
 
 [extdiff]

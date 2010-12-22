@@ -22,15 +22,7 @@ alias -g X='| xargs'
 alias -g V='| vim -'
 alias -g XV='| xargs vim'
 
-alias -s py=vim
-alias -s cfg=vim
-alias -s rc=vim
-alias -s html=vim
-alias -s txt=vim
-alias -s php=vim
-alias -s org=w3m
-alias -s lt=w3m
-alias -s com=w3m
+alias o=xdg-open
 
 # no glob
 alias find="noglob find"
