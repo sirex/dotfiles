@@ -13,10 +13,11 @@ hgext.fetch =
 hgext.rebase = 
 hgext.churn =
 hgext.color = 
-hgext.graphlog =
 hgext.mq =
+hgext.graphlog =
 transplant =
 hgext.bookmarks =
+hgext.progress = 
 #hgext.hggit =
 hgsubversion =
 

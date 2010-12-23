@@ -23,7 +23,6 @@ alias -g V='| vim -'
 alias -g XV='| xargs vim'
 
 alias o=xdg-open
-
 # no glob
 alias find="noglob find"
 alias findgrep="noglob findgrep"
