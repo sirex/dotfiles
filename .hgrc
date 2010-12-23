@@ -18,8 +18,6 @@ hgext.graphlog =
 transplant =
 hgext.bookmarks =
 hgext.progress = 
-#hgext.hggit =
-hgsubversion =
 
 
 [extdiff]
