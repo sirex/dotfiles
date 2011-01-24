@@ -21,3 +21,4 @@ syntax: glob
 .buildout/eggs/
 .buildout/downloads/
 .buildout/cache/
+.vimgolf/

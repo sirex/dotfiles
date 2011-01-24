@@ -47,12 +47,16 @@ colors wombat256
 
 let mapleader = ","
 
+let g:pyflakes_use_quickfix = 0
+compiler pyunit
+
 " mapings
 map     <F2> :update<CR>
 imap    <F2> <ESC>:update<CR>a
 map     <F3> :BufExplorer<CR>
 map     <F4> :ts <C-R><C-W><CR>
 map     <F5> :b#<CR>
+map     <F8> :make<CR>
 vmap    <F9> :call ExecMySQL()<CR>
 nmap    <F9> V:call ExecMySQL()<CR>
 nmap    <F11> (xxn(
@@ -135,4 +139,7 @@ if has("autocmd")
     " SnipMate
     autocmd FileType python set ft=python.django
     autocmd FileType html set ft=htmldjango.html
+
+    " Python
+    autocmd FileType python setlocal makeprg=bin/python\ %
 endif

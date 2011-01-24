@@ -23,10 +23,15 @@ hgext.progress =
 [extdiff]
 cmd.vdiff = meld
 cmd.vkdiff = kdiff3
+cmd.vimdiff =
 
 [merge-tools]
 kdiff3.args=--L1 base --L2 local --L3 other $base $local $other -o $output
 
+
+[alias]
+vi = vimdiff
+vim = vimdiff
 
 [defaults]
 log = --limit 4
