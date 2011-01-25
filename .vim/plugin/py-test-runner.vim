@@ -1,134 +1,89 @@
 " File: py-test-runner.vim
-" Author: Marius Gedminas <marius@gedmin.as>
-" Version: 0.4
-" Last Modified: 2010-10-22
-"
-" Overview
-" --------
-" Vim script to run a unit test you're currently editing.
-"
-" Probably very specific to the way I work (Zope 3 style unit tests).
-"
-" Installation
-" ------------
-" Make sure you have pythonhelper.vim installed.  Then copy this file to
-" the $HOME/.vim/plugin directory
-"
-" This plugin most likely requires vim 7.0 (for the string[idx1:idx2] syntax)
-"
-" Usage
-" -----
-" :RunTestUnderCursor -- launches the test runner (configured via
-" g:pyTestRunner) with :make
-"
-" :CopyTestUnderCursor -- copies the command line to run the test into the
-" X11 selection
+" Author: Mantas Zimnickas <sirexas@gmail.com>
+" Version: 0.1
+" Created: 2011-01-25
+" Last Modified: 2011-01-25
 "
 
-" These settings are heavily tailored towards zope.testrunner.
-" I've also used it with nose and py.test, after changing the settings as
-" appropriate.
-let g:pyTestRunner = "bin/test"
-let g:pyTestRunnerTestFiltering = "-t"
-let g:pyTestRunnerTestFilteringClassAndMethodFormat = "{method}"
-let g:pyTestRunnerDirectoryFiltering = ""
-let g:pyTestRunnerFilenameFiltering = ""
-let g:pyTestRunnerPackageFiltering = "-s"
-let g:pyTestRunnerModuleFiltering = "-m"
-let g:pyTestRunnerClipboardExtras = "-pvc"
-let g:pyTestRunnerClipboardExtrasSuffix = "2>&1 |less -R"
+python << EOF
+import os
+import re
+import vim
 
-runtime plugin/pythonhelper.vim
-if !exists("*TagInStatusLine")
-    finish
-endif
+re_class_name = re.compile(r'class (\w+)')
+re_method_name = re.compile(r'\s*def (test\w+)')
 
-function! GetTestUnderCursor()
-    let l:test = ""
-    if expand("%:e") == "txt"
-        let l:test = g:pyTestRunnerTestFiltering . " " . expand("%:t")
-    else
-        let l:tag = TagInStatusLine()
-        if l:tag != ""
-            let l:name = l:tag[1:-2]
-            if l:name =~ '[.]'
-                let [l:class, l:name] = split(l:name, '[.]')
-                let l:name = substitute(substitute(g:pyTestRunnerTestFilteringClassAndMethodFormat, '{class}', l:class, 'g'), '{method}', l:name, 'g')
-            endif
-            if g:pyTestRunnerTestFiltering != ""
-                  \ && l:name != "__init__"
-                  \ && l:name != "setUp"
-                  \ && l:name != "tearDown"
-                  \ && l:name != "testSuite"
-                " we assume here that l:test is ""
-                let l:test = g:pyTestRunnerTestFiltering . " " . l:name
-            endif
-        endif
-        if g:pyTestRunnerModuleFiltering != ""
-            let l:module = expand("%:t:r")
-            let l:test = g:pyTestRunnerModuleFiltering . " " . l:module . " " . l:test
-        endif
-    endif
-    if g:pyTestRunnerFilenameFiltering != ""
-        let l:filename = expand("%")
-        let l:test = g:pyTestRunnerFilenameFiltering . " " . l:filename . " " . l:test
-    endif
-    if l:test != ""
-        if g:pyTestRunnerDirectoryFiltering != ""
-            let l:directory = expand("%:h")
-            let l:test = g:pyTestRunnerDirectoryFiltering . " " . l:directory . " " . l:test
-        endif
-        if g:pyTestRunnerPackageFiltering != ""
-            let pkg = expand("%:p:h")
-            let root = pkg
-            while strlen(root)
-                if !filereadable(root . "/__init__.py")
-                    break
-                endif
-                let root = fnamemodify(root, ":h")
-            endwhile
-            let pkg = strpart(pkg, strlen(root))
-            let pkg = substitute(pkg, ".py$", "", "")
-            let pkg = substitute(pkg, ".__init__$", "", "")
-            let pkg = substitute(pkg, "^/", "", "g")
-            let pkg = substitute(pkg, "/", ".", "g")
-            if pkg != ""
-                let l:test = g:pyTestRunnerPackageFiltering . " " . l:pkg . " " . l:test
-            endif
-        endif
-    endif
-    let l:test = substitute(l:test, '   *', ' ', 'g')
-    let l:test = substitute(l:test, '^  *', '', 'g')
-    let l:test = substitute(l:test, '  *$', '', 'g')
-    return l:test
-endfunction
 
-function! RunTestUnderCursor()
-    let l:test = GetTestUnderCursor()
-    if l:test != ""
-        let l:oldmakeprg = &makeprg
-        let &makeprg = g:pyTestRunner
-        exec "wall|make " . l:test
-        let &makeprg = l:oldmakeprg
-    endif
-endfunction
+def get_django_appname(filename):
+    """
+    >>> get_django_appname('~/devel/django-plugins/plugins/tests.py')
+    'payment'
+    >>> get_django_appname('~/devel/django-plugins/setup.py')
+    """
+    filename = os.path.expanduser(filename)
+    filename = os.path.abspath(filename)
+    dirs = os.path.dirname(filename).split(os.path.sep)
+    while dirs:
+        path = os.path.sep.join(dirs)
+        if os.path.exists(os.path.join(path, 'models.py')):
+            return os.path.basename(path)
+        dirs.pop()
+    return None
 
-command! RunTestUnderCursor	call RunTestUnderCursor()
 
-function! CopyTestUnderCursor()
-    let l:test = GetTestUnderCursor()
-    if l:test != ""
-        let l:cmd = g:pyTestRunner
-        if g:pyTestRunnerClipboardExtras != ""
-            let l:cmd = l:cmd . " " . g:pyTestRunnerClipboardExtras
-        endif
-        let l:cmd = l:cmd . " " . l:test
-        if g:pyTestRunnerClipboardExtrasSuffix != ""
-            let l:cmd = l:cmd . " " . g:pyTestRunnerClipboardExtrasSuffix
-        endif
-        echo l:cmd
-        let @* = l:cmd
-    endif
-endfunction
+def get_test_name(lines):
+    """
+    >>> get_test_case_class(['class MyClass:', 'pass'])
+    'MyClass'
+    >>> get_test_case_class(['class MyClass():', 'pass'])
+    'MyClass'
+    >>> get_test_case_class(['', ''])
+    >>> get_test_case_class(['class MyClass():', '', 'def test_foo():', 'pass'])
+    'MyClass.test_foo'
+    >>> get_test_case_class(['class MyClass():', '', '    def test_foo():', 'pass'])
+    'MyClass.test_foo'
+    >>> get_test_case_class(['class MyClass():', '',
+    ...                      '    def test_foo():', 'pass',
+    ...                      '    def test_bar():', 'pass'])
+    'MyClass.test_bar'
+    """
+    methodname = None
+    for line in reversed(lines):
+        if line.startswith('class '):
+            m = re_class_name.match(line)
+            if m:
+                if methodname:
+                    return "{0}.{1}".format(m.group(1), methodname)
+                else:
+                    return m.group(1)
+        elif not methodname and 'def test' in line:
+            m = re_method_name.match(line)
+            if m:
+                methodname = m.group(1)
+    return None
 
-command! CopyTestUnderCursor	call CopyTestUnderCursor()
+
+def RunDjangoTestUnderCursor():
+    (row, col) = vim.current.window.cursor
+    filename = vim.eval("bufname('%')")
+    appname = get_django_appname(filename)
+    if appname:
+        testname = get_test_name(vim.current.buffer[0:row])
+        if testname:
+            testname = appname + '.' + testname
+        else:
+            testname = appname
+        makeprg = vim.eval('&makeprg')
+        vim.command(r'set makeprg=bin/django\ test\ '
+                            r'--verbosity=0\ --noinput\ {0}'.format(testname))
+        vim.command(r'silent! make')
+        vim.command(r'set makeprg={0}'.format(makeprg.replace(' ', r'\ ')))
+        vim.command(r'copen')
+        vim.command(r'wincmd w')
+        print(r'tested: {0}'.format(testname))
+    else:
+        vim.command(r'silent! make')
+        vim.command(r'copen')
+        vim.command(r'wincmd w')
+EOF
+map <F8> :python RunDjangoTestUnderCursor()<CR>
