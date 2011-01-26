@@ -8,6 +8,7 @@ export AUTHOR="Mantas Zimnickas <sirexas@gmail.com>"
 export EDITOR=vim
 
 # Aliases
+alias pd='pushd'
 alias ls="ls --color=auto -pX"
 alias '..'='cd ..'
 alias -g ...='../..'

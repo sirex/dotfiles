@@ -47,7 +47,7 @@ colors wombat256
 let mapleader = ","
 
 let g:pyflakes_use_quickfix = 0
-compiler pyunit
+" compiler pyunit
 
 " mappings
 map     <F2> :update<CR>

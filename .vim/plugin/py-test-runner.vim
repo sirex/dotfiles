@@ -74,8 +74,9 @@ def RunUnitTestsUnderCursor():
         else:
             testname = appname
         makeprg = vim.eval('&makeprg')
-        vim.command(r'set makeprg=bin/django\ test\ '
+        vim.command(r'setlocal makeprg=bin/django\ test\ '
                             r'--verbosity=0\ --noinput\ {0}'.format(testname))
+        vim.command(r'setlocal errorformat=\ \ File\ \"%f\"\\,\ line\ %l\\,\ %m')
         vim.command(r'silent! make')
         vim.command(r'set makeprg={0}'.format(makeprg.replace(' ', r'\ ')))
         vim.command(r'copen')
