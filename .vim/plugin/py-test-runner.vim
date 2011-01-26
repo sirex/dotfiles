@@ -63,7 +63,7 @@ def get_test_name(lines):
     return None
 
 
-def RunDjangoTestUnderCursor():
+def RunUnitTestsUnderCursor():
     (row, col) = vim.current.window.cursor
     filename = vim.eval("bufname('%')")
     appname = get_django_appname(filename)
@@ -86,4 +86,3 @@ def RunDjangoTestUnderCursor():
         vim.command(r'copen')
         vim.command(r'wincmd w')
 EOF
-map <F8> :python RunDjangoTestUnderCursor()<CR>

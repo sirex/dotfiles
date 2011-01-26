@@ -19,7 +19,6 @@ set ignorecase
 set incsearch
 set nohlsearch
 set number
-set shell=zsh
 
 set expandtab
 set textwidth=79
@@ -50,27 +49,20 @@ let mapleader = ","
 let g:pyflakes_use_quickfix = 0
 compiler pyunit
 
-" mapings
+" mappings
 map     <F2> :update<CR>
 imap    <F2> <ESC>:update<CR>a
 map     <F3> :BufExplorer<CR>
 map     <F4> :ts <C-R><C-W><CR>
 map     <F5> :b#<CR>
+map     <F8> :python RunDjangoTestUnderCursor()<CR>
 vmap    <F9> :call ExecMySQL()<CR>
 nmap    <F9> V:call ExecMySQL()<CR>
-nmap    <F11> (xxn(
-nmap    <F12> (u//<ESC>n(
-vmap    <F11> :g/./normal (xx<CR>
-vmap    <F12> :g/./normal (u//<CR>
+map    <F12> :set spell!<CR>
 map     <SPACE> ^
 imap    <C-SPACE> <C-R>"
 cmap    <C-SPACE> <C-R><C-W>
 map     <C-TAB> <C-W>w
-
-" Copy to clipboard
-vmap <INSERT> :!xclip -f -sel clip<CR>
-" Paste to clipboard
-nmap <INSERT> :r!xclip -o -sel clip<CR>
 
 " Return back where you was.
 nn <c-h> <c-o>
@@ -125,7 +117,7 @@ if has("autocmd")
     autocmd FileType python,php call matchadd('ErrorMsg', '  \+$', -1)
     autocmd FileType python,php call matchadd('ErrorMsg', '\%>100v.\+', -1)
 
-    " Mark traling spaces and highlight tabs
+    " Mark trailing spaces and highlight tabs
     autocmd FileType python,php set list
     autocmd FileType python,php set listchars=tab:>-,trail:·
 
