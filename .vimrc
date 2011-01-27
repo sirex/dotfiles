@@ -55,7 +55,7 @@ imap    <F2> <ESC>:update<CR>a
 map     <F3> :BufExplorer<CR>
 map     <F4> :ts <C-R><C-W><CR>
 map     <F5> :b#<CR>
-map     <F8> :python RunDjangoTestUnderCursor()<CR>
+map     <F8> :python RunUnitTestsUnderCursor()<CR>
 vmap    <F9> :call ExecMySQL()<CR>
 nmap    <F9> V:call ExecMySQL()<CR>
 map    <F12> :set spell!<CR>
