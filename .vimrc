@@ -3,8 +3,11 @@ if has("syntax")
   syntax on
 endif
 
-filetype on
-filetype plugin on
+" Filetype plugins
+if v:version >= 600
+  filetype plugin on            " load filetype plugins
+  filetype indent on            " load indent plugins
+endif
 
 set background=dark
 set backspace=indent,start
@@ -26,17 +29,19 @@ set tabstop=8
 set softtabstop=4
 set shiftwidth=4
 set autoindent
-set smartindent
+set nosmartindent
 set tags=./tags,./../tags,./../../tags,tags,$VIM/tags,$VIM/phptags
 set visualbell
 set linebreak
 set showcmd     " Show count of selected lines or characters
 set dictionary=~/.vim/dictionaries/phpfunclist
 let loaded_matchparen = 1
-set formatoptions+=ro " Auto add * to /**  ... */ comments.
 set hidden
-set wildignore=*.pyc,CVS
+set wildignore+=*.pyc,*.pyo
+set suffixes+=.pyc,.pyo         " ignore compiled Python files
 set mouse=
+set scrolloff=2                 " always keep cursor 2 lines from screen edge
+set nostartofline               " don't jump to start of line
 
 "set spell
 set spelllang=lt,en
@@ -47,22 +52,24 @@ colors wombat256
 let mapleader = ","
 
 let g:pyflakes_use_quickfix = 0
-" compiler pyunit
 
 " mappings
-map     <F2> :update<CR>
-imap    <F2> <ESC>:update<CR>a
-map     <F3> :BufExplorer<CR>
-map     <F4> :ts <C-R><C-W><CR>
-map     <F5> :b#<CR>
-map     <F8> :python RunUnitTestsUnderCursor()<CR>
-vmap    <F9> :call ExecMySQL()<CR>
-nmap    <F9> V:call ExecMySQL()<CR>
-map    <F12> :set spell!<CR>
-map     <SPACE> ^
-imap    <C-SPACE> <C-R>"
-cmap    <C-SPACE> <C-R><C-W>
-map     <C-TAB> <C-W>w
+map     <F2>        :update<CR>
+imap    <F2>        <ESC>:update<CR>a
+map     <F3>        :BufExplorer<CR>
+map     <F4>        :NERDTreeToggle<CR>
+map     <S-F4>      :NERDTreeFind<CR>
+map     <F5>        <C-^>
+nmap    <F8>        :python RunUnitTestsUnderCursor()<CR>
+nmap    <C-F8>      :python RunInteractivePythonUnderCursor()<CR>
+nmap    <S-F8>      :QFix<CR>
+vmap    <F9>        :call ExecMySQL()<CR>
+nmap    <F9>        V:call ExecMySQL()<CR>
+map     <F12>       :set spell!<CR>
+map     <SPACE>     ^
+imap    <C-SPACE>   <C-R>"
+cmap    <C-SPACE>   <C-R><C-W>
+map     <C-TAB>     <C-W>w
 
 " Return back where you was.
 nn <c-h> <c-o>
@@ -78,10 +85,39 @@ no <c-k> <c-u>
 ino <c-k> <c-p>
 ino <c-j> <c-n>
 
-nmap <silent> <Leader>f :LustyFilesystemExplorer<CR>
-nmap <silent> <Leader>r :LustyFilesystemExplorerFromHere<CR>
-nmap <silent> <Leader>d :LustyBufferExplorer<CR>
+" nmap <silent> <Leader>f :LustyFilesystemExplorer<CR>
+" nmap <silent> <Leader>r :LustyFilesystemExplorerFromHere<CR>
+" nmap <silent> <Leader>d :LustyBufferExplorer<CR>
+" nmap <silent> <Leader>g :LustyBufferGrep<CR>
+
+let g:fuf_modesDisable = ['mrucmd']
+let g:fuf_mrufile_maxItem = 400
+let g:fuf_keyOpen = '<TAB>'
+let g:fuf_keyOpenSplit = '<C-n>'
+let g:fuf_keyOpenVsplit = '<C-p>'
+nmap <silent> <Leader>f :FufFile<CR>
+nmap <silent> <Leader>r :FufFileWithCurrentBufferDir<CR>
+nmap <silent> <Leader>d :FufBuffer<CR>
 nmap <silent> <Leader>g :LustyBufferGrep<CR>
+
+" open a file in the same dir as the current one
+map <expr>      ,E              ":e ".expand("%:h")."/"
+map <expr>      ,,E             ":e ".expand("%:h:h")."/"
+map <expr>      ,,,E            ":e ".expand("%:h:h:h")."/"
+map <expr>      ,R              ":e ".expand("%:r")."."
+
+
+" Emacs style command line
+cnoremap        <C-G>           <C-C>
+cnoremap        <C-A>           <Home>
+cnoremap        <Esc>b          <S-Left>
+cnoremap        <Esc>f          <S-Right>
+
+" Alt-Backspace deletes word backwards
+cnoremap        <M-BS>          <C-W>
+
+" Do not lose "complete all"
+cnoremap        <C-S-A>         <C-A>
 
 let g:user_zen_expandabbr_key = '<F1>'
 
@@ -113,14 +149,6 @@ vnoremap <c-a> :call Incr()<cr>
 if has("autocmd")
     autocmd BufNewFile  *.html 0r ~/.vim/templates/xhtml.html
 
-    " Mark lines if they are longer than 100 symbols
-    autocmd FileType python,php call matchadd('ErrorMsg', '  \+$', -1)
-    autocmd FileType python,php call matchadd('ErrorMsg', '\%>100v.\+', -1)
-
-    " Mark trailing spaces and highlight tabs
-    autocmd FileType python,php set list
-    autocmd FileType python,php set listchars=tab:>-,trail:·
-
     " Omnicomplete
     autocmd FileType python set omnifunc=pythoncomplete#Complete
     autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
@@ -131,12 +159,43 @@ if has("autocmd")
     autocmd FileType python set ft=python.django
     autocmd FileType html set ft=htmldjango.html
 
-    " Python
-    autocmd FileType python setlocal makeprg=bin/python\ %
-    autocmd FileType python call PyFT()
+    augroup Python_prog
+      autocmd!
+      autocmd FileType python call FT_Python()
+    augroup END
 endif
 
-function! PyFT()
-    let g:pyTestRunner = 'bin/django test'
-    let g:pyTestRunnerModuleFiltering = " "
+function! FT_Python()
+  if v:version >= 600
+    setlocal formatoptions=croql
+    setlocal shiftwidth=4
+    setlocal softtabstop=4 
+    setlocal expandtab
+
+    " I don't want [I to parse import statements and look for modules
+    setlocal include=
+
+    " Mark trailing spaces and highlight tabs
+    setlocal list
+    setlocal listchars=tab:>-,trail:.,extends:>
+
+    syn sync minlines=100
+
+    match Error /\%>79v.\+/
+    map <buffer> <Leader>i  :ImportName <C-R><C-W><CR>
+    map <buffer> <Leader>I  :ImportNameHere <C-R><C-W><CR>
+  else
+    set formatoptions=croql
+    set shiftwidth=4
+    set expandtab
+  endif
 endf
+
+
+" Plugins
+runtime ftplugin/man.vim        " Manual pages (:Man foo)
+" NERD_tree.vim
+let g:NERDTreeHijackNetrw = 0
+let g:NERDTreeQuitOnOpen = 1
+" syntastic.vim
+let g:syntastic_enable_signs=1

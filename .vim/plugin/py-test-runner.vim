@@ -117,7 +117,7 @@ def get_prg(prgs, default=None):
     return default
 
 
-def RunUnitTestsUnderCursor():
+def get_makeprg():
     (row, col) = vim.current.window.cursor
     filename = vim.eval("bufname('%')")
     appname = get_django_appname(filename)
@@ -130,6 +130,11 @@ def RunUnitTestsUnderCursor():
                       format(djangoprg, testname)
     else:
         makeprg = '{0} {1}'.format(pythonprg, filename)
+    return makeprg
+
+
+def RunUnitTestsUnderCursor():
+    makeprg = get_makeprg()
     errorformat = vim_escape(r' %#File "%f"\, line %l\, %m')
     for cmd in [
             'setlocal makeprg={0}'.format(vim_escape(makeprg)),
@@ -141,4 +146,10 @@ def RunUnitTestsUnderCursor():
         ]:
         vim.command(cmd)
     print(r'tested: {0}'.format(makeprg))
+
+def RunInteractivePythonUnderCursor():
+    makeprg = get_makeprg()
+    print(r'tested: {0}'.format(makeprg))
+    os.system(r"urxvt -e sh -c '{0} ; read x'".format(
+        makeprg.replace("'", r"\'")))
 EOF
