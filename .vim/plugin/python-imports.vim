@@ -54,6 +54,7 @@ let g:pythonImports['StringIO'] = 'cStringIO'
 let g:pythonImports['reverse'] = 'django.core.urlresolvers'
 let g:pythonImports['models'] = 'django.db'
 let g:pythonImports['render_to'] = 'annoying.decorators'
+let g:pythonImports['_'] = 'django.utils.translation.ugettext_lazy'
 let g:pythonStdlibPath = '/usr/lib/python2.6'
 
 if has("python")
