@@ -61,7 +61,7 @@ map     <F4>        :NERDTreeToggle<CR>
 map     <S-F4>      :NERDTreeFind<CR>
 map     <F5>        <C-^>
 nmap    <F8>        :python RunUnitTestsUnderCursor()<CR>
-nmap    <C-F8>      :python RunInteractivePythonUnderCursor()<CR>
+nmap    <C-F8>      :silent! python RunInteractivePythonUnderCursor()<CR>
 nmap    <S-F8>      :QFix<CR>
 vmap    <F9>        :call ExecMySQL()<CR>
 nmap    <F9>        V:call ExecMySQL()<CR>

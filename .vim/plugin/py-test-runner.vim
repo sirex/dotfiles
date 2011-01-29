@@ -27,6 +27,7 @@
 " In your .vimrc add::
 "
 "   map     <F8> :python RunUnitTestsUnderCursor()<CR>
+"   map     <F8> :silent! python RunInteractivePythonUnderCursor()<CR>
 "
 " Open any python file, specify how that file should be tested::
 "
@@ -44,6 +45,7 @@ python << EOF
 import os
 import re
 import vim
+from subprocess import Popen
 
 re_class_name = re.compile(r'class (\w+)')
 re_method_name = re.compile(r'\s*def (test\w+)')
@@ -147,9 +149,9 @@ def RunUnitTestsUnderCursor():
         vim.command(cmd)
     print(r'tested: {0}'.format(makeprg))
 
+
 def RunInteractivePythonUnderCursor():
     makeprg = get_makeprg()
     print(r'tested: {0}'.format(makeprg))
-    os.system(r"urxvt -e sh -c '{0} ; read x'".format(
-        makeprg.replace("'", r"\'")))
+    Popen(['urxvt', '-e', 'sh', '-c', makeprg, ';', 'read x'])
 EOF
