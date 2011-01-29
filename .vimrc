@@ -34,7 +34,6 @@ set tags=./tags,./../tags,./../../tags,tags,$VIM/tags,$VIM/phptags
 set visualbell
 set linebreak
 set showcmd     " Show count of selected lines or characters
-set dictionary=~/.vim/dictionaries/phpfunclist
 let loaded_matchparen = 1
 set hidden
 set wildignore+=*.pyc,*.pyo
@@ -46,7 +45,6 @@ set nostartofline               " don't jump to start of line
 "set spell
 set spelllang=lt,en
 
-set t_Co=256
 colors wombat256
 
 let mapleader = ","
