@@ -91,13 +91,15 @@ ino <c-j> <c-n>
 " nmap <silent> <Leader>g :LustyBufferGrep<CR>
 
 let g:fuf_modesDisable = ['mrucmd']
-let g:fuf_mrufile_maxItem = 400
 let g:fuf_keyOpen = '<TAB>'
 let g:fuf_keyOpenSplit = '<C-n>'
 let g:fuf_keyOpenVsplit = '<C-p>'
+let g:fuf_keyPrevPattern = '<C-h>'
+let g:fuf_keyNextPattern = '<C-l>'
 nmap <silent> <Leader>f :FufFile<CR>
 nmap <silent> <Leader>r :FufFileWithCurrentBufferDir<CR>
 nmap <silent> <Leader>d :FufBuffer<CR>
+nmap <silent> <Leader>e :FufMruFile<CR>
 nmap <silent> <Leader>g :LustyBufferGrep<CR>
 
 " open a file in the same dir as the current one
