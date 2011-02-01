@@ -32,6 +32,7 @@ kdiff3.args=--L1 base --L2 local --L3 other $base $local $other -o $output
 [alias]
 vi = vimdiff
 vim = vimdiff
+slog = log --limit 24 --template '{rev} {date|age} {author|person} {desc|firstline}\n'
 
 [defaults]
 log = --limit 8 --template '\033[0;33m{rev}\033[1;30m {date|age}\t{date|isodate}\t\033[0;33m{author|person}\033[0m {branches}{tags}\n{desc|firstline|strip}\n\n' 
