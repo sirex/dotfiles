@@ -34,6 +34,5 @@ vi = vimdiff
 vim = vimdiff
 
 [defaults]
-log = --limit 4
-glog = --limit 4
-
+log = --limit 8 --template '\033[0;33m{rev}\033[1;30m {date|age}\t{date|isodate}\t\033[0;33m{author|person}\033[0m {branches}{tags}\n{desc|firstline|strip}\n\n' 
+glog = --limit 8 --template '\033[0;33m{rev}\033[1;30m {date|age}\t{date|isodate}\t\033[0;33m{author|person}\033[0m {branches}{tags}\n{desc|firstline|strip}\n\n' 
