@@ -51,6 +51,8 @@ let mapleader = ","
 
 let g:pyflakes_use_quickfix = 0
 
+let g:snips_author = "sirex"
+
 " mappings
 map     <F2>        :update<CR>
 imap    <F2>        <ESC>:update<CR>a
