@@ -48,7 +48,8 @@ import vim
 from subprocess import Popen
 
 re_class_name = re.compile(r'class (\w+)')
-re_method_name = re.compile(r'\s*def (test\w+)')
+re_method_name = re.compile(r'\s*def\s+(\w+)\(.*:')
+re_has_main = re.compile(r'if\s+__name__\s+==\s+[\'"]__main__[\'"]\s*:')
 
 
 def get_django_appname(filename):
@@ -93,11 +94,11 @@ def get_test_name(lines):
                     return "{0}.{1}".format(m.group(1), methodname)
                 else:
                     return m.group(1)
-        elif not methodname and 'def test' in line:
+        elif not methodname and 'def ' in line:
             m = re_method_name.match(line)
             if m:
                 methodname = m.group(1)
-    return None
+    return methodname
 
 
 def vim_escape(str):
@@ -119,13 +120,25 @@ def get_prg(prgs, default=None):
     return default
 
 
+def has_main(lines):
+    """
+    >>> has_main(['if __name__ == "__main__":',
+    ...           '    main()',])
+    True
+    """
+    for line in reversed(lines):
+        if re_has_main.search(line):
+            return True
+    return False
+
+
 def get_makeprg():
     (row, col) = vim.current.window.cursor
     filename = vim.eval("bufname('%')")
     appname = get_django_appname(filename)
     djangoprg = get_prg(('manage.py', 'bin/django'))
     pythonprg = get_prg(('bin/python',), default='python')
-    if appname and djangoprg:
+    if appname and djangoprg and not has_main(vim.current.buffer[-8:]):
         testname = get_test_name(vim.current.buffer[0:row])
         testname = appname + '.' + testname if testname else appname
         makeprg = '{0} test --verbosity=0 --noinput {1}'.\
