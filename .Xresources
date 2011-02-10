@@ -1,49 +1,21 @@
 #include "/home/sirex/.xrdb/look-zenburn.xrdb"
 #include "/home/sirex/.xrdb/urxvt.xrdb"
 
-/*
-Which characters are considered to build a _single_ word for Cut&Paste?
-Every ascii-value gets mapped to another (arbitrary), already 'valid'
-character  with a colon.
-Here ascii 48 ("0") is the reference. See the manpage.
+xterm*geometry:94x38
+xterm*termName: xterm-color
 
-From man page:
-    Specifies comma-separated lists of character class bindings of the form
-    [low-]high:value. These are used in determining which sets of characters
-    should be treated the same when doing cut and paste. See the CHARACTER
-    CLASSES section.
+xterm*font:  -*-terminus-medium-r-*--14-*-*-*-*-*-iso10646-*
+xterm*faceName: terminus:pixelsize=14
 
-I don't want these to separate 'words':   ! # $ % + - . / @ ~ : ? = &
-*/
+xterm*cursorColor: yellow
+
+xterm*scrollBar: on
+xterm*rightScrollBar: on
+xterm*saveLines: 2000
+
+! Double clicks selection
 XTerm.VT100.charClass: 33:48,35-38:48,43:48,45-47:48,63-64:48,126:48,58:48,61:48
 
-/*
-Reminder:
-  !    "    #    $    %    &    '    (    )    *    +    ,    -    .    / 
-  33,  34,  35,  36,  37,  38,  39,  40,  41,  42,  43,  44,  45,  46,  47,
-
-  :    ?    @         [    \    ]    ^    _    `    {    |    }    ~  
-  58,  63,  64,       91,  92,  93,  94,  48,  96,  123, 124, 125, 126,
-*/
-
-/* This is to work Alt+* keys */
+! This is to work Alt+* keys
 xterm*eightBitInput: false
-
-/* XTerm*VT100.geometry:116x44+10+10 */
-XTerm*VT100.geometry:94x38
-
-XTerm.VT100.translations:             #override\n\
-        <Btn4Down>,<Btn4Up>: string(0x19)\n\
-        <Btn5Down>,<Btn5Up>: string(0x5)\n
-
-
-/*
-*VT100.utf8Fonts.font:	-misc-fixed-medium-r-normal--18-120-100-100-c-90-iso10646-1
-*VT100.utf8Fonts.font:	-misc-fixed-medium-r-normal--13-120-75-75-c-80-iso10646-1
-*VT100.utf8Fonts.font:	-misc-fixed-medium-r-normal--14-130-75-75-c-70-iso10646-1
-*VT100.utf8Fonts.font:  -misc-fixed-medium-r-*-*-14-*-*-*-*-*-*-*
-*VT100.utf8Fonts.font:	-misc-fixed-medium-r-normal--8-80-75-75-c-50-iso10646-1
-*VT100.utf8Fonts.font:	-misc-fixed-medium-r-semicondensed--13-120-75-75-c-60-iso10646-1  */
-
-*VT100.utf8Fonts.font:  -xos4-terminus-medium-r-normal--14-140-72-72-c-80-iso10646-1
 
