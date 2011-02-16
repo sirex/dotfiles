@@ -9,9 +9,14 @@ xterm*faceName: terminus:pixelsize=14
 
 xterm*cursorColor: yellow
 
-xterm*scrollBar: on
-xterm*rightScrollBar: on
-xterm*saveLines: 2000
+xterm*scrollTtyKeypress:  true
+xterm*scrollTtyOutput:    false
+xterm*scrollBar:          true
+xterm*rightScrollBar:     true
+xterm*jumpScroll:         true
+xterm*multiScroll:        true
+xterm*toolBar:            false
+xterm*saveLines:          2000
 
 ! Double clicks selection
 XTerm.VT100.charClass: 33:48,35-38:48,43:48,45-47:48,63-64:48,126:48,58:48,61:48

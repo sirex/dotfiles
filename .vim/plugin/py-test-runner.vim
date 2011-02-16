@@ -166,5 +166,5 @@ def RunUnitTestsUnderCursor():
 def RunInteractivePythonUnderCursor():
     makeprg = get_makeprg()
     print(r'tested: {0}'.format(makeprg))
-    Popen(['urxvt', '-e', 'sh', '-c', makeprg, ';', 'read x'])
+    Popen(['xterm', '-e', 'sh', '-c', makeprg, ';', 'read x'])
 EOF

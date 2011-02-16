@@ -30,3 +30,12 @@ alias findgrep="noglob findgrep"
 
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path ~/.zsh/cache
+
+# Change XTerm title
+# http://www.faqs.org/docs/Linux-mini/Xterm-Title.html
+case $TERM in
+    xterm*|screen*)
+        precmd () {print -Pn "\e]0;%n@%m: %~\a"}
+        ;;
+esac
+
