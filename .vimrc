@@ -17,7 +17,9 @@ set directory=~/.vim/swap
 set encoding=utf-8
 set fileencodings=ucs-bom,utf-8,windows-1257
 set foldmethod=marker
+set foldlevel=20
 set guifont=Terminus\ 12
+set guioptions=irL
 set ignorecase
 set incsearch
 set nohlsearch
@@ -35,7 +37,7 @@ set visualbell
 set linebreak
 set showcmd     " Show count of selected lines or characters
 let loaded_matchparen = 1
-set hidden
+set nohidden
 set wildignore+=*.pyc,*.pyo
 set suffixes+=.pyc,.pyo         " ignore compiled Python files
 set mouse=
@@ -173,6 +175,8 @@ function! FT_Python()
     setlocal shiftwidth=4
     setlocal softtabstop=4 
     setlocal expandtab
+    setlocal foldmethod=indent
+    setlocal foldnestmax=3
 
     " I don't want [I to parse import statements and look for modules
     setlocal include=
