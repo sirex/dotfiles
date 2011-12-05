@@ -29,6 +29,7 @@ DISABLE_AUTO_UPDATE="true"
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
+export PATH=$PATH:$HOME/bin
 
 export AUTHOR="Mantas Zimnickas <sirexas@gmail.com>"
 export EDITOR=vim
@@ -40,3 +41,11 @@ alias -g ....='../../..'
 alias -g .....='../../../..'
 alias -g ......='../../../../..'
 alias -g .......='../../../../../..'
+alias -g G='| grep -i'
+alias -g L='| less'
+alias -g C='| wc -l'
+alias -g X='| xargs'
+alias -g V='| vim -'
+alias -g XV='| xargs vim'
+
+unsetopt correct_all
