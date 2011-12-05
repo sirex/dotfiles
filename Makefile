@@ -15,6 +15,7 @@ setup:
 zsh: $(HOME)/.zshrc
 $(HOME)/.zshrc: .zshrc 
 	git clone https://github.com/robbyrussell/oh-my-zsh.git $(HOME)/.oh-my-zsh
+	cp -a .oh-my-zsh $(HOME)
 	cp -a $< $@ 
 
 .PHONY: uninstall-zsh
