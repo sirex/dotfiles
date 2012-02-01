@@ -19,7 +19,7 @@ uninstall: uninstall-zsh uninstall-xterm
 .PHONY: setup
 setup:
 	apt-get install git vim-gnome mercurial zsh xfonts-terminus screen \
-			meld kdiff3 ack-grep
+			meld kdiff3 ack-grep python3
 
 #####
 # ZSH
@@ -59,9 +59,21 @@ $(HOME)/.screenrc: .screenrc
 #####
 
 .PHONY: vim
-vim: $(HOME)/.vimrc
+vim: $(HOME)/.vim/bundle
+$(HOME)/.vim/bundle: $(HOME)/.vimrc $(HOME)/.vim $(HOME)/.vim/vimpire.py
+	mkdir -p $@
+	python3 $(HOME)/.vim/vimpire.py
+
 $(HOME)/.vimrc: .vimrc
 	cp -a $< $@ 
+
+$(HOME)/.vim:
+	mkdir -p $@/var/swap
+	mkdir -p $@/var/undo
+
+$(HOME)/.vim/vimpire.py:
+	wget -q http://bitbucket.org/sirex/vimpire/raw/tip/vimpire.py -O $@
+
 
 #######
 # XTerm
