@@ -205,3 +205,10 @@ let g:NERDTreeHijackNetrw = 0
 let g:NERDTreeQuitOnOpen = 1
 " syntastic.vim
 let g:syntastic_enable_signs=1
+
+set grepprg=ack-grep\ -H\ --nocolor\ --nogroup\ --smart-case
+function! SilentGrep(args)
+  execute "silent! grep " . a:args
+  botright copen
+endfunction
+command! -nargs=* -complete=file G call SilentGrep(<q-args>)
