@@ -19,7 +19,7 @@ uninstall: uninstall-zsh uninstall-xterm
 .PHONY: setup
 setup:
 	apt-get install git vim-gnome mercurial zsh xfonts-terminus screen \
-			meld kdiff3
+			meld kdiff3 ack-grep
 
 #####
 # ZSH
