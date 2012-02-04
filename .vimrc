@@ -35,7 +35,7 @@ set linebreak
 set spelllang=en,lt
 
 " Cursor movement behaviour
-set scrolloff=16
+set scrolloff=2
 set nostartofline
 
 " Search
