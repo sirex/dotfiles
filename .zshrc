@@ -49,3 +49,8 @@ alias -g V='| vim -'
 alias -g XV='| xargs vim'
 
 unsetopt correct_all
+
+# Edit entered command using external editor by pressing <c-x>e
+autoload edit-command-line
+zle -N edit-command-line
+bindkey '^Xe' edit-command-line
