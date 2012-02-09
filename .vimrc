@@ -83,6 +83,7 @@ function! SilentGrep(args)
 endfunction
 command! -nargs=* -complete=file G call SilentGrep(<q-args>)
 map <leader>g :G 
+map <leader>G :G <c-r><c-w>
 
 " Diff
 " Open diff window with diff for all files in current directory.
