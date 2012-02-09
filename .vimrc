@@ -84,6 +84,55 @@ endfunction
 command! -nargs=* -complete=file G call SilentGrep(<q-args>)
 map <leader>g :G 
 
+" Diff
+" Open diff window with diff for all files in current directory.
+function! FullDiff()
+  execute "Explore ."
+  execute "VCSDiff"
+endfunction
+map <leader>d :call FullDiff()<CR>
+
+" Jump to line in source code from diff output.
+"
+" This script is found in:
+" http://vim.wikia.com/wiki/Jump_to_file_from_CVSDiff_output
+"
+" Also check this script:
+" http://www.vim.org/scripts/script.php?script_id=3892
+function! DiffJumpToFile()
+ " current line number
+  let current_line = line(".")
+
+ " search for line like @@ 478,489 @@
+  let diff_line = search("^\\(---\\|\\*\\*\\*\\|@@\\) ", "b")
+
+ " get first number from line like @@ -478,8 +489,12 @@
+  let chunk = getline(diff_line)
+
+  " get the first line number (478) from that string
+  let source_line = strpart(chunk, 4, match(chunk, ",") - 4)
+
+  " calculate real source line with offset taken from cursor position
+  let source_line = source_line + current_line - diff_line - 1
+
+  " search for and get line like *** fileincvs.c ....
+  let chunk = getline(search("^\\(---\\|\\*\\*\\*\\) .*\\t", "b"))
+
+  " get filename (terminated by tab) in string
+  let filename = strpart(chunk, 4, match(chunk, "\\t", 4) - 4)
+
+  " restore cursor position
+  execute "normal ". current_line . "G"
+
+  " go to upper window
+  execute "normal \<c-w>k"
+
+  " open
+  execute "edit " . filename
+  execute "normal " . source_line . "G"
+endfunction
+au FileType diff nmap <buffer> <CR> :call DiffJumpToFile()<CR>
+
 " Get ride of annoying parenthesis matching, I prefer to use %.
 let loaded_matchparen = 1
 
