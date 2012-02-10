@@ -20,6 +20,11 @@ noremap <c-j>       <c-d>
 noremap <c-k>       <c-u>
 noremap <space>     ^
 
+" Helpers to open files in same directory as current or previous file, more
+" quickly
+map <leader>r :e <c-r>=expand("%:h")<CR>/<c-d>
+map <leader>R :e <c-r>=expand("#:h")<CR>/<c-d>
+
 " Look and feel.
 colorscheme desert
 set guifont=Terminus\ 12
