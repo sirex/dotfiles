@@ -88,7 +88,7 @@ map <leader>G :G <c-r><c-w>
 " Diff
 " Open diff window with diff for all files in current directory.
 function! FullDiff()
-  execute "Explore ."
+  execute "edit " . getcwd()
   execute "VCSDiff"
 endfunction
 map <leader>d :call FullDiff()<CR>
