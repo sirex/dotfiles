@@ -5,6 +5,9 @@
 .PHONY: install
 install: zsh hg screen vim xterm
 
+.PHONY: server
+server: zsh hg screen vim
+
 ###########
 # Uninstall
 ###########
@@ -20,6 +23,10 @@ uninstall: uninstall-zsh uninstall-xterm
 setup:
 	apt-get install git vim-gnome mercurial zsh xfonts-terminus screen \
 			meld kdiff3 ack-grep python3
+
+.PHONY: setup-server
+setup:
+	apt-get install git mercurial zsh screen ack-grep python3
 
 #####
 # ZSH
