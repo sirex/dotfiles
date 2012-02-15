@@ -15,6 +15,7 @@ map     <S-F5>      :cprevious<CR>
 map     <C-F5>      :cc<CR>
 map     <F6>        <c-^>
 map     <F8>        :silent make!<CR>
+map     <F11>       :set hlsearch!<CR>
 map     <F12>       :set spell!<CR>
 noremap <c-j>       <c-d>
 noremap <c-k>       <c-u>
