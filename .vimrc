@@ -158,6 +158,10 @@ if !exists("autocommands_loaded")
     endif
     au FileType python  setl list
     au FileType python  setl listchars=tab:>-,trail:.,extends:>
+    au FileType python  setl foldmethod=indent
+    au FileType python  setl foldnestmax=2
+    " I don't want [I to parse import statements and look for modules
+    au FileType python  setl include=
 
     " QuickFix window
     au FileType qf      setl nowrap
