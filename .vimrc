@@ -171,6 +171,10 @@ if !exists("autocommands_loaded")
     au FileType sass    setl softtabstop=2
     au FileType sass    setl shiftwidth=2
 
+    " HTML
+    au FileType html    setl softtabstop=2
+    au FileType html    setl shiftwidth=2
+
 endif
 
 " Plugins
