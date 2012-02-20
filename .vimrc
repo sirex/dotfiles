@@ -111,13 +111,13 @@ function! DiffJumpToFile()
   let current_line = line(".")
 
  " search for line like @@ 478,489 @@
-  let diff_line = search("^\\(---\\|\\*\\*\\*\\|@@\\) ", "b")
+  let diff_line = search('^\(---\|\*\*\*\|@@\) ', 'b')
 
  " get first number from line like @@ -478,8 +489,12 @@
   let chunk = getline(diff_line)
 
   " get the first line number (478) from that string
-  let source_line = strpart(chunk, 4, match(chunk, ",") - 4)
+  let source_line = split(chunk, '[-+, ]\+')[3]
 
   " calculate real source line with offset taken from cursor position
   let source_line = source_line + current_line - diff_line - 1
