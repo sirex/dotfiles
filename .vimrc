@@ -181,6 +181,10 @@ if !exists("autocommands_loaded")
 
 endif
 
+" HTML
+" Disable A tag underlining
+let html_no_rendering = 1
+
 " Plugins
 " =======
 
