@@ -30,6 +30,8 @@ no <c-k> <c-u>
 " Autocomplete
 ino <c-k> <c-p>
 ino <c-j> <c-n>
+" Scan only opened buffers and current file, makes autocompletion faster.
+set complete=.,w,b
 
 " Digraphs
 ino <c-d> <c-k>
@@ -193,7 +195,7 @@ au FileType diff nmap <buffer> <CR> :call DiffJumpToFile()<CR>
 function! FT_XML()
   setf xml
   if v:version >= 700
-    setlocal shiftwidth=2 softtabstop=2 expandtab fdm=syntax
+    setlocal shiftwidth=2 softtabstop=2 expandtab
   elseif v:version >= 600
     setlocal shiftwidth=2 softtabstop=2 expandtab
     setlocal indentexpr=
@@ -260,6 +262,8 @@ if !exists("autocommands_loaded")
         " HTML
         au FileType html    setl softtabstop=2
         au FileType html    setl shiftwidth=2
+        au FileType html    setl foldmethod=indent
+        au FileType html    setl foldnestmax=5
 
         " XML
         au FileType xml     setl softtabstop=2
@@ -300,7 +304,8 @@ let g:pyflakes_use_quickfix = 0
 
 " Syntastic
 " plugin: syntastic git git://github.com/scrooloose/syntastic.git 
-let g:syntastic_enable_signs=1
+let g:syntastic_enable_signs = 1
+let g:syntastic_disabled_filetypes = ['html']
 
 " SnipMate
 " plugin: snipmate git git://github.com/garbas/vim-snipmate.git
