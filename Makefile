@@ -21,11 +21,11 @@ uninstall: uninstall-zsh uninstall-xterm
 
 .PHONY: setup
 setup:
-	apt-get install git vim-gnome mercurial zsh xfonts-terminus screen \
+	apt-get install git-core vim-gnome mercurial zsh xfonts-terminus screen \
 			meld kdiff3 ack-grep python3
 
 .PHONY: setup-server
-setup:
+setup-server:
 	apt-get install git mercurial zsh screen ack-grep python3
 
 #####

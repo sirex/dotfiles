@@ -2,43 +2,71 @@
 call pathogen#infect()
 
 " Allow custom settings for different file types.
-filetype on
-filetype plugin on
+if v:version >= 600
+  filetype plugin on            " load filetype plugins
+  filetype indent on            " load indent plugins
+endif
 
 " Mappings
 let mapleader = ","
-map     <F2>        :update<CR>
-map     <F3>        :BufExplorer<CR>
-map     <F4>        :Explore<CR>
-map     <F5>        :cnext<CR>
-map     <S-F5>      :cprevious<CR>
+nmap     <F2>        :update<CR>
+imap    <F2>        <ESC>:update<CR>a
+nmap     <F3>        :BufExplorer<CR>
+nmap     <F4>        :Explore<CR>
+nmap     <F5>        :cnext<CR>
+nmap     <S-F5>      :cprevious<CR>
 map     <C-F5>      :cc<CR>
-map     <F6>        <c-^>
+nmap    <F8>        :silent make<CR>
 map     <F8>        :silent make!<CR>
 map     <F11>       :set hlsearch!<CR>
 map     <F12>       :set spell!<CR>
-noremap <c-j>       <c-d>
-noremap <c-k>       <c-u>
-noremap <space>     ^
+map     <SPACE>     ^
+
+" Scroll half page down
+no <c-j> <c-d>
+" Scroll half page up
+no <c-k> <c-u>
+
+" Autocomplete
+ino <c-k> <c-p>
+ino <c-j> <c-n>
+
+" Digraphs
+ino <c-d> <c-k>
 
 " Helpers to open files in same directory as current or previous file, more
 " quickly
-map <leader>r :e <c-r>=expand("%:h")<CR>/<c-d>
-map <leader>R :e <c-r>=expand("#:h")<CR>/<c-d>
+nmap <leader>r :e <c-r>=expand("%:h")<CR>/<c-d>
+nmap <leader>R :e <c-r>=expand("#:h")<CR>/<c-d>
+
+" Emacs style command line
+cnoremap        <C-G>           <C-C>
+cnoremap        <C-A>           <Home>
+cnoremap        <Esc>b          <S-Left>
+cnoremap        <Esc>f          <S-Right>
+
+" Alt-Backspace deletes word backwards
+cnoremap        <M-BS>          <C-W>
 
 " Look and feel.
 colorscheme desert
+set background=dark
 set guifont=Terminus\ 12
 set guioptions=irL
 set number
 set wildmenu
+set encoding=utf-8
+set fileencodings=ucs-bom,utf-8,windows-1257
+set foldmethod=marker
+set foldlevel=20
+set showcmd     " Show count of selected lines or characters
 
 " Text wrapping
 set textwidth=79
 set linebreak
 
 " Spelling
-set spelllang=en,lt
+set spelllang=lt,en
 
 " Cursor movement behaviour
 set scrolloff=2
@@ -68,17 +96,27 @@ set wildignore+=*.pyc,*.pyo
 let g:netrw_list_hide='\.\(pyc\|pyo\)$'
 
 " Backups
-" Backups are not needed, since persistent undo is enabled. Also, these days
-" everyone uses version control systems.
-set nobackup
-set writebackup
+if v:version >= 730
+    " Backups are not needed, since persistent undo is enabled. Also, these days
+    " everyone uses version control systems.
+    set nobackup
+    set writebackup
+    set undodir=~/.vim/var/undo
+    set undofile
+else
+    set backup
+    set backupdir=~/.vim/var/backup
+endif
 set directory=~/.vim/var/swap
-set undodir=~/.vim/var/undo
-set undofile
 
 " Python tracebacks (unittest + doctest output)
-set errorformat+=\ %#File\ \"%f\"\\,\ line\ %l\\,\ %m
-set errorformat+=\ %#File\ \"%f\"\\,\ line\ %l\\,\ in\ %m
+set errorformat=\ %#File\ \"%f\"\\,\ line\ %l\\,\ %m
+
+" Get ride of annoying parenthesis matching, I prefer to use %.
+let loaded_matchparen = 1
+
+" Disable A tag underlining
+let html_no_rendering = 1
 
 " Grep
 " Do recursive grep by default and do not grep binary files.
@@ -88,8 +126,15 @@ function! SilentGrep(args)
   botright copen
 endfunction
 command! -nargs=* -complete=file G call SilentGrep(<q-args>)
-map <leader>g :G 
-map <leader>G :G <c-r><c-w>
+nmap <leader>g :G 
+nmap <leader>G :G <c-r><c-w>
+vmap <leader>g y:G "<c-r>""<left>
+nmap <leader>f :G <c-r>%<home><c-right> 
+nmap <leader>F :G <c-r>%<home><c-right> <c-r><c-w>
+vmap <leader>f y:G <c-r>%<home><c-right> "<c-r>""<left>
+
+" Execute selected vim script.
+vmap <leader>x y:@"<CR>
 
 " Diff
 " Open diff window with diff for all files in current directory.
@@ -140,50 +185,97 @@ function! DiffJumpToFile()
 endfunction
 au FileType diff nmap <buffer> <CR> :call DiffJumpToFile()<CR>
 
-" Get ride of annoying parenthesis matching, I prefer to use %.
-let loaded_matchparen = 1
 
 " File type dependent settings
 " ============================
+
+" Zope
+function! FT_XML()
+  setf xml
+  if v:version >= 700
+    setlocal shiftwidth=2 softtabstop=2 expandtab fdm=syntax
+  elseif v:version >= 600
+    setlocal shiftwidth=2 softtabstop=2 expandtab
+    setlocal indentexpr=
+  else
+    set shiftwidth=2 softtabstop=2 expandtab
+  endif
+endf
+
+function! FT_Maybe_ReST()
+  if glob(expand("%:p:h") . "/*.py") != ""
+        \ || glob(expand("%:p:h:h") . "/*.py") != ""
+    set ft=rest
+    setlocal shiftwidth=4 softtabstop=4 expandtab
+    map <buffer> <F5>    :ImportName <C-R><C-W><CR>
+    map <buffer> <C-F5>  :ImportNameHere <C-R><C-W><CR>
+    map <buffer> <C-F6>  :SwitchCodeAndTest<CR>
+  endif
+endf
 
 " This checking allows to source .vimrc again, withoud defining autocmd's
 " dwice.
 if !exists("autocommands_loaded")
     let autocommands_loaded = 1
+    if has("autocmd")
 
-    " Python
-    if v:version >= 703
-        au BufEnter *.py    setl  colorcolumn=+1
-        au BufLeave *.py    setl  colorcolumn=
+        " Python
+        if v:version >= 703
+            au BufEnter *.py    setl  colorcolumn=+1
+            au BufLeave *.py    setl  colorcolumn=
+        endif
+        if v:version >= 600
+            " Mark trailing spaces and highlight tabs
+            au FileType python  setl list
+            au FileType python  setl listchars=tab:>-,trail:.,extends:>
+            au FileType python  setl foldmethod=indent
+            au FileType python  setl foldnestmax=2
+
+            " I don't want [I to parse import statements and look for modules
+            au FileType python  setl include=
+
+            au FileType python  syn sync minlines=100
+        endif
+        au FileType python  setl formatoptions=croql
+        au FileType python  setl shiftwidth=4
+        au FileType python  setl expandtab
+        au FileType python  setl softtabstop=4 
+
+        " SnipMate
+        autocmd FileType python set ft=python.django
+        autocmd FileType html set ft=htmldjango.html
+
+        " QuickFix window
+        au FileType qf      setl nowrap
+
+        " Makefile
+        au FileType make    setl noexpandtab
+        au FileType make    setl softtabstop=8
+        au FileType make    setl shiftwidth=8
+
+        " SASS
+        au FileType sass    setl softtabstop=2
+        au FileType sass    setl shiftwidth=2
+
+        " HTML
+        au FileType html    setl softtabstop=2
+        au FileType html    setl shiftwidth=2
+
+        " XML
+        au FileType xml     setl softtabstop=2
+        au FileType xml     setl shiftwidth=2
+
+        augroup Zope
+          autocmd!
+          autocmd BufRead,BufNewFile *.zcml   call FT_XML()
+          autocmd BufRead,BufNewFile *.pt     call FT_XML()
+          autocmd BufRead,BufNewFile *.tt     setlocal et tw=44 wiw=44
+          autocmd BufRead,BufNewFile *.txt    call FT_Maybe_ReST()
+        augroup END
+
     endif
-    au FileType python  setl list
-    au FileType python  setl listchars=tab:>-,trail:.,extends:>
-    au FileType python  setl foldmethod=indent
-    au FileType python  setl foldnestmax=2
-    " I don't want [I to parse import statements and look for modules
-    au FileType python  setl include=
-
-    " QuickFix window
-    au FileType qf      setl nowrap
-
-    " Makefile
-    au FileType make    setl noexpandtab
-    au FileType make    setl softtabstop=8
-    au FileType make    setl shiftwidth=8
-
-    " SASS
-    au FileType sass    setl softtabstop=2
-    au FileType sass    setl shiftwidth=2
-
-    " HTML
-    au FileType html    setl softtabstop=2
-    au FileType html    setl shiftwidth=2
-
 endif
 
-" HTML
-" Disable A tag underlining
-let html_no_rendering = 1
 
 " Plugins
 " =======
@@ -208,6 +300,7 @@ let g:pyflakes_use_quickfix = 0
 
 " Syntastic
 " plugin: syntastic git git://github.com/scrooloose/syntastic.git 
+let g:syntastic_enable_signs=1
 
 " SnipMate
 " plugin: snipmate git git://github.com/garbas/vim-snipmate.git
@@ -215,6 +308,7 @@ let g:pyflakes_use_quickfix = 0
 " plugin: tlib git git://github.com/tomtom/tlib_vim.git
 " plugin: vim-addon-mw-utils git git://github.com/MarcWeber/vim-addon-mw-utils.git
 " plugin: snipmate-snippets git git://github.com/honza/snipmate-snippets.git
+let g:snips_author = "sirex"
 
 " plugin: zen-coding git git://github.com/mattn/zencoding-vim.git
 let g:user_zen_settings = {
@@ -222,3 +316,39 @@ let g:user_zen_settings = {
 \}
 
 " plugin: delimit-mate git git://github.com/Raimondi/delimitMate.git
+
+
+function! QuickFixBookmark()
+  let bookmarks_file = expand("~/.vim/bookmarks.txt")
+  let item  = "  File \"".expand("%")."\", line ".line('.').", in unknown\n"
+  let item .= "    ".getline('.')
+  exec 'cgetfile '.bookmarks_file
+  caddexpr item
+  exec 'redir >> '.bookmarks_file
+  silent echo item
+  redir END
+  clast!
+endfunction
+map <leader>, :call QuickFixBookmark()<CR>
+
+
+" visual incrementing
+if !exists("*Incr")
+    fun! Incr()
+        let l  = line(".")
+        let c  = virtcol("'<")
+        let l1 = line("'<")
+        let l2 = line("'>")
+        if l1 > l2
+            let a = l - l2
+        else
+            let a = l - l1
+        endif
+        if a != 0
+            exe 'normal '.c.'|'
+            exe 'normal '.a."\<c-a>"
+        endif
+        normal `<
+    endfunction
+endif
+vnoremap <c-a> :call Incr()<cr>
