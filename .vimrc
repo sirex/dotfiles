@@ -9,18 +9,17 @@ endif
 
 " Mappings
 let mapleader = ","
-nmap     <F2>        :update<CR>
+nmap    <F2>        :update<CR>
 imap    <F2>        <ESC>:update<CR>a
-nmap     <F3>        :BufExplorer<CR>
-nmap     <F4>        :Explore<CR>
-nmap     <F5>        :cnext<CR>
-nmap     <S-F5>      :cprevious<CR>
-map     <C-F5>      :cc<CR>
-nmap    <F8>        :silent make<CR>
-map     <F8>        :silent make!<CR>
-map     <F11>       :set hlsearch!<CR>
-map     <F12>       :set spell!<CR>
-map     <SPACE>     ^
+nmap    <F3>        :BufExplorer<CR>
+nmap    <F4>        :Explore<CR>
+nmap    <F5>        :cnext<CR>
+nmap    <S-F5>      :cprevious<CR>
+nmap    <C-F5>      :cc<CR>
+nmap    <F8>        :silent make!<CR>
+nmap    <F11>       :set hlsearch!<CR>
+nmap    <F12>       :set spell!<CR>
+nmap    <SPACE>     ^
 
 " Scroll half page down
 no <c-j> <c-d>
