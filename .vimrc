@@ -12,7 +12,7 @@ let mapleader = ","
 nmap    <F2>        :update<CR>
 imap    <F2>        <ESC>:update<CR>a
 nmap    <F3>        :BufExplorer<CR>
-nmap    <F4>        :Explore<CR>
+nmap    <F4>        :NERDTreeFind<CR>
 nmap    <F5>        :cnext<CR>
 nmap    <S-F5>      :cprevious<CR>
 nmap    <C-F5>      :cc<CR>
