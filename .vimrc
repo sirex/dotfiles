@@ -30,7 +30,7 @@ no <c-k> <c-u>
 ino <c-k> <c-p>
 ino <c-j> <c-n>
 " Scan only opened buffers and current file, makes autocompletion faster.
-set complete=.,w,b
+set complete=.,w,b,u
 
 " Digraphs
 ino <c-d> <c-k>
