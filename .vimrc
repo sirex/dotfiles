@@ -123,16 +123,29 @@ let html_no_rendering = 1
 " Do recursive grep by default and do not grep binary files.
 set grepprg=ack-grep\ -H\ --nocolor\ --nogroup\ --smart-case
 function! SilentGrep(args)
-  execute "silent! grep! " . a:args
-  botright copen
+    execute "silent! grep! " . a:args
+    botright copen
 endfunction
 command! -nargs=* -complete=file G call SilentGrep(<q-args>)
-nmap <leader>g :G 
-nmap <leader>G :G <c-r><c-w>
-vmap <leader>g y:G "<c-r>""<left>
-nmap <leader>f :G <c-r>%<home><c-right> 
-nmap <leader>F :G <c-r>%<home><c-right> <c-r><c-w>
-vmap <leader>f y:G <c-r>%<home><c-right> "<c-r>""<left>
+nmap <leader>gg :G 
+nmap <leader>gG :G <c-r><c-w>
+vmap <leader>gg y:G "<c-r>""<left>
+nmap <leader>gf :G <c-r>%<home><c-right> 
+nmap <leader>gF :G <c-r>%<home><c-right> <c-r><c-w>
+vmap <leader>gf y:G <c-r>%<home><c-right> "<c-r>""<left>
+
+" GNU id-utils
+function! IDSearch(args)
+    let grepprg = &grepprg
+    set grepprg=gid
+    execute "silent! grep! " . a:args
+    botright copen
+    execute "set grepprg=" . escape(grepprg, " ")
+endfun
+command! -nargs=* -complete=file ID call IDSearch(<q-args>)
+nmap <leader>gi :ID
+nmap <leader>gI :ID <c-r><c-w>
+
 
 " Execute selected vim script.
 vmap <leader>x y:@"<CR>
