@@ -182,10 +182,10 @@ function! DiffJumpToFile()
   let source_line = source_line + current_line - diff_line - 1
 
   " search for and get line like *** fileincvs.c ....
-  let chunk = getline(search("^\\(---\\|\\*\\*\\*\\) .*\\t", "b"))
+  let chunk = getline(search("^\\(---\\|\\*\\*\\*\\) [^\\S]\\+", "b"))
 
   " get filename (terminated by tab) in string
-  let filename = strpart(chunk, 4, match(chunk, "\\t", 4) - 4)
+  let filename = strpart(chunk, 4, match(chunk, "\\(\\s\\|$\\)", 4) - 4)
 
   " restore cursor position
   execute "normal ". current_line . "G"
