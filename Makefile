@@ -67,8 +67,11 @@ $(HOME)/.screenrc: .screenrc
 
 .PHONY: vim
 vim: $(HOME)/.vim/bundle
-$(HOME)/.vim/bundle: $(HOME)/.vimrc $(HOME)/.vim $(HOME)/.vim/vimpire.py
+$(HOME)/.vim/bundle: $(HOME)/.vimrc $(HOME)/.vim
 	mkdir -p $@
+
+.PHONY: vimpire
+vimpire: $(HOME)/.vim/vimpire.py
 	python3 $(HOME)/.vim/vimpire.py
 
 $(HOME)/.vimrc: .vimrc
