@@ -334,6 +334,8 @@ let g:user_zen_settings = {
 
 " plugin: delimit-mate git git://github.com/Raimondi/delimitMate.git
 
+" plugin: nerdtree vim http://www.vim.org/scripts/script.php?script_id=1658
+
 
 function! QuickFixBookmark()
   let bookmarks_file = expand("~/.vim/bookmarks.txt")
