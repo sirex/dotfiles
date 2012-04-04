@@ -67,23 +67,37 @@ $(HOME)/.screenrc: .screenrc
 
 .PHONY: vim
 vim: $(HOME)/.vim/bundle
-$(HOME)/.vim/bundle: $(HOME)/.vimrc $(HOME)/.vim
+$(HOME)/.vim/bundle: $(HOME)/.vimrc \
+                     $(HOME)/.vim/var/swap \
+                     $(HOME)/.vim/var/undo  \
+                     $(HOME)/.vim/var/backup \
+		     vimpire
 	mkdir -p $@
-
-.PHONY: vimpire
-vimpire: $(HOME)/.vim/vimpire.py
-	python3 $(HOME)/.vim/vimpire.py
 
 $(HOME)/.vimrc: .vimrc
 	cp -a $< $@ 
 
-$(HOME)/.vim:
-	mkdir -p $@/var/swap
-	mkdir -p $@/var/undo
+$(HOME)/.vim/var/swap:
+	mkdir -p $@
+
+$(HOME)/.vim/var/undo:
+	mkdir -p $@
+
+$(HOME)/.vim/var/backup:
+	mkdir -p $@
+
+.PHONY: vimpire
+vimpire: $(HOME)/.vim/vimpire.py $(HOME)/.vim/autoload/pathogen.vim
+	python3 $<
 
 $(HOME)/.vim/vimpire.py:
 	wget -q http://bitbucket.org/sirex/vimpire/raw/tip/vimpire.py -O $@
 
+$(HOME)/.vim/autoload/pathogen.vim: $(HOME)/.vim/autoload
+	wget -q 'http://www.vim.org/scripts/download_script.php?src_id=16224' -O $@
+
+$(HOME)/.vim/autoload:
+	mkdir -p $@
 
 #######
 # XTerm
