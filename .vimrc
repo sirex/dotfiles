@@ -186,10 +186,10 @@ function! DiffJumpToFile()
   let source_line = source_line + current_line - diff_line - 1
 
   " search for and get line like *** fileincvs.c ....
-  let chunk = getline(search("^\\(---\\|\\*\\*\\*\\) .*\\t", "b"))
+  let chunk = getline(search("^\\(---\\|\\*\\*\\*\\) [^\\S]\\+", "b"))
 
   " get filename (terminated by tab) in string
-  let filename = strpart(chunk, 4, match(chunk, "\\t", 4) - 4)
+  let filename = strpart(chunk, 4, match(chunk, "\\(\\s\\|$\\)", 4) - 4)
 
   " restore cursor position
   execute "normal ". current_line . "G"
@@ -263,9 +263,6 @@ if !exists("autocommands_loaded")
         autocmd FileType python set ft=python.django
         autocmd FileType html set ft=htmldjango.html
 
-        " QuickFix window
-        au FileType qf      setl nowrap
-
         " Makefile
         au FileType make    setl noexpandtab
         au FileType make    setl softtabstop=8
@@ -337,6 +334,9 @@ let g:user_zen_settings = {
 \}
 
 " plugin: delimit-mate git git://github.com/Raimondi/delimitMate.git
+
+" plugin: nerdtree vim http://www.vim.org/scripts/script.php?script_id=1658
+let g:NERDTreeQuitOnOpen = 1
 
 
 function! QuickFixBookmark()
