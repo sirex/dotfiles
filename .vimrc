@@ -336,7 +336,7 @@ let g:user_zen_settings = {
 " plugin: delimit-mate git git://github.com/Raimondi/delimitMate.git
 
 " plugin: nerdtree vim http://www.vim.org/scripts/script.php?script_id=1658
-let g:NERDTreeQuitOnOpen = 1
+let g:NERDTreeQuitOnOpen = 0
 
 " plugin: vim-less git git://github.com/groenewege/vim-less.git
 
