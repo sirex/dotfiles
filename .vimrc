@@ -26,6 +26,10 @@ no <c-j> <c-d>
 " Scroll half page up
 no <c-k> <c-u>
 
+" Scroll half screen to left and right vertically
+no <s-h> zH
+no <s-l> zL
+
 " Autocomplete
 ino <c-k> <c-p>
 ino <c-j> <c-n>
