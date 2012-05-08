@@ -334,6 +334,8 @@ let g:user_zen_settings = {
 " plugin: nerdtree vim http://www.vim.org/scripts/script.php?script_id=1658
 let g:NERDTreeQuitOnOpen = 1
 
+" plugin: vim-less git git://github.com/groenewege/vim-less.git
+
 
 function! QuickFixBookmark()
   let bookmarks_file = expand("~/.vim/bookmarks.txt")
