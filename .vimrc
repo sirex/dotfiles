@@ -278,11 +278,19 @@ if !exists("autocommands_loaded")
         au FileType sass    setl softtabstop=2
         au FileType sass    setl shiftwidth=2
 
+        " LESS
+        au FileType less    setl softtabstop=2
+        au FileType less    setl shiftwidth=2
+
         " HTML
         au FileType html    setl softtabstop=2
         au FileType html    setl shiftwidth=2
         au FileType html    setl foldmethod=indent
         au FileType html    setl foldnestmax=5
+        au FileType htmldjango setl softtabstop=2
+        au FileType htmldjango setl shiftwidth=2
+        au FileType htmldjango setl foldmethod=indent
+        au FileType htmldjango setl foldnestmax=5
 
         " XML
         au FileType xml     setl softtabstop=2
