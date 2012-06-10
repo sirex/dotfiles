@@ -6,19 +6,19 @@ merge = kdiff3
 kdiff3.args = $base $local $other -o $output
 
 [extensions]
-hgext.extdiff =
-hgext.convert = 
-hgext.fetch = 
-hgext.rebase = 
+hgext.bookmarks =
 hgext.churn =
 hgext.color = 
-hgext.mq =
+hgext.convert = 
+hgext.extdiff =
+hgext.fetch = 
 hgext.graphlog =
-transplant =
-hgext.bookmarks =
+hgext.hgk =
+hgext.mq =
+hgext.pager =
 hgext.progress = 
+hgext.rebase = 
 hgext.record =
-hgk =
 
 [extdiff]
 cmd.vdiff = meld
@@ -26,17 +26,15 @@ cmd.vkdiff = kdiff3
 cmd.vimdiff =
 
 [merge-tools]
-kdiff3.args=--L1 base --L2 local --L3 other $base $local $other -o $output
-
+kdiff3.args = --L1 base --L2 local --L3 other $base $local $other -o $output
 
 [alias]
-vi = vimdiff
-vim = vimdiff
 ds = diff --stat
 qds = qdiff --stat
-slog = log --limit 8 --template '{rev} | {date|shortdate} | {author|person}\t| {desc|fill68|firstline|strip}\n'
-slog = log --limit 24 --template '\033[0;33m{rev} \033[0m|\033[1;30m {date|shortdate} \033[0m|\033[0;33m {author|person}: \033[0m{desc|fill68|firstline|strip}\033[1;33m{branches} {tags}\033[0m\n' 
-kudos = churn -t '{author|person}' --diffstat
 
 [defaults]
-glog = --limit 8 --template '\033[0;33m{rev}\033[1;30m {date|shortdate} \033[0;33m{author|person}\033[0m {branches}{tags}\n{desc|fill68|firstline|strip}\n\n' 
+log = --template '----------------------------------------------------------------------------\n{rev} | {author|user} | {date|shortdate} ({date|age}) | {diffstat} {branches} {tags} {bookmarks}\n\n{desc|fill76}\n\n\n' 
+
+[pager]
+pager = less -FSRX
+attend = annotate, cat, diff, export, glog, log, qdiff, help
