@@ -346,6 +346,7 @@ let g:NERDTreeQuitOnOpen = 0
 
 " plugin: vim-less git git://github.com/groenewege/vim-less.git
 
+" plugin: voom vim|strip http://www.vim.org/scripts/script.php?script_id=2657
 
 function! QuickFixBookmark()
   let bookmarks_file = expand("~/.vim/bookmarks.txt")
