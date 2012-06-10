@@ -1,3 +1,9 @@
+" If you add new plugins, install them with::
+"
+"     make vimpire
+"
+" using https://bitbucket.org/sirex/home Makefile
+
 " Pathogen is responsible for vim's runtimepath management.
 call pathogen#infect()
 
