@@ -296,6 +296,9 @@ if !exists("autocommands_loaded")
         au FileType xml     setl softtabstop=2
         au FileType xml     setl shiftwidth=2
 
+        " Mercurial
+        autocmd BufRead,BufNewFile *.mercurial  setl spell
+
         augroup Zope
           autocmd!
           autocmd BufRead,BufNewFile *.zcml   call FT_XML()
