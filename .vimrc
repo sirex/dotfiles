@@ -24,7 +24,7 @@ nmap    <S-F5>      :cprevious<CR>
 nmap    <C-F5>      :cc<CR>
 nmap    <F8>        :silent make!<CR>
 nmap    <F11>       :set hlsearch!<CR>
-nmap    <F12>       :set spell!<CR>
+nmap    <F12>       :setlocal spell!<CR>
 nmap    <SPACE>     ^
 
 " Scroll half page down
