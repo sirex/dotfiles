@@ -29,10 +29,11 @@ DISABLE_AUTO_UPDATE="true"
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
-export PATH=$PATH:$HOME/bin
+export PATH=$PATH:$HOME/.local/bin:$HOME/bin
 
 export AUTHOR="Mantas Zimnickas <sirexas@gmail.com>"
 export EDITOR=vim
+export HGEDITOR=$HOME/bin/hgeditor
 
 # Aliases
 alias '..'='cd ..'
