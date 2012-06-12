@@ -20,6 +20,9 @@ hgext.progress =
 hgext.rebase = 
 hgext.record =
 
+[diff]
+git = 1
+
 [extdiff]
 cmd.vdiff = meld
 cmd.vkdiff = kdiff3

@@ -292,6 +292,9 @@ if !exists("autocommands_loaded")
         au FileType htmldjango setl foldmethod=indent
         au FileType htmldjango setl foldnestmax=5
 
+        " *.template files.
+        au BufRead,BufNewFile *.template setl ft=html
+
         " XML
         au FileType xml     setl softtabstop=2
         au FileType xml     setl shiftwidth=2
