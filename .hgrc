@@ -40,4 +40,4 @@ log = --template '--------------------------------------------------------------
 
 [pager]
 pager = less -FSRX
-attend = annotate, cat, diff, export, glog, log, qdiff, help
+attend = annotate, cat, diff, export, glog, log, qdiff, help, heads
