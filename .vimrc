@@ -231,9 +231,29 @@ function! FT_Maybe_ReST()
         \ || glob(expand("%:p:h:h") . "/*.py") != ""
     set ft=rest
     setlocal shiftwidth=4 softtabstop=4 expandtab
+    setlocal textwidth=72
+    setlocal spell
     map <buffer> <F5>    :ImportName <C-R><C-W><CR>
     map <buffer> <C-F5>  :ImportNameHere <C-R><C-W><CR>
     map <buffer> <C-F6>  :SwitchCodeAndTest<CR>
+
+    " doctest
+    syntax region doctest_value start=+^\s\{2,4}+ end=+$+
+    syntax region doctest_code start=+\s\+[>.]\{3}+ end=+$+
+    syntax region doctest_literal start=+`\++ end=+`\++
+
+    syntax region doctest_header start=+=\+\n\w\++ start=+\w.\+\n=\++ end=+=$+
+    syntax region doctest_header start=+-\+\n\w\++ start=+\w.\+\n-\++ end=+-$+
+    syntax region doctest_header start=+\*\+\n\w\++ start=+\w.\+\n\*\++ end=+\*$+
+
+    syntax region doctest_note start=+\.\{2} \[+ end=+(\n\n)\|\%$+
+
+    hi link doctest_header Statement
+    hi link doctest_code Special
+    hi link doctest_value Define
+    hi link doctest_literal Comment
+    hi link doctest_note Comment
+    " end of doctest
   endif
 endf
 
@@ -250,10 +270,10 @@ if !exists("autocommands_loaded")
         endif
         if v:version >= 600
             " Mark trailing spaces and highlight tabs
-            au FileType python  setl list
-            au FileType python  setl listchars=tab:>-,trail:.,extends:>
-            au FileType python  setl foldmethod=indent
-            au FileType python  setl foldnestmax=2
+            au FileType python,html  setl list
+            au FileType python,html  setl listchars=tab:>-,trail:.,extends:>
+            au FileType python,html  setl foldmethod=indent
+            au FileType python,html  setl foldnestmax=2
 
             " I don't want [I to parse import statements and look for modules
             au FileType python  setl include=
@@ -361,6 +381,8 @@ let g:NERDTreeQuitOnOpen = 0
 " plugin: vim-less git git://github.com/groenewege/vim-less.git
 
 " plugin: voom vim|strip http://www.vim.org/scripts/script.php?script_id=2657
+
+" plugin: paster vim http://www.vim.org/scripts/download_script.php?src_id=11515
 
 function! QuickFixBookmark()
   let bookmarks_file = expand("~/.vim/bookmarks.txt")
