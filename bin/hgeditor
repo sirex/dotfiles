@@ -22,8 +22,8 @@ case "${EDITOR}" in
 esac
 
 
-MSGFILE="msg.mercurial"
 HGTMP=""
+MSGFILE="msg.mercurial"
 cleanup_exit() {
     rm -rf "$HGTMP"
 }

@@ -1,4 +1,7 @@
+--type-set=rest=.rst
 --type-set=zope=.zcml
+--type-set=less=.less
+--type-set=style=.style
 --ignore-dir=bin
 --ignore-dir=develop-eggs
 --ignore-dir=ftests
@@ -7,3 +10,4 @@
 --ignore-dir=sftests
 --ignore-dir=tests
 --ignore-dir=var
+--ignore-dir=migrations

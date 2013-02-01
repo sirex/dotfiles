@@ -29,7 +29,7 @@ DISABLE_AUTO_UPDATE="true"
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
-export PATH=$PATH:$HOME/.local/bin:$HOME/bin
+export PATH=$HOME/bin:$HOME/.local/bin:$PATH
 
 export AUTHOR="Mantas Zimnickas <sirexas@gmail.com>"
 export EDITOR=vim

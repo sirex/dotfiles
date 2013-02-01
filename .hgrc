@@ -1,9 +1,6 @@
 [ui]
 username = sirex <sirexas@gmail.com>
-merge = kdiff3
-
-[merge-tools]
-kdiff3.args = $base $local $other -o $output
+merge = internal:merge
 
 [extensions]
 hgext.bookmarks =
@@ -20,6 +17,12 @@ hgext.progress =
 hgext.rebase = 
 hgext.record =
 
+hgext.git =
+
+hgsubversion = ~/tmp/hgsubversion/hgsubversion
+
+review = ~/devel/hg-review/review
+
 [diff]
 git = 1
 
@@ -28,16 +31,13 @@ cmd.vdiff = meld
 cmd.vkdiff = kdiff3
 cmd.vimdiff =
 
-[merge-tools]
-kdiff3.args = --L1 base --L2 local --L3 other $base $local $other -o $output
-
 [alias]
 ds = diff --stat
 qds = qdiff --stat
 
 [defaults]
-log = --template '----------------------------------------------------------------------------\n{rev} | {author|user} | {date|shortdate} ({date|age}) | {diffstat} {branches} {tags} {bookmarks}\n\n{desc|fill76}\n\n\n' 
+log = --template '----------------------------------------------------------------------------\n{rev} : {node|short} | {author|user} | {date|shortdate} ({date|age}) | {diffstat} {branches} {tags} {bookmarks}\n\n{desc|fill76}\n\n\n' 
 
 [pager]
 pager = less -FSRX
-attend = annotate, cat, diff, export, glog, log, qdiff, help, heads
+attend = annotate, cat, diff, export, glog, log, qdiff, help, heads, incoming
