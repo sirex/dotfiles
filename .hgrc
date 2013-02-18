@@ -17,12 +17,6 @@ hgext.progress =
 hgext.rebase = 
 hgext.record =
 
-hgext.git =
-
-hgsubversion = ~/tmp/hgsubversion/hgsubversion
-
-review = ~/devel/hg-review/review
-
 [diff]
 git = 1
 
