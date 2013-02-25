@@ -1,6 +1,5 @@
 [global_config]
   enabled_plugins = LaunchpadCodeURLHandler, APTURLHandler, LaunchpadBugURLHandler
-  borderless = True
 [keybindings]
 [profiles]
   [[default]]
