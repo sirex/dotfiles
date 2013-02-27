@@ -26,6 +26,13 @@ nmap    <F8>        :silent make!<CR>
 nmap    <F11>       :set hlsearch!<CR>
 nmap    <F12>       :setlocal spell!<CR>
 nmap    <SPACE>     ^
+nmap    <TAB>       <C-W>p
+nmap    <S-TAB>     <C-W>w
+
+vmap    <F6>        <ESC>:exec "'<,'>w !vpaste ".&ft<CR>
+
+nmap    c/          /\<class 
+nmap    m/          /\<def 
 
 " Scroll half page down
 no <c-j> <c-d>
@@ -157,57 +164,23 @@ nmap <leader>gi :ID
 nmap <leader>gI :ID <c-r><c-w>
 
 
+function! Browser()
+"    let line = getline(".")
+"    let line = matchstr(line, "\%(http://\|www\.\)[^ ,;\t\n\r]*")
+
+    let uri = matchstr(getline("."), '[a-z]*:\/\/[^ >,;]*')
+    echo uri
+    if uri != ""
+        exec ":silent !firefox \"" . uri . "\""
+    else
+        echo "No URI found in line."
+    endif
+endfunction
+map <Leader>w :call Browser()<CR>
+
+
 " Execute selected vim script.
 vmap <leader>x y:@"<CR>
-
-" Diff
-" Open diff window with diff for all files in current directory.
-function! FullDiff()
-  execute "edit " . getcwd()
-  execute "VCSDiff"
-endfunction
-map <leader>d :call FullDiff()<CR>
-
-" Jump to line in source code from diff output.
-"
-" This script is found in:
-" http://vim.wikia.com/wiki/Jump_to_file_from_CVSDiff_output
-"
-" Also check this script:
-" http://www.vim.org/scripts/script.php?script_id=3892
-function! DiffJumpToFile()
- " current line number
-  let current_line = line(".")
-
- " search for line like @@ 478,489 @@
-  let diff_line = search('^\(---\|\*\*\*\|@@\) ', 'b')
-
- " get first number from line like @@ -478,8 +489,12 @@
-  let chunk = getline(diff_line)
-
-  " get the first line number (478) from that string
-  let source_line = split(chunk, '[-+, ]\+')[3]
-
-  " calculate real source line with offset taken from cursor position
-  let source_line = source_line + current_line - diff_line - 1
-
-  " search for and get line like *** fileincvs.c ....
-  let chunk = getline(search("^\\(---\\|\\*\\*\\*\\) [^\\S]\\+", "b"))
-
-  " get filename (terminated by tab) in string
-  let filename = strpart(chunk, 4, match(chunk, "\\(\\s\\|$\\)", 4) - 4)
-
-  " restore cursor position
-  execute "normal ". current_line . "G"
-
-  " go to upper window
-  execute "normal \<c-w>k"
-
-  " open
-  execute "edit " . filename
-  execute "normal " . source_line . "G"
-endfunction
-au FileType diff nmap <buffer> <CR> :call DiffJumpToFile()<CR>
 
 
 " File type dependent settings
@@ -231,9 +204,29 @@ function! FT_Maybe_ReST()
         \ || glob(expand("%:p:h:h") . "/*.py") != ""
     set ft=rest
     setlocal shiftwidth=4 softtabstop=4 expandtab
+    setlocal textwidth=72
+    setlocal spell
     map <buffer> <F5>    :ImportName <C-R><C-W><CR>
     map <buffer> <C-F5>  :ImportNameHere <C-R><C-W><CR>
     map <buffer> <C-F6>  :SwitchCodeAndTest<CR>
+
+    " doctest
+    syntax region doctest_value start=+^\s\{2,4}+ end=+$+
+    syntax region doctest_code start=+\s\+[>.]\{3}+ end=+$+
+    syntax region doctest_literal start=+`\++ end=+`\++
+
+    syntax region doctest_header start=+=\+\n\w\++ start=+\w.\+\n=\++ end=+=$+
+    syntax region doctest_header start=+-\+\n\w\++ start=+\w.\+\n-\++ end=+-$+
+    syntax region doctest_header start=+\*\+\n\w\++ start=+\w.\+\n\*\++ end=+\*$+
+
+    syntax region doctest_note start=+\.\{2} \[+ end=+(\n\n)\|\%$+
+
+    hi link doctest_header Statement
+    hi link doctest_code Special
+    hi link doctest_value Define
+    hi link doctest_literal Comment
+    hi link doctest_note Comment
+    " end of doctest
   endif
 endf
 
@@ -250,15 +243,15 @@ if !exists("autocommands_loaded")
         endif
         if v:version >= 600
             " Mark trailing spaces and highlight tabs
-            au FileType python  setl list
-            au FileType python  setl listchars=tab:>-,trail:.,extends:>
-            au FileType python  setl foldmethod=indent
-            au FileType python  setl foldnestmax=2
+            au FileType python,html  setl list
+            au FileType python,html  setl listchars=tab:>-,trail:.,extends:>
+            au FileType python,html  setl foldmethod=indent
+            au FileType python,html  setl foldnestmax=2
 
             " I don't want [I to parse import statements and look for modules
             au FileType python  setl include=
 
-            au FileType python  syn sync minlines=100
+            " au FileType python  syn sync minlines=100
         endif
         au FileType python  setl formatoptions=croql
         au FileType python  setl shiftwidth=4
@@ -364,6 +357,10 @@ let g:NERDTreeQuitOnOpen = 0
 
 " plugin: lawrencium hg https://bitbucket.org/ludovicchabant/vim-lawrencium
 
+" plugin: frawor hg https://bitbucket.org/ZyX_I/frawor
+
+
+>>>>>>> other
 function! QuickFixBookmark()
   let bookmarks_file = expand("~/.vim/bookmarks.txt")
   let item  = "  File \"".expand("%")."\", line ".line('.').", in unknown\n"
@@ -398,3 +395,14 @@ if !exists("*Incr")
     endfunction
 endif
 vnoremap <c-a> :call Incr()<cr>
+
+
+" Load project specific settings.
+let s:names = []
+call add(s:names, fnamemodify(getcwd(), ":t"))
+call add(s:names, fnamemodify(getcwd(), ":h:t"))
+for s:name in s:names
+    if filereadable(expand('~/.vim/projects/' . s:name . '.vim'))
+        exe "source " . expand('~/.vim/projects/' . s:name . '.vim')
+    endif
+endfor
