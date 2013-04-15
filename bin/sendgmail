@@ -1,0 +1,83 @@
+#!/usr/bin/env python3
+
+import argparse
+import codecs
+import email.encoders
+import email.parser
+import keyring
+import os
+import quopri
+import select
+import smtplib
+import subprocess
+import sys
+import tempfile
+
+
+def error(msg):
+    sys.stderr.write(msg + '\n')
+    sys.exit(1)
+
+
+def get_addresses(message):
+    msg = email.parser.Parser().parsestr(message, headersonly=True)
+    fromaddr = msg.get('from', '') or error('From header is missing.')
+    toaddr = msg.get('to', '') or error('To header is missing.')
+    return fromaddr, toaddr
+
+
+def get_message_from_editor(username):
+    with tempfile.NamedTemporaryFile(delete=False) as tmp:
+        tmp.write(bytes('\n'.join([
+            'From: {}'.format(username),
+            'To: ',
+            'Ccc: ',
+            'Subject: ',
+            '',
+            '',
+            '',
+        ]), encoding='utf-8'))
+    editor = os.environ.get('EDITOR', 'vi')
+    subprocess.check_call([editor, tmp.name])
+    with open(tmp.name) as f:
+        msg = email.parser.Parser().parse(f)
+    os.unlink(tmp.name)
+
+    fromaddr = msg.get('from', '') or error('From header is missing.')
+    toaddr = msg.get('to', '') or error('To header is missing.')
+
+    msg['Content-Transfer-Encoding'] = 'quoted-printable'
+    msg.set_payload(str(quopri.encodestring(msg.get_payload().encode('utf-8'))))
+
+    return fromaddr, toaddr, msg.as_string()
+
+
+def get_message(username):
+    # If stdin has data read it
+    if select.select([sys.stdin,],[],[],0.0)[0]:
+        message = sys.stdin.read()
+        fromaddr, toaddr = get_addresses(message)
+        return fromaddr, toaddr, message
+
+    # else open text editor and get message from there
+    else:
+        return get_message_from_editor(username)
+
+
+def send_email(username, password, fromaddr, toaddr, message):
+    server = smtplib.SMTP('smtp.gmail.com',587) #port 465 or 587
+    server.ehlo()
+    server.starttls()
+    server.ehlo()
+    server.login(username, password)
+    server.sendmail(fromaddr, toaddr, message)
+    server.close()
+
+
+if __name__=="__main__":
+    parser = argparse.ArgumentParser(description='Send mail via Gmail.')
+    parser.add_argument('username', help='User name.')
+    args = parser.parse_args()
+    password = keyring.get_password('gmail', args.username)
+    fromaddr, toaddr, message = get_message(args.username)
+    send_email(args.username, password, fromaddr, toaddr, message)

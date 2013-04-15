@@ -1,0 +1,26 @@
+[general]
+#ui = quiet
+ui = blinkenlights
+accounts = main
+pythonfile = ~/.offlineimap.py
+
+[Account main]
+autorefresh = 5
+quick = 10
+localrepository = main-local
+remoterepository = main-remote
+status_backend = sqlite
+
+[Repository main-local]
+type = Maildir
+localfolders = /home/sirex/.mail
+
+[Repository main-remote]
+keepalive = 60
+type = Gmail
+nametrans = nametrans
+folderfilter = folderfilter
+realdelete = no
+cert_fingerprint = 6d1b5b5ee0180ab493b71d3b94534b5ab937d042
+remoteuser = sirexas@gmail.com
+remotepasseval = keyring.get_password('gmail', 'sirexas@gmail.com')
