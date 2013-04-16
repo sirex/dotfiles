@@ -26,8 +26,23 @@ nmap    <F8>        :silent make!<CR>
 nmap    <F11>       :set hlsearch!<CR>
 nmap    <F12>       :setlocal spell!<CR>
 nmap    <SPACE>     ^
+
+" Jump between windows and tabs.
 nmap    <TAB>       <C-W>p
 nmap    <S-TAB>     <C-W>w
+nmap    <M-k>       <C-W>k
+nmap    <M-j>       <C-W>j
+nmap    <M-l>       <C-W>l
+nmap    <M-h>       <C-W>h
+nmap    <M-1>       1gt
+nmap    <M-2>       2gt
+nmap    <M-3>       3gt
+nmap    <M-4>       4gt
+nmap    <M-5>       5gt
+nmap    <M-6>       6gt
+nmap    <M-7>       7gt
+nmap    <M-8>       8gt
+nmap    <M-9>       9gt
 
 vmap    <F6>        <ESC>:exec "'<,'>w !vpaste ".&ft<CR>
 
@@ -65,6 +80,9 @@ cnoremap        <Esc>f          <S-Right>
 
 " Alt-Backspace deletes word backwards
 cnoremap        <M-BS>          <C-W>
+
+" Jump to tag in split window
+nmap        g}              :stselect <c-r><c-w><cr>
 
 " Look and feel.
 colorscheme desert

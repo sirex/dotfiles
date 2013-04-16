@@ -3,7 +3,7 @@
 #########
 
 .PHONY: install
-install: zsh hg screen vim xterm
+install: zsh hg vim terminator buildout
 
 .PHONY: server
 server: zsh hg screen vim
@@ -21,8 +21,8 @@ uninstall: uninstall-zsh uninstall-xterm
 
 .PHONY: setup
 setup:
-	apt-get install git-core vim-gnome mercurial zsh xfonts-terminus screen \
-			meld kdiff3 ack-grep python3
+	apt-get install git-core vim-gtk mercurial zsh xfonts-terminus \
+	                terminator ack-grep python3
 
 .PHONY: setup-server
 setup-server:
@@ -49,8 +49,10 @@ uninstall-zsh:
 
 .PHONY: hg
 hg: $(HOME)/.hgrc
-$(HOME)/.hgrc: .hgrc
+$(HOME)/.hgrc: .hgrc bin/hgeditor
 	cp -a $< $@ 
+	mkdir -p $(HOME)/bin
+	cp -a bin/hgeditor $(HOME)/bin
 
 ########
 # screen
@@ -71,10 +73,11 @@ $(HOME)/.vim/bundle: $(HOME)/.vimrc \
                      $(HOME)/.vim/var/swap \
                      $(HOME)/.vim/var/undo  \
                      $(HOME)/.vim/var/backup \
+	             $(HOME)/bin/vpaste \
 		     vimpire
 	mkdir -p $@
 
-$(HOME)/.vimrc: .vimrc
+$(HOME)/.vimrc: .vimrc bin/vpaste
 	cp -a $< $@ 
 
 $(HOME)/.vim/var/swap:
@@ -99,6 +102,10 @@ $(HOME)/.vim/autoload/pathogen.vim: $(HOME)/.vim/autoload
 $(HOME)/.vim/autoload:
 	mkdir -p $@
 
+$(HOME)/bin/vpaste: bin/vpaste
+	mkdir -p $(HOME)/bin
+	cp -a $< $@
+
 #######
 # XTerm
 #######
@@ -112,3 +119,32 @@ $(HOME)/.xinitrc: .xinitrc
 .PHONY: uninstall-xterm
 uninstall-xterm:
 	rm -rf $(HOME)/.xinitrc $(HOME)/.Xresources $(HOME)/.xrdb
+
+############
+# Terminator
+############
+
+.PHONY: terminator
+terminator: $(HOME)/.config/terminator/config
+$(HOME)/.config/terminator/config: .config/terminator/config
+	mkdir -p $(HOME)/.config/terminator
+	cp -a $< $@
+
+.PHONY: uninstall-terminator
+uninstall-terminator:
+	rm -rf $(HOME)/.config/terminator
+
+############
+# buildout
+############
+
+.PHONY: buildout
+buildout: $(HOME)/.buildout/default.cfg
+$(HOME)/.buildout/default.cfg: .buildout/default.cfg
+	mkdir -p $(HOME)/.buildout/downloads
+	mkdir -p $(HOME)/.buildout/eggs
+	cp -a $< $@
+
+.PHONY: uninstall-buildout
+uninstall-buildout:
+	rm -rf $(HOME)/.buildout
