@@ -1,0 +1,13 @@
+#!/bin/sh
+
+CTL="supervisorctl -c $HOME/.supervisor/supervisord.conf"
+
+# Exit on error.
+set -e
+
+# Unlock keyring.
+$HOME/bin/keyring encfs mail > /dev/null
+
+# Run encrypted folder and mail sync.
+$CTL start encfs
+$CTL start offlineimap
