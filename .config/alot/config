@@ -10,7 +10,7 @@ editor_in_thread = true
 [[default]]
 realname = Mantas
 address = sirexas@gmail.com
-sendmail_command = ~/bin/sendgmail sirexas@gmail.com
+sendmail_command = sendgmail sirexas@gmail.com
 aliases = mantas.zimnickas@mif.stud.vu.lt, sirex@pov.lt
 signature = ~/.signature
 
