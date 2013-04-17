@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=Supervisord
+Exec=supervisord -c /home/sirex/.supervisor/supervisord.conf
+Type=Application
+X-GNOME-Autostart-enabled=true
+Hidden=false

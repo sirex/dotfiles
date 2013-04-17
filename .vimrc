@@ -377,10 +377,12 @@ let g:NERDTreeQuitOnOpen = 0
 
 " plugin: voom vim|strip http://www.vim.org/scripts/script.php?script_id=2657
 
+" plugin: lawrencium hg https://bitbucket.org/ludovicchabant/vim-lawrencium
+
 " plugin: frawor hg https://bitbucket.org/ZyX_I/frawor
 
-" plugin: aurum hg https://bitbucket.org/ZyX_I/aurum
 
+>>>>>>> other
 function! QuickFixBookmark()
   let bookmarks_file = expand("~/.vim/bookmarks.txt")
   let item  = "  File \"".expand("%")."\", line ".line('.').", in unknown\n"

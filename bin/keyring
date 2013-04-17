@@ -1,0 +1,22 @@
+#!/usr/bin/env python
+
+import argparse
+import getpass
+import keyring
+
+def main():
+    parser = argparse.ArgumentParser(description='Keyring tool.')
+    parser.add_argument('service', help='Service name.')
+    parser.add_argument('username', help='User name.')
+    parser.add_argument('--set', action='store_true', help='Set password.')
+    args = parser.parse_args()
+
+    if args.set:
+        password = getpass.getpass('Enter pasword for {}@{}: '.format(args.username, args.service))
+        keyring.set_password(args.service, args.username, password)
+    else:
+        print(keyring.get_password(args.service, args.username))
+
+
+if __name__ == '__main__':
+    main()

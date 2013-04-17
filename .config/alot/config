@@ -1,0 +1,44 @@
+tabwidth = 4
+prefer_plaintext = true
+
+# Spawn GUI editor to get non-blocking alot, while composing email message.
+editor_cmd = gvim
+editor_in_thread = true
+
+[accounts]
+
+[[default]]
+realname = Mantas
+address = sirexas@gmail.com
+sendmail_command = sendgmail sirexas@gmail.com
+aliases = mantas.zimnickas@mif.stud.vu.lt, sirex@pov.lt
+signature = ~/.signature
+
+# crashes: https://github.com/pazz/alot/issues/502
+#sent_box = maildir:///home/sirex/mail/outbox
+#draft_box = maildir:///home/sirex/mail/drafts
+
+[[[abook]]]
+type = abook
+
+
+[bindings]
+c = bclose
+/ = prompt 'search '
+f5 = shellescape --refocus=true 'notmuch new' ; refresh
+
+[[bufferlist]]
+h = close
+l = open
+
+[[search]]
+l = select
+
+[[taglist]]
+l = select
+
+[[thread]]
+o = select
+c = bclose
+h = bclose
+l = unfold

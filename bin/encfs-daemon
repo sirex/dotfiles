@@ -1,0 +1,7 @@
+#!/bin/sh
+
+ENCRYPTED=$HOME/.secure/mail
+DECRYPTED=$HOME/.mail
+KEYRING="$HOME/bin/keyring encfs mail"
+
+encfs -f --ondemand --idle=5 --extpass="$KEYRING" $ENCRYPTED $DECRYPTED
