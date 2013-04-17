@@ -313,6 +313,10 @@ if !exists("autocommands_loaded")
         " Mercurial
         autocmd BufRead,BufNewFile *.mercurial  setl spell
 
+        autocmd BufRead,BufNewFile *.hglog  setl syntax=diff
+        autocmd BufRead,BufNewFile *.hglog  setl foldmethod=expr
+        autocmd BufRead,BufNewFile *.hglog  setl foldexpr=(getline(v:lnum)=~'^HGLOG:\ '\|\|getline(v:lnum)=~'^diff\ ')?'>1':'1'
+
         augroup Zope
           autocmd!
           autocmd BufRead,BufNewFile *.zcml   call FT_XML()

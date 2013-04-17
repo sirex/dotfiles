@@ -28,9 +28,10 @@ cmd.vimdiff =
 [alias]
 ds = diff --stat
 qds = qdiff --stat
+vlog = log --limit=50 --no-merges --patch --template 'HGLOG: \t{rev} {date|isodate} {author|user} {desc|firstline}\n\n{desc|fill76}\n\n\n' 
 
 [defaults]
-log = --template '----------------------------------------------------------------------------\n{rev} : {node|short} | {author|user} | {date|shortdate} ({date|age}) | {diffstat} {branches} {tags} {bookmarks}\n\n{desc|fill76}\n\n\n' 
+log = --template '----------------------------------------------------------------------------\nHG: {rev} : {node|short} | {author|person} | {date|shortdate} ({date|age}) | {diffstat} {branches} {tags} {bookmarks}\n\n{desc|fill76}\n\n\n' 
 
 [pager]
 pager = less -FSRX
