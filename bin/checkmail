@@ -1,0 +1,13 @@
+#!/usr/bin/env python
+
+import os
+import os.path
+import subprocess
+import time
+import signal
+
+with open(os.path.expanduser('~/.offlineimap/pid')) as f:
+    pid = int(f.read())
+os.kill(pid, signal.SIGUSR1)
+time.sleep(5)
+subprocess.check_call(['notmuch', 'new'])

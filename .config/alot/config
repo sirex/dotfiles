@@ -25,7 +25,7 @@ type = abook
 [bindings]
 c = bclose
 / = prompt 'search '
-f5 = shellescape --refocus=true 'notmuch new' ; refresh
+f5 = shellescape --refocus=true 'checkmail' ; refresh
 
 [[bufferlist]]
 h = close
