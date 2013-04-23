@@ -33,6 +33,8 @@ l = open
 
 [[search]]
 l = select
+r = toggletags unread
+R = untag unread --all
 
 [[taglist]]
 l = select
