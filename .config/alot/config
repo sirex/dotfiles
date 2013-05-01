@@ -11,7 +11,7 @@ editor_in_thread = true
 realname = Mantas
 address = sirexas@gmail.com
 sendmail_command = sendgmail sirexas@gmail.com
-aliases = mantas.zimnickas@mif.stud.vu.lt, sirex@pov.lt
+aliases = mantas.zimnickas@mif.stud.vu.lt, sirex@pov.lt, sirex@bliubliu.com
 signature = ~/.signature
 
 # crashes: https://github.com/pazz/alot/issues/502
