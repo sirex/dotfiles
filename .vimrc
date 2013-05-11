@@ -22,6 +22,7 @@ nmap    <F4>        :NERDTreeFind<CR>
 nmap    <F5>        :cnext<CR>
 nmap    <S-F5>      :cprevious<CR>
 nmap    <C-F5>      :cc<CR>
+vmap    <F6>        <ESC>:exec "'<,'>w !vpaste ".&ft<CR>
 nmap    <F8>        :silent make!<CR>
 nmap    <F11>       :set hlsearch!<CR>
 nmap    <F12>       :setlocal spell!<CR>
@@ -44,10 +45,12 @@ nmap    <M-7>       7gt
 nmap    <M-8>       8gt
 nmap    <M-9>       9gt
 
-vmap    <F6>        <ESC>:exec "'<,'>w !vpaste ".&ft<CR>
-
+" Quick search for python class and def statments.
 nmap    c/          /\<class 
 nmap    m/          /\<def 
+
+" Jump to tag in split window
+nmap        g}              :stselect <c-r><c-w><cr>
 
 " Scroll half page down
 no <c-j> <c-d>
@@ -80,9 +83,6 @@ cnoremap        <Esc>f          <S-Right>
 
 " Alt-Backspace deletes word backwards
 cnoremap        <M-BS>          <C-W>
-
-" Jump to tag in split window
-nmap        g}              :stselect <c-r><c-w><cr>
 
 " Look and feel.
 colorscheme desert
@@ -182,6 +182,10 @@ nmap <leader>gi :ID
 nmap <leader>gI :ID <c-r><c-w>
 
 
+" Execute selected vim script.
+vmap <leader>x y:@"<CR>
+
+
 function! Browser()
 "    let line = getline(".")
 "    let line = matchstr(line, "\%(http://\|www\.\)[^ ,;\t\n\r]*")
@@ -197,8 +201,54 @@ endfunction
 map <Leader>w :call Browser()<CR>
 
 
-" Execute selected vim script.
-vmap <leader>x y:@"<CR>
+" Diff
+" Open diff window with diff for all files in current directory.
+function! FullDiff()
+  execute "edit " . getcwd()
+  execute "VCSDiff"
+endfunction
+map <leader>d :call FullDiff()<CR>
+
+" Jump to line in source code from diff output.
+"
+" This script is found in:
+" http://vim.wikia.com/wiki/Jump_to_file_from_CVSDiff_output
+"
+" Also check this script:
+" http://www.vim.org/scripts/script.php?script_id=3892
+function! DiffJumpToFile()
+ " current line number
+  let current_line = line(".")
+
+ " search for line like @@ 478,489 @@
+  let diff_line = search('^\(---\|\*\*\*\|@@\) ', 'b')
+
+ " get first number from line like @@ -478,8 +489,12 @@
+  let chunk = getline(diff_line)
+
+  " get the first line number (478) from that string
+  let source_line = split(chunk, '[-+, ]\+')[3]
+
+  " calculate real source line with offset taken from cursor position
+  let source_line = source_line + current_line - diff_line - 1
+
+  " search for and get line like *** fileincvs.c ....
+  let chunk = getline(search("^\\(---\\|\\*\\*\\*\\) [^\\S]\\+", "b"))
+
+  " get filename (terminated by tab) in string
+  let filename = strpart(chunk, 4, match(chunk, "\\(\\s\\|$\\)", 4) - 4)
+
+  " restore cursor position
+  execute "normal ". current_line . "G"
+
+  " go to upper window
+  execute "normal \<c-w>k"
+
+  " open
+  execute "edit " . filename
+  execute "normal " . source_line . "G"
+endfunction
+au FileType diff nmap <buffer> <CR> :call DiffJumpToFile()<CR>
 
 
 " File type dependent settings
@@ -303,28 +353,44 @@ if !exists("autocommands_loaded")
         au FileType htmldjango setl foldmethod=indent
         au FileType htmldjango setl foldnestmax=5
 
-        " *.template files.
-        au BufRead,BufNewFile *.template setl ft=html
-
         " XML
         au FileType xml     setl softtabstop=2
         au FileType xml     setl shiftwidth=2
 
         " Mercurial
-        autocmd BufRead,BufNewFile *.mercurial  setl spell
+        au BufRead,BufNewFile *.mercurial  setl spell
+        au BufRead,BufNewFile *.hglog  setl syntax=diff
+        au BufRead,BufNewFile *.hglog  setl foldmethod=expr
+        au BufRead,BufNewFile *.hglog  setl foldexpr=(getline(v:lnum)=~'^HGLOG:\ '\|\|getline(v:lnum)=~'^diff\ ')?'>1':'1
 
-        autocmd BufRead,BufNewFile *.hglog  setl syntax=diff
-        autocmd BufRead,BufNewFile *.hglog  setl foldmethod=expr
-        autocmd BufRead,BufNewFile *.hglog  setl foldexpr=(getline(v:lnum)=~'^HGLOG:\ '\|\|getline(v:lnum)=~'^diff\ ')?'>1':'1'
+        " Sage Math
+        au BufRead,BufNewFile *.sage,*.spyx,*.pyx set ft=python
 
         augroup Zope
-          autocmd!
-          autocmd BufRead,BufNewFile *.zcml   call FT_XML()
-          autocmd BufRead,BufNewFile *.pt     call FT_XML()
-          autocmd BufRead,BufNewFile *.tt     setlocal et tw=44 wiw=44
-          autocmd BufRead,BufNewFile *.txt    call FT_Maybe_ReST()
+          au!
+          au BufRead,BufNewFile *.zcml   call FT_XML()
+          au BufRead,BufNewFile *.pt     call FT_XML()
+          au BufRead,BufNewFile *.tt     setlocal et tw=44 wiw=44
+          au BufRead,BufNewFile *.txt    call FT_Maybe_ReST()
         augroup END
 
+        " SPARQL
+        au BufRead,BufNewFile *.rq setl ft=sparql
+
+        " JSON
+        au BufRead,BufNewFile *.json setl ft=javascript
+
+        " ARFF
+        au BufRead,BufNewFile *.arff setl ft=arff
+
+        " Mail
+        au BufRead,BufNewFile alot.* setl ft=mail
+        au FileType mail setl spell
+        au FileType mail setl comments=n:>,n:#,nf:-,nf:*
+        au FileType mail setl formatoptions=tcroqan
+        au FileType mail setl textwidth=72
+
+        " autocmd BufRead,BufNewFile *.cfg set ft=cisco
     endif
 endif
 
@@ -378,11 +444,20 @@ let g:NERDTreeQuitOnOpen = 0
 " plugin: voom vim|strip http://www.vim.org/scripts/script.php?script_id=2657
 
 " plugin: lawrencium hg https://bitbucket.org/ludovicchabant/vim-lawrencium
+let g:lawrencium_trace = 0
 
-" plugin: frawor hg https://bitbucket.org/ZyX_I/frawor
+" plugin: wikipedia git git://github.com/vim-scripts/wikipedia.vim.git
 
+" plugin: maynard vim http://www.vim.org/scripts/script.php?script_id=3053
 
->>>>>>> other
+" plugin: interfaces vim http://www.vim.org/scripts/script.php?script_id=1385
+
+" plugin: cisco vim http://www.vim.org/scripts/script.php?script_id=151
+
+" plugin: coffescript git git://github.com/kchmck/vim-coffee-script.git
+
+" plugin: sparql git git://github.com/vim-scripts/sparql.vim.git
+
 function! QuickFixBookmark()
   let bookmarks_file = expand("~/.vim/bookmarks.txt")
   let item  = "  File \"".expand("%")."\", line ".line('.').", in unknown\n"
@@ -420,11 +495,13 @@ vnoremap <c-a> :call Incr()<cr>
 
 
 " Load project specific settings.
-let s:names = []
-call add(s:names, fnamemodify(getcwd(), ":t"))
-call add(s:names, fnamemodify(getcwd(), ":h:t"))
-for s:name in s:names
-    if filereadable(expand('~/.vim/projects/' . s:name . '.vim'))
-        exe "source " . expand('~/.vim/projects/' . s:name . '.vim')
+for s:name in [
+\ expand('./rc.vim'),
+\ expand('../rc.vim'),
+\ expand('~/.vim/projects/' . fnamemodify(getcwd(), ":t") . '.vim'),
+\ expand('~/.vim/projects/' . fnamemodify(getcwd(), ":h:t") . '.vim'),
+\]
+    if filereadable(expand(s:name))
+        exe "source " . expand(s:name)
     endif
 endfor
