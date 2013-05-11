@@ -5,6 +5,8 @@ prefer_plaintext = true
 editor_cmd = gvim
 editor_in_thread = true
 
+initial_command = search tag:unread
+
 [accounts]
 
 [[default]]
