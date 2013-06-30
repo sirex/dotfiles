@@ -387,7 +387,7 @@ if !exists("autocommands_loaded")
         au BufRead,BufNewFile alot.* setl ft=mail
         au FileType mail setl spell
         au FileType mail setl comments=n:>,n:#,nf:-,nf:*
-        au FileType mail setl formatoptions=tcroqan
+        au FileType mail setl formatoptions=tcroqn
         au FileType mail setl textwidth=72
 
         " autocmd BufRead,BufNewFile *.cfg set ft=cisco
