@@ -96,6 +96,7 @@ set fileencodings=ucs-bom,utf-8,windows-1257
 set foldmethod=marker
 set foldlevel=20
 set showcmd     " Show count of selected lines or characters
+set shell=/bin/sh
 
 " Text wrapping
 set textwidth=79
@@ -387,7 +388,7 @@ if !exists("autocommands_loaded")
         au BufRead,BufNewFile alot.* setl ft=mail
         au FileType mail setl spell
         au FileType mail setl comments=n:>,n:#,nf:-,nf:*
-        au FileType mail setl formatoptions=tcroqan
+        au FileType mail setl formatoptions=tcroqn
         au FileType mail setl textwidth=72
 
         " autocmd BufRead,BufNewFile *.cfg set ft=cisco
