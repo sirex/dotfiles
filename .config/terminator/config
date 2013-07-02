@@ -1,10 +1,16 @@
 [global_config]
   enabled_plugins = LaunchpadCodeURLHandler, APTURLHandler, LaunchpadBugURLHandler
 [keybindings]
-  go_left = <Alt>h
-  go_down = <Alt>j
-  go_right = <Alt>l
   go_up = <Alt>k
+  switch_to_tab_10 = None
+  switch_to_tab_4 = <Alt>r
+  go_down = <Alt>j
+  switch_to_tab_5 = <Alt>t
+  switch_to_tab_2 = <Alt>w
+  go_right = <Alt>l
+  switch_to_tab_1 = <Alt>q
+  go_left = <Alt>h
+  switch_to_tab_3 = <Alt>e
 [profiles]
   [[default]]
     scrollbar_position = hidden
