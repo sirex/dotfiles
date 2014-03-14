@@ -1,0 +1,19 @@
+[user]
+name = Mantas
+email = sirexas@gmail.com
+
+[color]
+diff = auto
+status = auto
+branch = auto
+interactive = auto
+ui = auto
+
+[status]
+relativePaths = true
+showUntrackedFiles = no
+
+[alias]
+glog = log --graph
+st = status
+ci = commit -a
