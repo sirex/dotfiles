@@ -345,18 +345,18 @@ if !exists("autocommands_loaded")
         au FileType less    setl shiftwidth=2
 
         " HTML
-        au FileType html    setl softtabstop=2
-        au FileType html    setl shiftwidth=2
+        au FileType html    setl softtabstop=4
+        au FileType html    setl shiftwidth=4
         au FileType html    setl foldmethod=indent
         au FileType html    setl foldnestmax=5
-        au FileType htmldjango setl softtabstop=2
-        au FileType htmldjango setl shiftwidth=2
+        au FileType htmldjango setl softtabstop=4
+        au FileType htmldjango setl shiftwidth=4
         au FileType htmldjango setl foldmethod=indent
         au FileType htmldjango setl foldnestmax=5
 
         " XML
-        au FileType xml     setl softtabstop=2
-        au FileType xml     setl shiftwidth=2
+        au FileType xml     setl softtabstop=4
+        au FileType xml     setl shiftwidth=4
 
         " Mercurial
         au BufRead,BufNewFile *.mercurial  setl spell
@@ -390,6 +390,9 @@ if !exists("autocommands_loaded")
         au FileType mail setl comments=n:>,n:#,nf:-,nf:*
         au FileType mail setl formatoptions=tcroqn
         au FileType mail setl textwidth=72
+
+        " Jinja
+        autocmd BufRead,BufNewFile *.jinja setl ft=htmldjango.jinja
 
         " autocmd BufRead,BufNewFile *.cfg set ft=cisco
     endif
@@ -439,6 +442,7 @@ let g:user_zen_settings = {
 
 " plugin: nerdtree vim http://www.vim.org/scripts/script.php?script_id=1658
 let g:NERDTreeQuitOnOpen = 0
+let g:NERDTreeWinPos = "right"
 
 " plugin: vim-less git git://github.com/groenewege/vim-less.git
 
@@ -458,6 +462,10 @@ let g:lawrencium_trace = 0
 " plugin: coffescript git git://github.com/kchmck/vim-coffee-script.git
 
 " plugin: sparql git git://github.com/vim-scripts/sparql.vim.git
+
+" plugin: jinja git git://github.com/Glench/Vim-Jinja2-Syntax.git
+
+" plugin: handlebars git git://github.com/nono/vim-handlebars.git
 
 function! QuickFixBookmark()
   let bookmarks_file = expand("~/.vim/bookmarks.txt")
