@@ -34,6 +34,7 @@ export PATH=$HOME/bin:$HOME/.local/bin:$PATH
 export AUTHOR="Mantas Zimnickas <sirexas@gmail.com>"
 export EDITOR=vim
 export HGEDITOR=$HOME/bin/hgeditor
+export PYTHONIOENCODING=utf_8
 
 # Aliases
 alias '..'='cd ..'

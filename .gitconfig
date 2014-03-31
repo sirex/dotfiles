@@ -11,9 +11,8 @@ ui = auto
 
 [status]
 relativePaths = true
-showUntrackedFiles = no
 
 [alias]
 glog = log --graph
 st = status
-ci = commit -a
+ci = commit

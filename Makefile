@@ -21,12 +21,22 @@ uninstall: uninstall-zsh uninstall-xterm
 
 .PHONY: setup
 setup:
-	apt-get install git-core vim-gtk mercurial zsh xfonts-terminus \
+	apt-get install git-core vim-gnome mercurial zsh xfonts-terminus \
 	                terminator ack-grep python3
 
 .PHONY: setup-server
 setup-server:
 	apt-get install git mercurial zsh screen ack-grep python3
+
+#####
+# bin
+#####
+
+.PHONY: bin
+bin: $(HOME)/bin
+$(HOME)/bin:
+	mkdir -p $(HOME)/bin
+
 
 #####
 # ZSH
@@ -36,7 +46,7 @@ setup-server:
 zsh: $(HOME)/.zshrc
 $(HOME)/.zshrc: .zshrc 
 	git clone https://github.com/robbyrussell/oh-my-zsh.git $(HOME)/.oh-my-zsh
-	cp -a .oh-my-zsh $(HOME)
+	cd ~ && ln -s .oh-my-zsh $(HOME)
 	cp -a $< $@ 
 
 .PHONY: uninstall-zsh
@@ -49,10 +59,9 @@ uninstall-zsh:
 
 .PHONY: hg
 hg: $(HOME)/.hgrc
-$(HOME)/.hgrc: .hgrc bin/hgeditor
-	cp -a $< $@ 
-	mkdir -p $(HOME)/bin
-	cp -a bin/hgeditor $(HOME)/bin
+$(HOME)/.hgrc: .hgrc bin/hgeditor bin
+	ln -s $(PWD)/$< $@ 
+	ln -s $(PWD)/bin/hgeditor $(HOME)/bin/hgeditor
 
 ########
 # screen

@@ -149,6 +149,9 @@ set directory=~/.vim/var/swap
 " Python tracebacks (unittest + doctest output)
 set errorformat=\ %#File\ \"%f\"\\,\ line\ %l\\,\ %m
 
+" Set python input/output encoding to UTF-8.
+let $PYTHONIOENCODING = 'utf_8'
+
 " Get ride of annoying parenthesis matching, I prefer to use %.
 let loaded_matchparen = 1
 
@@ -430,7 +433,7 @@ let g:syntastic_disabled_filetypes = ['html']
 "   SnipMate dependencies:
 " plugin: tlib git git://github.com/tomtom/tlib_vim.git
 " plugin: vim-addon-mw-utils git git://github.com/MarcWeber/vim-addon-mw-utils.git
-" plugin: snipmate-snippets git git://github.com/honza/snipmate-snippets.git
+" plugin: vim-snippets git git://github.com/honza/vim-snippets.git
 let g:snips_author = "sirex"
 
 " plugin: zen-coding git git://github.com/mattn/zencoding-vim.git
@@ -454,10 +457,6 @@ let g:lawrencium_trace = 0
 " plugin: wikipedia git git://github.com/vim-scripts/wikipedia.vim.git
 
 " plugin: maynard vim http://www.vim.org/scripts/script.php?script_id=3053
-
-" plugin: interfaces vim http://www.vim.org/scripts/script.php?script_id=1385
-
-" plugin: cisco vim http://www.vim.org/scripts/script.php?script_id=151
 
 " plugin: coffescript git git://github.com/kchmck/vim-coffee-script.git
 
