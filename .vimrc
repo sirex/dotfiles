@@ -13,12 +13,49 @@ if v:version >= 600
   filetype indent on            " load indent plugins
 endif
 
+
+function! ToggleNERDTreeAndTagbar()
+    " Detect which plugins are open
+    if exists('t:NERDTreeBufName')
+        let nerdtree_open = bufwinnr(t:NERDTreeBufName) != -1
+        let nerdtree_window = bufwinnr(t:NERDTreeBufName)
+    else
+        let nerdtree_open = 0
+        let nerdtree_window = -1
+    endif
+    let tagbar_open = bufwinnr('__Tagbar__') != -1
+    let tagbar_window = bufwinnr('__Tagbar__')
+    let current_window = winnr()
+
+    " Perform the appropriate action
+    if nerdtree_open && tagbar_open
+        NERDTreeFind
+    elseif nerdtree_open && current_window == nerdtree_window
+        NERDTreeToggle
+        TagbarOpen
+        execute bufwinnr('__Tagbar__') . 'wincmd w'
+    elseif nerdtree_open
+        NERDTreeFind
+    elseif tagbar_open && current_window == tagbar_window
+        TagbarClose
+        NERDTreeToggle
+        execute bufwinnr(t:NERDTreeBufName) . 'wincmd w'
+    elseif tagbar_open
+        TagbarShowTag
+        execute bufwinnr('__Tagbar__') . 'wincmd w'
+    else
+        NERDTreeFind
+    endif
+endfunction
+
+
 " Mappings
 let mapleader = ","
+nmap    <F1>        :Gstatus<CR>
 nmap    <F2>        :update<CR>
 imap    <F2>        <ESC>:update<CR>a
 nmap    <F3>        :BufExplorer<CR>
-nmap    <F4>        :NERDTreeFind<CR>
+nmap    <F4>        :call ToggleNERDTreeAndTagbar()<CR>
 nmap    <F5>        :cnext<CR>
 nmap    <S-F5>      :cprevious<CR>
 nmap    <C-F5>      :cc<CR>
@@ -148,6 +185,7 @@ set directory=~/.vim/var/swap
 
 " Python tracebacks (unittest + doctest output)
 set errorformat=\ %#File\ \"%f\"\\,\ line\ %l\\,\ %m
+set errorformat+=\@File\:\ %f
 
 " Set python input/output encoding to UTF-8.
 let $PYTHONIOENCODING = 'utf_8'
@@ -160,7 +198,7 @@ let html_no_rendering = 1
 
 " Grep
 " Do recursive grep by default and do not grep binary files.
-set grepprg=ack-grep\ -H\ --nocolor\ --nogroup\ --smart-case
+set grepprg=~/bin/ack-grep\ -H\ --nocolor\ --nogroup\ --smart-case
 function! SilentGrep(args)
     execute "silent! grep! " . a:args
     botright copen
@@ -172,6 +210,13 @@ vmap <leader>gg y:G "<c-r>""<left>
 nmap <leader>gf :G <c-r>%<home><c-right> 
 nmap <leader>gF :G <c-r>%<home><c-right> <c-r><c-w>
 vmap <leader>gf y:G <c-r>%<home><c-right> "<c-r>""<left>
+
+" Find
+function! Find(args)
+    execute "cgetexpr system('ack-grep --nocolor --nogroup --smart-case -g " . a:args . " \\\| sed ''s/^/@File: /''')"
+    botright copen
+endfunction
+command! -nargs=* -complete=file F call Find(<q-args>)
 
 " GNU id-utils
 function! IDSearch(args)
@@ -318,7 +363,7 @@ if !exists("autocommands_loaded")
             au FileType python,html  setl list
             au FileType python,html  setl listchars=tab:>-,trail:.,extends:>
             au FileType python,html  setl foldmethod=indent
-            au FileType python,html  setl foldnestmax=2
+            au FileType python,html  setl foldnestmax=3
 
             " I don't want [I to parse import statements and look for modules
             au FileType python  setl include=
@@ -397,6 +442,14 @@ if !exists("autocommands_loaded")
         " Jinja
         autocmd BufRead,BufNewFile *.jinja setl ft=htmldjango.jinja
 
+        " Markdown
+        au BufRead,BufNewFile *.md setl ft=markdown
+
+
+        " Gradle
+        au BufRead,BufNewFile *.gradle setl ft=groovy
+
+
         " autocmd BufRead,BufNewFile *.cfg set ft=cisco
     endif
 endif
@@ -446,6 +499,10 @@ let g:user_zen_settings = {
 " plugin: nerdtree vim http://www.vim.org/scripts/script.php?script_id=1658
 let g:NERDTreeQuitOnOpen = 0
 let g:NERDTreeWinPos = "right"
+let g:NERDTreeWinSize = 30
+
+" plugin: tagbar git git://github.com/majutsushi/tagbar
+let g:tagbar_width = 30
 
 " plugin: vim-less git git://github.com/groenewege/vim-less.git
 
@@ -465,6 +522,13 @@ let g:lawrencium_trace = 0
 " plugin: jinja git git://github.com/Glench/Vim-Jinja2-Syntax.git
 
 " plugin: handlebars git git://github.com/nono/vim-handlebars.git
+
+" plugin: fugitive git git@github.com:tpope/vim-fugitive.git
+
+" plugin: multiple-cursors git git@github.com:terryma/vim-multiple-cursors.git
+
+" plugin: ctrlp git git@github.com:kien/ctrlp.vim.git
+
 
 function! QuickFixBookmark()
   let bookmarks_file = expand("~/.vim/bookmarks.txt")

@@ -16,3 +16,7 @@ relativePaths = true
 glog = log --graph
 st = status
 ci = commit
+co = checkout
+
+[core]
+pager = less -FSRX
