@@ -17,6 +17,7 @@ glog = log --graph
 st = status
 ci = commit
 co = checkout
+br = branch
 
 [core]
 pager = less -FSRX

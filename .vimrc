@@ -503,6 +503,7 @@ let g:NERDTreeWinSize = 30
 
 " plugin: tagbar git git://github.com/majutsushi/tagbar
 let g:tagbar_width = 30
+let g:tagbar_sort = 0
 
 " plugin: vim-less git git://github.com/groenewege/vim-less.git
 
@@ -528,6 +529,10 @@ let g:lawrencium_trace = 0
 " plugin: multiple-cursors git git@github.com:terryma/vim-multiple-cursors.git
 
 " plugin: ctrlp git git@github.com:kien/ctrlp.vim.git
+
+" plugin: pydoc git git@github.com:fs111/pydoc.vim.git
+let g:pydoc_window_lines = 42
+let g:pydoc_use_drop = 1
 
 
 function! QuickFixBookmark()
