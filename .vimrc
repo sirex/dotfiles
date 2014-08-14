@@ -531,7 +531,7 @@ let g:lawrencium_trace = 0
 " plugin: ctrlp git git@github.com:kien/ctrlp.vim.git
 
 " plugin: pydoc git git@github.com:fs111/pydoc.vim.git
-let g:pydoc_window_lines = 42
+let g:pydoc_window_lines = 24
 let g:pydoc_use_drop = 1
 
 
