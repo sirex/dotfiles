@@ -3,7 +3,6 @@
 import os
 import os.path
 import subprocess
-import time
 import signal
 
 with open(os.path.expanduser('~/.offlineimap/pid')) as f:

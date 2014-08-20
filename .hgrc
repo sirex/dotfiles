@@ -1,6 +1,7 @@
 [ui]
 username = sirex <sirexas@gmail.com>
 merge = internal:merge
+style = compact
 
 [extensions]
 hgext.bookmarks =
@@ -16,9 +17,12 @@ hgext.pager =
 hgext.progress = 
 hgext.rebase = 
 hgext.record =
+#hgsubversion =
 
 [diff]
 git = 1
+unified = 8
+showfunc = 1
 
 [extdiff]
 cmd.vdiff = meld
@@ -26,12 +30,17 @@ cmd.vkdiff = kdiff3
 cmd.vimdiff =
 
 [alias]
+cm = commit -m merge
 ds = diff --stat
 qds = qdiff --stat
+qst = status --rev qparent
 vlog = log --limit=50 --no-merges --patch --template 'HGLOG: \t{rev} {date|isodate} {author|user} {desc|firstline}\n\n{desc|fill76}\n\n\n' 
 
 [defaults]
 log = --template '----------------------------------------------------------------------------\nHG: {rev} : {node|short} | {author|person} | {date|shortdate} ({date|age}) | {diffstat} {branches} {tags} {bookmarks}\n\n{desc|fill76}\n\n\n' 
+#glog = --template "{rev} : {node|short} | {branch} | {if(tags, '{tags} |', '')} {if(bookmarks, '{bookmarks} |', '')} {parents}\n{author|person} | {date|isodate} | {diffstat}\n\n{desc|fill76}\n\n\n"
+glog = --template "{rev} : {node|short} | {branch} | {tags} | {bookmarks} | {parents}\n{author|person} | {date|isodate} | {diffstat}\n\n{desc|fill76}\n\n\n"
+heads = --template "{rev} : {node|short} | {date|isodate} | {branch} | {tags} | {bookmarks} | {author|person} | {desc|firstline}\n"
 
 [pager]
 pager = less -FSRX

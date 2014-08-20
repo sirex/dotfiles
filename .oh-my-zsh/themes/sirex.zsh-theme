@@ -19,5 +19,5 @@ RESET_COLOR=$reset_color
 RETURN_CODE="%(?..%{$YELLOW%}%? ↵%{$RESET_COLOR%})"
 
 PROMPT='
-< %{$GREEN_BOLD%}%n@%M%{$RESET_COLOR%} : %{$YELLOW%}%/%{$RESET_COLOR%} > ${RETURN_CODE}
+< %{$GREEN_BOLD%}%n@%M%{$RESET_COLOR%} : %{$YELLOW%}%/%{$RESET_COLOR%} > $(current_branch) ${RETURN_CODE} 
 %{$GREEN_BOLD%}>%{$RESET_COLOR%} '

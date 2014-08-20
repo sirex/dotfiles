@@ -1,3 +1,5 @@
+--type-set=html=.html,.jinja,.txt,.hbs
+--type-set=js=.js,.coffee
 --type-set=rest=.rst
 --type-set=zope=.zcml
 --type-set=less=.less
@@ -11,3 +13,4 @@
 --ignore-dir=tests
 --ignore-dir=var
 --ignore-dir=migrations
+--ignore-dir=CACHE

@@ -1,0 +1,23 @@
+[user]
+name = Mantas
+email = sirexas@gmail.com
+
+[color]
+diff = auto
+status = auto
+branch = auto
+interactive = auto
+ui = auto
+
+[status]
+relativePaths = true
+
+[alias]
+glog = log --graph
+st = status
+ci = commit
+co = checkout
+br = branch
+
+[core]
+pager = less -FSRX

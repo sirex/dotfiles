@@ -24,7 +24,7 @@ DISABLE_AUTO_UPDATE="true"
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Example format: plugins=(rails git textmate ruby lighthouse)
-# plugins=(git)
+plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -34,6 +34,7 @@ export PATH=$HOME/bin:$HOME/.local/bin:$PATH
 export AUTHOR="Mantas Zimnickas <sirexas@gmail.com>"
 export EDITOR=vim
 export HGEDITOR=$HOME/bin/hgeditor
+export PYTHONIOENCODING=utf_8
 
 # Aliases
 alias '..'='cd ..'
@@ -55,3 +56,5 @@ unsetopt correct_all
 autoload edit-command-line
 zle -N edit-command-line
 bindkey '^Xe' edit-command-line
+
+source $HOME/.local/zshrc
