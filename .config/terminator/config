@@ -18,9 +18,9 @@
     background_darkness = 0.95
     scrollback_lines = 8192
     use_system_font = False
-    foreground_color = "#babdb6"
-    font = Terminus 10
-    background_color = "#2c3234"
+    foreground_color = "#ffffff"
+    font = Terminus 12
+    background_color = "#333333"
 [layouts]
   [[default]]
     [[[child1]]]
