@@ -97,9 +97,9 @@ nmap    m/          /\<def
 nmap    g}              :stselect <c-r><c-w><cr>
 
 " Scroll half page down
-no <c-j> <c-d>
+nn <c-j> <c-d>
 " Scroll half page up
-no <c-k> <c-u>
+nn <c-k> <c-u>
 
 " Scroll half screen to left and right vertically
 no <s-h> zH
@@ -440,6 +440,9 @@ if !exists("autocommands_loaded")
         " ARFF
         au BufRead,BufNewFile *.arff setl ft=arff
 
+        " TTL
+        au BufRead,BufNewFile *.ttl setl ft=ttl
+
         " Mail
         au BufRead,BufNewFile alot.* setl ft=mail
         au FileType mail setl spell
@@ -530,7 +533,11 @@ let g:lawrencium_trace = 0
 
 " plugin: sparql git git://github.com/vim-scripts/sparql.vim.git
 
+" plugin: mustache git git://github.com/mustache/vim-mustache-handlebars.git
+
 " plugin: jinja git git://github.com/Glench/Vim-Jinja2-Syntax.git
+
+" plugin: openscad git git@github.com:sirtaj/vim-openscad.git
 
 " plugin: handlebars git git://github.com/nono/vim-handlebars.git
 
