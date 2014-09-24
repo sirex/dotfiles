@@ -81,13 +81,20 @@ nmap    <M-6>       6gt
 nmap    <M-7>       7gt
 nmap    <M-8>       8gt
 nmap    <M-9>       9gt
+nmap    to          :tabedit %<CR>
+nmap    tc          :tabclose %<CR>
+nmap    tt          :tabnew \| tjump <C-R><C-W><CR>
+nmap    tj          gT
+nmap    tk          gt
+nmap    th          :tabfirst<CR>
+nmap    tl          :tablast<CR>
 
 " Quick search for python class and def statments.
 nmap    c/          /\<class 
 nmap    m/          /\<def 
 
 " Jump to tag in split window
-nmap        g}              :stselect <c-r><c-w><cr>
+nmap    g}              :stselect <c-r><c-w><cr>
 
 " Scroll half page down
 no <c-j> <c-d>
@@ -186,6 +193,7 @@ set directory=~/.vim/var/swap
 " Python tracebacks (unittest + doctest output)
 set errorformat=\ %#File\ \"%f\"\\,\ line\ %l\\,\ %m
 set errorformat+=\@File\:\ %f
+set errorformat+=%f:%l:\ [%t]%m,%f:%l:%m
 
 " Set python input/output encoding to UTF-8.
 let $PYTHONIOENCODING = 'utf_8'
@@ -461,7 +469,9 @@ endif
 " BufExplorer
 " plugin: bufexplorer vim http://www.vim.org/scripts/script.php?script_id=42
 "   Do not show buffers from other tabs.
-let g:bufExplorerShowTabBuffer=1
+let g:bufExplorerFindActive=0
+let g:bufExplorerShowTabBuffer=0
+let g:bufExplorerShowRelativePath=1
 
 " VCSCommand
 " plugin: vcscommand git git://repo.or.cz/vcscommand.git

@@ -57,4 +57,10 @@ autoload edit-command-line
 zle -N edit-command-line
 bindkey '^Xe' edit-command-line
 
+# Virtualenvwrapper setup
+# http://virtualenvwrapper.readthedocs.org/
+export WORKON_HOME=$HOME/.venvs
+source /usr/local/bin/virtualenvwrapper.sh
+
+# Local settings
 source $HOME/.local/zshrc
