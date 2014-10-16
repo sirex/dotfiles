@@ -20,4 +20,4 @@ co = checkout
 br = branch
 
 [core]
-pager = less -FSRX
+# pager = less -FSRX

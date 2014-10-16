@@ -74,7 +74,7 @@ function rcd {
 
 # virtualenvwrapper
 # http://virtualenvwrapper.readthedocs.org/
-export WORKON_HOME=$HOME/.virtualenvs
+export WORKON_HOME=$HOME/.venvs
 export VIRTUALENVWRAPPER_SCRIPT=/usr/local/bin/virtualenvwrapper.sh
 source /usr/local/bin/virtualenvwrapper_lazy.sh
 
