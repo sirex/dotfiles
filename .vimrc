@@ -186,6 +186,8 @@ set directory=~/.vim/var/swap
 " Python tracebacks (unittest + doctest output)
 set errorformat=\ %#File\ \"%f\"\\,\ line\ %l\\,\ %m
 set errorformat+=\@File\:\ %f
+set errorformat+=%f:%l:\ [%t]%m,%f:%l:%m
+
 
 " Set python input/output encoding to UTF-8.
 let $PYTHONIOENCODING = 'utf_8'
@@ -198,7 +200,7 @@ let html_no_rendering = 1
 
 " Grep
 " Do recursive grep by default and do not grep binary files.
-set grepprg=~/bin/ack-grep\ -H\ --nocolor\ --nogroup\ --smart-case
+set grepprg=ack-grep\ -H\ --nocolor\ --nogroup\ --smart-case
 function! SilentGrep(args)
     execute "silent! grep! " . a:args
     botright copen
