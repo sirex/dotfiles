@@ -21,3 +21,5 @@ br = branch
 
 [core]
 # pager = less -FSRX
+[push]
+	default = simple

@@ -48,6 +48,33 @@ function! ToggleNERDTreeAndTagbar()
     endif
 endfunction
 
+function! GetBufferList()
+  redir =>buflist
+  silent! ls
+  redir END
+  return buflist
+endfunction
+
+function! ToggleList(bufname, pfx)
+  let buflist = GetBufferList()
+  for bufnum in map(filter(split(buflist, '\n'), 'v:val =~ "'.a:bufname.'"'), 'str2nr(matchstr(v:val, "\\d\\+"))')
+    if bufwinnr(bufnum) != -1
+      exec(a:pfx.'close')
+      return
+    endif
+  endfor
+  if a:pfx == 'l' && len(getloclist(0)) == 0
+      echohl ErrorMsg
+      echo "Location List is Empty."
+      return
+  endif
+  let winnr = winnr()
+  exec('botright '.a:pfx.'open')
+  if winnr() != winnr
+    wincmd p
+  endif
+endfunction
+
 
 " Mappings
 let mapleader = ","
@@ -60,6 +87,7 @@ nmap    <F5>        :cnext<CR>
 nmap    <S-F5>      :cprevious<CR>
 nmap    <C-F5>      :cc<CR>
 vmap    <F6>        <ESC>:exec "'<,'>w !vpaste ".&ft<CR>
+nmap    <F7>        :call ToggleList("Quickfix List", 'c')<CR>
 nmap    <F8>        :silent make!<CR>
 nmap    <F11>       :set hlsearch!<CR>
 nmap    <F12>       :setlocal spell!<CR>
@@ -460,6 +488,9 @@ if !exists("autocommands_loaded")
         " Gradle
         au BufRead,BufNewFile *.gradle setl ft=groovy
 
+        " SaltStack
+        au BufRead,BufNewFile *.sls setl ft=yaml
+
 
         " autocmd BufRead,BufNewFile *.cfg set ft=cisco
     endif
@@ -550,6 +581,8 @@ let g:lawrencium_trace = 0
 " plugin: pydoc git git@github.com:fs111/pydoc.vim.git
 let g:pydoc_window_lines = 24
 let g:pydoc_use_drop = 1
+
+" plugin: nginx git git@github.com:evanmiller/nginx-vim-syntax.git
 
 
 function! QuickFixBookmark()
