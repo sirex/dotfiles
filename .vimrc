@@ -5,13 +5,9 @@
 " using https://bitbucket.org/sirex/home Makefile
 
 " Pathogen is responsible for vim's runtimepath management.
-call pathogen#infect()
+"" call pathogen#infect()
 
-" Allow custom settings for different file types.
-if v:version >= 600
-  filetype plugin on            " load filetype plugins
-  filetype indent on            " load indent plugins
-endif
+set nocompatible
 
 
 function! ToggleNERDTreeAndTagbar()
@@ -234,7 +230,7 @@ let html_no_rendering = 1
 
 " Grep
 " Do recursive grep by default and do not grep binary files.
-set grepprg=~/bin/ack-grep\ -H\ --nocolor\ --nogroup\ --smart-case
+set grepprg=ack-grep\ -H\ --nocolor\ --nogroup\ --smart-case
 function! SilentGrep(args)
     execute "silent! grep! " . a:args
     botright copen
@@ -500,87 +496,80 @@ endif
 " Plugins
 " =======
 
-" BufExplorer
-" plugin: bufexplorer vim http://www.vim.org/scripts/script.php?script_id=42
+" How to install Vundle:
+"
+"     git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+"
+" https://github.com/gmarik/Vundle.vim
+" set the runtime path to include Vundle and initialize
+"
+filetype off
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin("~/.vim/vundle")
+
+Plugin 'gmarik/Vundle.vim'
+
+Plugin 'bufexplorer.zip'
 "   Do not show buffers from other tabs.
 let g:bufExplorerFindActive=0
 let g:bufExplorerShowTabBuffer=0
 let g:bufExplorerShowRelativePath=1
 
-" VCSCommand
-" plugin: vcscommand git git://repo.or.cz/vcscommand.git
-
-" PyFlakes
-" plugin: pyflakes vim http://www.vim.org/scripts/script.php?script_id=2441
-"   If pyflakes uses quickfix to list errors in current files, quickfix window
-"   becomes not usable for anything except quickfix it self.
-"   See: https://github.com/kevinw/pyflakes-vim/issues/13
+Plugin 'Python-mode-klen'
+let g:pymode_lint_checkers = ['pyflakes', 'pep8', 'mccabe', 'pylint', 'pep257']
+let g:pymode_rope_complete_on_dot = 0
 let g:pyflakes_use_quickfix = 0
 
-" Surround
-" plugin: surround vim http://www.vim.org/scripts/script.php?script_id=1697
+Plugin 'surround.vim'
 
-" Syntastic
-" plugin: syntastic git git://github.com/scrooloose/syntastic.git 
+Plugin 'Syntastic'
 let g:syntastic_enable_signs = 1
 let g:syntastic_disabled_filetypes = ['html']
 
-" SnipMate
-" plugin: snipmate git git://github.com/garbas/vim-snipmate.git
-"   SnipMate dependencies:
-" plugin: tlib git git://github.com/tomtom/tlib_vim.git
-" plugin: vim-addon-mw-utils git git://github.com/MarcWeber/vim-addon-mw-utils.git
-" plugin: vim-snippets git git://github.com/honza/vim-snippets.git
-let g:snips_author = "sirex"
+Plugin 'UltiSnips'
 
-" plugin: zen-coding git git://github.com/mattn/zencoding-vim.git
+Plugin 'ZenCoding.vim'
 let g:user_zen_settings = {
 \  'indentation' : '    '
 \}
 
-" plugin: delimit-mate git git://github.com/Raimondi/delimitMate.git
+Plugin 'delimitMate.vim'
 
-" plugin: nerdtree vim http://www.vim.org/scripts/script.php?script_id=1658
+Plugin 'The-NERD-tree'
 let g:NERDTreeQuitOnOpen = 0
 let g:NERDTreeWinPos = "right"
 let g:NERDTreeWinSize = 30
 
-" plugin: tagbar git git://github.com/majutsushi/tagbar
+Plugin 'Tagbar'
 let g:tagbar_width = 30
 let g:tagbar_sort = 0
 
-" plugin: vim-less git git://github.com/groenewege/vim-less.git
+Plugin 'less-syntax'
 
-" plugin: voom vim|strip http://www.vim.org/scripts/script.php?script_id=2657
+Plugin 'VOoM'
 
-" plugin: lawrencium hg https://bitbucket.org/ludovicchabant/vim-lawrencium
+Plugin 'ludovicchabant/vim-lawrencium'
 let g:lawrencium_trace = 0
 
-" plugin: wikipedia git git://github.com/vim-scripts/wikipedia.vim.git
+Plugin 'vim-coffee-script'
 
-" plugin: maynard vim http://www.vim.org/scripts/script.php?script_id=3053
+Plugin 'sparql.vim'
 
-" plugin: coffescript git git://github.com/kchmck/vim-coffee-script.git
+Plugin 'mustache/vim-mustache-handlebars'
 
-" plugin: sparql git git://github.com/vim-scripts/sparql.vim.git
+Plugin 'Jinja'
 
-" plugin: mustache git git://github.com/mustache/vim-mustache-handlebars.git
+Plugin 'openscad.vim'
 
-" plugin: jinja git git://github.com/Glench/Vim-Jinja2-Syntax.git
+Plugin 'Handlebars'
 
-" plugin: openscad git git@github.com:sirtaj/vim-openscad.git
+Plugin 'fugitive.vim'
 
-" plugin: handlebars git git://github.com/nono/vim-handlebars.git
+Plugin 'ctrlp.vim'
 
-" plugin: fugitive git git@github.com:tpope/vim-fugitive.git
-
-" plugin: multiple-cursors git git@github.com:terryma/vim-multiple-cursors.git
-
-" plugin: ctrlp git git@github.com:kien/ctrlp.vim.git
-
-" plugin: pydoc git git@github.com:fs111/pydoc.vim.git
-let g:pydoc_window_lines = 24
-let g:pydoc_use_drop = 1
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
 
 " plugin: nginx git git@github.com:evanmiller/nginx-vim-syntax.git
 

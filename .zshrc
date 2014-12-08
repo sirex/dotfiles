@@ -29,12 +29,13 @@ plugins=(git fabric)
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
-export PATH=$HOME/bin:$HOME/.local/bin:$PATH
+export PATH=$PATH:$HOME/.local/bin:$HOME/bin
 
 export AUTHOR="Mantas Zimnickas <sirexas@gmail.com>"
 export EDITOR=vim
 export HGEDITOR=$HOME/bin/hgeditor
-export PYTHONIOENCODING=utf_8
+export PYTHONIOENCODING=UTF-8
+export LESS="-R"
 
 # Aliases
 alias '..'='cd ..'
@@ -50,6 +51,9 @@ alias -g X='| xargs'
 alias -g V='| vim -'
 alias -g XV='| xargs vim'
 
+#alias lab="ipython --no-confirm-exit --no-banner --pylab --autocall=2 --colors=Linux -c 'from __future__ import division ; from datetime import datetime, timedelta, date ; now = datetime.now ; today = date.today ; dt = datetime ; td = timedelta ; year = td(days=365) ; month = td(days=30) ; week = td(days=7) ; day = td(days=1)' -i"
+alias lab="ipython --no-confirm-exit --no-banner --pylab --autocall=2 -i"
+
 unsetopt correct_all
 
 # Edit entered command using external editor by pressing <c-x>e
@@ -57,10 +61,23 @@ autoload edit-command-line
 zle -N edit-command-line
 bindkey '^Xe' edit-command-line
 
-# Virtualenvwrapper setup
+# Change current working directory using ranger.
+function rcd {
+  tempfile='/tmp/choosendir'
+  ranger --fail-unless-cd --choosedir="$tempfile" "${@:-$(pwd)}"
+  test -f "$tempfile" && \
+  if [ "$(cat -- "$tempfile")" != "$(echo -n `pwd`)" ]; then
+    cd -- "$(cat "$tempfile")"
+  fi
+  rm -f -- "$tempfile"
+}
+
+# virtualenvwrapper
 # http://virtualenvwrapper.readthedocs.org/
 export WORKON_HOME=$HOME/.venvs
-source /usr/local/bin/virtualenvwrapper.sh
+export VIRTUALENVWRAPPER_SCRIPT=/usr/local/bin/virtualenvwrapper.sh
+source /usr/local/bin/virtualenvwrapper_lazy.sh
 
-# Local settings
-source $HOME/.local/zshrc
+if [ -f $HOME/.local/zshrc ] ; then
+    source $HOME/.local/zshrc
+fi
