@@ -516,9 +516,9 @@ let g:bufExplorerShowTabBuffer=0
 let g:bufExplorerShowRelativePath=1
 
 Plugin 'Python-mode-klen'
-let g:pymode_lint_checkers = ['pyflakes', 'pep8', 'mccabe', 'pylint', 'pep257']
+let g:pymode_lint_checkers = ['pyflakes']
+let g:pymode_lint_cwindow = 0
 let g:pymode_rope_complete_on_dot = 0
-let g:pyflakes_use_quickfix = 0
 
 Plugin 'surround.vim'
 
@@ -527,6 +527,7 @@ let g:syntastic_enable_signs = 1
 let g:syntastic_disabled_filetypes = ['html']
 
 Plugin 'UltiSnips'
+Plugin 'honza/vim-snippets'
 
 Plugin 'ZenCoding.vim'
 let g:user_zen_settings = {
