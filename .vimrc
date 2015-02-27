@@ -518,8 +518,8 @@ let g:bufExplorerShowRelativePath=1
 Plugin 'Python-mode-klen'
 let g:pymode_lint_checkers = ['pyflakes']
 let g:pymode_lint_cwindow = 0
+let g:pymode_lint_on_write = 0
 let g:pymode_rope_complete_on_dot = 0
-let g:pymode_python = 'python3'
 
 Plugin 'surround.vim'
 
