@@ -465,7 +465,7 @@ if !exists("autocommands_loaded")
         au BufRead,BufNewFile *.arff setl ft=arff
 
         " TTL
-        au BufRead,BufNewFile *.ttl setl ft=ttl
+        au BufRead,BufNewFile *.ttl setl ft=n3
 
         " Mail
         au BufRead,BufNewFile alot.* setl ft=mail
@@ -519,12 +519,15 @@ Plugin 'Python-mode-klen'
 let g:pymode_lint_checkers = ['pyflakes']
 let g:pymode_lint_cwindow = 0
 let g:pymode_rope_complete_on_dot = 0
+let g:pymode_python = 'python3'
 
 Plugin 'surround.vim'
 
 Plugin 'Syntastic'
 let g:syntastic_enable_signs = 1
 let g:syntastic_disabled_filetypes = ['html']
+let g:syntastic_python_python_exec = '/usr/bin/python3'
+let g:syntastic_filetype_map = {'python.django': 'python'}
 
 Plugin 'UltiSnips'
 Plugin 'honza/vim-snippets'
@@ -568,6 +571,8 @@ Plugin 'Handlebars'
 Plugin 'fugitive.vim'
 
 Plugin 'ctrlp.vim'
+
+Plugin 'n3.vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
