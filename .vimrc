@@ -84,7 +84,7 @@ nmap    <S-F5>      :cprevious<CR>
 nmap    <C-F5>      :cc<CR>
 vmap    <F6>        <ESC>:exec "'<,'>w !vpaste ".&ft<CR>
 nmap    <F7>        :call ToggleList("Quickfix List", 'c')<CR>
-nmap    <F8>        :silent make!<CR>
+nmap    <F8>        :silent Neomake!<CR>
 nmap    <F11>       :set hlsearch!<CR>
 nmap    <F12>       :setlocal spell!<CR>
 nmap    <SPACE>     ^
@@ -394,13 +394,11 @@ if !exists("autocommands_loaded")
             " Mark trailing spaces and highlight tabs
             au FileType python,html  setl list
             au FileType python,html  setl listchars=tab:>-,trail:.,extends:>
-            au FileType python,html  setl foldmethod=indent
-            au FileType python,html  setl foldnestmax=3
 
             " I don't want [I to parse import statements and look for modules
             au FileType python  setl include=
 
-            " au FileType python  syn sync minlines=100
+            au FileType python  syn sync minlines=300
         endif
         au FileType python  setl formatoptions=croql
         au FileType python  setl shiftwidth=4
@@ -527,7 +525,9 @@ Plugin 'Syntastic'
 let g:syntastic_enable_signs = 1
 let g:syntastic_disabled_filetypes = ['html']
 let g:syntastic_python_python_exec = '/usr/bin/python3'
+let g:syntastic_python_checkers = ['python', 'flake8']
 let g:syntastic_filetype_map = {'python.django': 'python'}
+let g:syntastic_python_pep8_args = '--ignore=E501'
 
 Plugin 'UltiSnips'
 Plugin 'honza/vim-snippets'
@@ -573,6 +573,10 @@ Plugin 'fugitive.vim'
 Plugin 'ctrlp.vim'
 
 Plugin 'n3.vim'
+
+Plugin 'benekastah/neomake'
+
+Plugin 'editorconfig/editorconfig-vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -628,3 +632,10 @@ for s:name in [
         exe "source " . expand(s:name)
     endif
 endfor
+
+
+" Neovim settings
+syntax on
+nmap <C-6> :buffer #<CR>
+set mouse=a
+set backspace=2
