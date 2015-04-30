@@ -230,7 +230,7 @@ let html_no_rendering = 1
 
 " Grep
 " Do recursive grep by default and do not grep binary files.
-set grepprg=ack-grep\ -H\ --nocolor\ --nogroup\ --smart-case
+set grepprg=ag\ --nogroup\ --nocolor\ --smart-case
 function! SilentGrep(args)
     execute "silent! grep! " . a:args
     botright copen
@@ -532,7 +532,9 @@ let g:syntastic_python_pep8_args = '--ignore=E501'
 Plugin 'UltiSnips'
 Plugin 'honza/vim-snippets'
 
-Plugin 'ZenCoding.vim'
+" Former zen coding, now renamed to emmet.
+" Key to expand: <c-y>,
+Plugin 'mattn/emmet-vim'
 let g:user_zen_settings = {
 \  'indentation' : '    '
 \}
