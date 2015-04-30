@@ -245,7 +245,7 @@ vmap <leader>gf y:G <c-r>%<home><c-right> "<c-r>""<left>
 
 " Find
 function! Find(args)
-    execute "cgetexpr system('ack-grep --nocolor --nogroup --smart-case -g " . a:args . " \\\| sed ''s/^/@File: /''')"
+    execute "cgetexpr system('ag --nocolor --nogroup --smart-case -g " . a:args . " \\\| sed ''s/^/@File: /''')"
     botright copen
 endfunction
 command! -nargs=* -complete=file F call Find(<q-args>)
