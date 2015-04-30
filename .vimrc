@@ -388,6 +388,11 @@ if !exists("autocommands_loaded")
         au FileType make    setl softtabstop=8
         au FileType make    setl shiftwidth=8
 
+        " UltiSnips
+        au FileType snippets setl noexpandtab
+        au FileType snippets setl softtabstop=8
+        au FileType snippets setl shiftwidth=8
+
         " SASS
         au FileType sass    setl softtabstop=2
         au FileType sass    setl shiftwidth=2
@@ -452,10 +457,15 @@ if !exists("autocommands_loaded")
         " Markdown
         au BufRead,BufNewFile *.md setl ft=markdown
 
+        " json-ld
+        au BufRead,BufNewFile *.jsonld setl ft=javascript
 
         " Gradle
         au BufRead,BufNewFile *.gradle setl ft=groovy
 
+        " YAML
+        au FileType yaml    setl softtabstop=2
+        au FileType yaml    setl shiftwidth=2
 
         " autocmd BufRead,BufNewFile *.cfg set ft=cisco
     endif
@@ -485,9 +495,11 @@ let g:bufExplorerShowTabBuffer=0
 let g:bufExplorerShowRelativePath=1
 
 Plugin 'Python-mode-klen'
-let g:pymode_lint_checkers = ['pyflakes', 'pep8', 'mccabe', 'pylint', 'pep257']
+let g:pymode_lint_checkers = ['pyflakes']
 let g:pymode_rope_complete_on_dot = 0
 let g:pyflakes_use_quickfix = 0
+let g:pymode_lint_cwindow = 0
+nmap <C-c>i :PymodeRopeAutoImport<CR>
 
 Plugin 'surround.vim'
 
@@ -495,9 +507,8 @@ Plugin 'Syntastic'
 let g:syntastic_enable_signs = 1
 let g:syntastic_disabled_filetypes = ['html']
 
-Plugin 'snipMate'
-Plugin 'better-snipmate-snippet'
-let g:snips_author = "sirex"
+Plugin 'UltiSnips'
+Plugin 'honza/vim-snippets'
 
 Plugin 'ZenCoding.vim'
 let g:user_zen_settings = {
@@ -537,9 +548,6 @@ Plugin 'Handlebars'
 Plugin 'fugitive.vim'
 
 Plugin 'ctrlp.vim'
-
-Plugin 'bling/vim-airline'
-set laststatus=2
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -584,7 +592,6 @@ vnoremap <c-a> :call Incr()<cr>
 
 " Load project specific settings.
 for s:name in [
-\ expand('./rc.vim'),
 \ expand('../rc.vim'),
 \ expand('~/.vim/projects/' . fnamemodify(getcwd(), ":t") . '.vim'),
 \ expand('~/.vim/projects/' . fnamemodify(getcwd(), ":h:t") . '.vim'),
@@ -593,3 +600,9 @@ for s:name in [
         exe "source " . expand(s:name)
     endif
 endfor
+
+
+" Neovim settings
+syntax on
+set mouse=a
+nmap <C-6> :buffer #<CR>

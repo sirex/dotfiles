@@ -14,6 +14,7 @@
 [profiles]
   [[default]]
     palette = "#000000:#f28585:#4e9a06:#c4a000:#3465a4:#75507b:#06989a:#d3d7cf:#555753:#ef2929:#8ae234:#fce94f:#729fcf:#ad7fa8:#34e2e2:#eeeeec"
+    background_image = None
     background_darkness = 0.95
     scrollback_lines = 100000
     use_system_font = False
@@ -25,7 +26,9 @@
     [[[child1]]]
       type = Terminal
       parent = window0
+      profile = default
     [[[window0]]]
       type = Window
       parent = ""
+      size = 1215, 979
 [plugins]
