@@ -44,6 +44,33 @@ function! ToggleNERDTreeAndTagbar()
     endif
 endfunction
 
+function! GetBufferList()
+  redir =>buflist
+  silent! ls
+  redir END
+  return buflist
+endfunction
+
+function! ToggleList(bufname, pfx)
+  let buflist = GetBufferList()
+  for bufnum in map(filter(split(buflist, '\n'), 'v:val =~ "'.a:bufname.'"'), 'str2nr(matchstr(v:val, "\\d\\+"))')
+    if bufwinnr(bufnum) != -1
+      exec(a:pfx.'close')
+      return
+    endif
+  endfor
+  if a:pfx == 'l' && len(getloclist(0)) == 0
+      echohl ErrorMsg
+      echo "Location List is Empty."
+      return
+  endif
+  let winnr = winnr()
+  exec('botright '.a:pfx.'open')
+  if winnr() != winnr
+    wincmd p
+  endif
+endfunction
+
 
 " Mappings
 let mapleader = ","
@@ -56,7 +83,8 @@ nmap    <F5>        :cnext<CR>
 nmap    <S-F5>      :cprevious<CR>
 nmap    <C-F5>      :cc<CR>
 vmap    <F6>        <ESC>:exec "'<,'>w !vpaste ".&ft<CR>
-nmap    <F8>        :silent make!<CR>
+nmap    <F7>        :call ToggleList("Quickfix List", 'c')<CR>
+nmap    <F8>        :silent Neomake!<CR>
 nmap    <F11>       :set hlsearch!<CR>
 nmap    <F12>       :setlocal spell!<CR>
 nmap    <SPACE>     ^
@@ -202,7 +230,7 @@ let html_no_rendering = 1
 
 " Grep
 " Do recursive grep by default and do not grep binary files.
-set grepprg=ack-grep\ -H\ --nocolor\ --nogroup\ --smart-case
+set grepprg=ag\ --nogroup\ --nocolor\ --smart-case
 function! SilentGrep(args)
     execute "silent! grep! " . a:args
     botright copen
@@ -217,7 +245,7 @@ vmap <leader>gf y:G <c-r>%<home><c-right> "<c-r>""<left>
 
 " Find
 function! Find(args)
-    execute "cgetexpr system('ack-grep --nocolor --nogroup --smart-case -g " . a:args . " \\\| sed ''s/^/@File: /''')"
+    execute "cgetexpr system('ag --nocolor --nogroup --smart-case -g " . a:args . " \\\| sed ''s/^/@File: /''')"
     botright copen
 endfunction
 command! -nargs=* -complete=file F call Find(<q-args>)
@@ -366,13 +394,11 @@ if !exists("autocommands_loaded")
             " Mark trailing spaces and highlight tabs
             au FileType python,html  setl list
             au FileType python,html  setl listchars=tab:>-,trail:.,extends:>
-            au FileType python,html  setl foldmethod=indent
-            au FileType python,html  setl foldnestmax=3
 
             " I don't want [I to parse import statements and look for modules
             au FileType python  setl include=
 
-            " au FileType python  syn sync minlines=100
+            au FileType python  syn sync minlines=300
         endif
         au FileType python  setl formatoptions=croql
         au FileType python  setl shiftwidth=4
@@ -442,7 +468,7 @@ if !exists("autocommands_loaded")
         au BufRead,BufNewFile *.arff setl ft=arff
 
         " TTL
-        au BufRead,BufNewFile *.ttl setl ft=ttl
+        au BufRead,BufNewFile *.ttl setl ft=n3
 
         " Mail
         au BufRead,BufNewFile alot.* setl ft=mail
@@ -462,6 +488,9 @@ if !exists("autocommands_loaded")
 
         " Gradle
         au BufRead,BufNewFile *.gradle setl ft=groovy
+
+        " SaltStack
+        au BufRead,BufNewFile *.sls setl ft=yaml
 
         " YAML
         au FileType yaml    setl softtabstop=2
@@ -496,6 +525,8 @@ let g:bufExplorerShowRelativePath=1
 
 Plugin 'Python-mode-klen'
 let g:pymode_lint_checkers = ['pyflakes']
+let g:pymode_lint_cwindow = 0
+let g:pymode_lint_on_write = 0
 let g:pymode_rope_complete_on_dot = 0
 let g:pyflakes_use_quickfix = 0
 let g:pymode_lint_cwindow = 0
@@ -506,11 +537,17 @@ Plugin 'surround.vim'
 Plugin 'Syntastic'
 let g:syntastic_enable_signs = 1
 let g:syntastic_disabled_filetypes = ['html']
+let g:syntastic_python_python_exec = '/usr/bin/python3'
+let g:syntastic_python_checkers = ['python', 'flake8']
+let g:syntastic_filetype_map = {'python.django': 'python'}
+let g:syntastic_python_pep8_args = '--ignore=E501'
 
 Plugin 'UltiSnips'
 Plugin 'honza/vim-snippets'
 
-Plugin 'ZenCoding.vim'
+" Former zen coding, now renamed to emmet.
+" Key to expand: <c-y>,
+Plugin 'mattn/emmet-vim'
 let g:user_zen_settings = {
 \  'indentation' : '    '
 \}
@@ -521,6 +558,7 @@ Plugin 'The-NERD-tree'
 let g:NERDTreeQuitOnOpen = 0
 let g:NERDTreeWinPos = "right"
 let g:NERDTreeWinSize = 30
+let g:NERDTreeIgnore = ['^__pycache__$', '\.egg-info$', '\~$']
 
 Plugin 'Tagbar'
 let g:tagbar_width = 30
@@ -549,9 +587,17 @@ Plugin 'fugitive.vim'
 
 Plugin 'ctrlp.vim'
 
+Plugin 'n3.vim'
+
+Plugin 'benekastah/neomake'
+
+Plugin 'editorconfig/editorconfig-vim'
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
+
+" plugin: nginx git git@github.com:evanmiller/nginx-vim-syntax.git
 
 
 function! QuickFixBookmark()
@@ -604,5 +650,5 @@ endfor
 
 " Neovim settings
 syntax on
-set mouse=a
 nmap <C-6> :buffer #<CR>
+set backspace=2

@@ -22,11 +22,11 @@ uninstall: uninstall-zsh uninstall-xterm
 .PHONY: setup
 setup:
 	apt-get install git-core vim-gnome mercurial zsh xfonts-terminus \
-	                terminator ack-grep python3
+	                terminator ack-grep silversearcher-ag python3
 
 .PHONY: setup-server
 setup-server:
-	apt-get install git mercurial zsh screen ack-grep python3
+	apt-get install git mercurial zsh screen ack-grep silversearcher-ag python3
 
 #####
 # bin

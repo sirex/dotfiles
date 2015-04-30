@@ -21,3 +21,9 @@ br = branch
 
 [core]
 # pager = less -FSRX
+
+[push]
+default = current
+
+[pager]
+stash = false
