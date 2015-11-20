@@ -106,6 +106,13 @@ def terminator(cfg):
     )
 
 
+def gnome_terminal(cfg):
+    ifmissing(cfg, '{home}/.gconf/apps/gnome-terminal/profiles/Default/', makedirs, '{target}')
+    ifmissing(cfg, '{home}/.gconf/apps/gnome-terminal/profiles/Default/%gconf.xml',
+        symlink, '{pwd}/.gconf/apps/gnome-terminal/profiles/Default/%gconf.xml', '{target}'
+    )
+
+
 def buildout(cfg):
     ifmissing(cfg, '{home}/.buildout/downloads/', makedirs, '{target}')
     ifmissing(cfg, '{home}/.buildout/eggs/', makedirs, '{target}')
@@ -120,6 +127,7 @@ def default(cfg):
     ifmissing(cfg, git)
     ifmissing(cfg, vim)
     ifmissing(cfg, terminator)
+    ifmissing(cfg, gnome_terminal)
     ifmissing(cfg, buildout)
 
 
