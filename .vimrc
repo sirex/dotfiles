@@ -84,7 +84,7 @@ nmap    <S-F5>      :cprevious<CR>
 nmap    <C-F5>      :cc<CR>
 vmap    <F6>        <ESC>:exec "'<,'>w !vpaste ".&ft<CR>
 nmap    <F7>        :call ToggleList("Quickfix List", 'c')<CR>
-nmap    <F8>        :silent Neomake!<CR>
+nmap    <F8>        :make<CR>
 nmap    <F11>       :set hlsearch!<CR>
 nmap    <F12>       :setlocal spell!<CR>
 nmap    <SPACE>     ^
@@ -655,3 +655,60 @@ endfor
 syntax on
 nmap <C-6> :buffer #<CR>
 set backspace=2
+
+" Movement in terminal mode
+if has('nvim')
+    tnoremap <Esc> <C-\><C-n>
+    tnoremap <M-k> <C-\><C-n><C-W>k
+    tnoremap <M-j> <C-\><C-n><C-W>j
+    tnoremap <M-l> <C-\><C-n><C-W>l
+    tnoremap <M-h> <C-\><C-n><C-W>h
+    tnoremap <M-1> <C-\><C-n>1gt
+    tnoremap <M-2> <C-\><C-n>2gt
+    tnoremap <M-3> <C-\><C-n>3gt
+    tnoremap <M-4> <C-\><C-n>4gt
+    tnoremap <M-5> <C-\><C-n>5gt
+    tnoremap <M-6> <C-\><C-n>6gt
+    tnoremap <M-7> <C-\><C-n>7gt
+    tnoremap <M-8> <C-\><C-n>8gt
+    tnoremap <M-9> <C-\><C-n>9gt
+endif
+
+" Turn on true color support
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+
+" Solarized theme for terminal
+" https://github.com/altercation/solarized/blob/master/vim-colors-solarized/colors/solarized.vim#L244-L261
+let s:base03      = "#002b36"
+let s:base02      = "#073642"
+let s:base01      = "#586e75"
+let s:base00      = "#657b83"
+let s:base0       = "#839496"
+let s:base1       = "#93a1a1"
+let s:base2       = "#eee8d5"
+let s:base3       = "#fdf6e3"
+let s:yellow      = "#b58900"
+let s:orange      = "#cb4b16"
+let s:red         = "#dc322f"
+let s:magenta     = "#d33682"
+let s:violet      = "#6c71c4"
+let s:blue        = "#268bd2"
+let s:cyan        = "#2aa198"
+let s:green       = "#859900"
+
+let g:terminal_color_0 = s:base02
+let g:terminal_color_1 = s:red
+let g:terminal_color_2 = s:green
+let g:terminal_color_3 = s:yellow
+let g:terminal_color_4 = s:blue
+let g:terminal_color_5 = s:magenta
+let g:terminal_color_6 = s:cyan
+let g:terminal_color_7 = s:base2
+let g:terminal_color_8 = s:base03
+let g:terminal_color_9 = s:orange
+let g:terminal_color_10 = s:base01
+let g:terminal_color_11 = s:base00
+let g:terminal_color_12 = s:base0
+let g:terminal_color_13 = s:violet
+let g:terminal_color_14 = s:base1
+let g:terminal_color_15 = s:base3
