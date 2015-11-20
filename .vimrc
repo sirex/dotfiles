@@ -217,7 +217,7 @@ set directory=~/.vim/var/swap
 " Python tracebacks (unittest + doctest output)
 set errorformat=\ %#File\ \"%f\"\\,\ line\ %l\\,\ %m
 set errorformat+=\@File\:\ %f
-set errorformat+=%f:%l:\ [%t]%m,%f:%l:%m
+" set errorformat+=%f:%l:\ [%t]%m,%f:%l:%m
 
 " Set python input/output encoding to UTF-8.
 let $PYTHONIOENCODING = 'utf_8'
@@ -422,6 +422,10 @@ if !exists("autocommands_loaded")
         au FileType less    setl softtabstop=2
         au FileType less    setl shiftwidth=2
 
+        " reStructuredText
+        au FileType rst     setl softtabstop=2
+        au FileType rst     setl shiftwidth=2
+
         " HTML
         au FileType html    setl softtabstop=4
         au FileType html    setl shiftwidth=4
@@ -518,6 +522,7 @@ let g:pymode_lint_checkers = ['pyflakes']
 let g:pymode_lint_cwindow = 0
 let g:pymode_lint_on_write = 0
 let g:pymode_rope_complete_on_dot = 0
+let g:pymode_rope = 0
 
 Plugin 'surround.vim'
 
