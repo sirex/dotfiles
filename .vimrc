@@ -414,6 +414,11 @@ if !exists("autocommands_loaded")
         au FileType make    setl softtabstop=8
         au FileType make    setl shiftwidth=8
 
+        " UltiSnips
+        au FileType snippets setl noexpandtab
+        au FileType snippets setl softtabstop=8
+        au FileType snippets setl shiftwidth=8
+
         " SASS
         au FileType sass    setl softtabstop=2
         au FileType sass    setl shiftwidth=2
@@ -482,6 +487,8 @@ if !exists("autocommands_loaded")
         " Markdown
         au BufRead,BufNewFile *.md setl ft=markdown
 
+        " json-ld
+        au BufRead,BufNewFile *.jsonld setl ft=javascript
 
         " Gradle
         au BufRead,BufNewFile *.gradle setl ft=groovy
@@ -489,6 +496,9 @@ if !exists("autocommands_loaded")
         " SaltStack
         au BufRead,BufNewFile *.sls setl ft=yaml
 
+        " YAML
+        au FileType yaml    setl softtabstop=2
+        au FileType yaml    setl shiftwidth=2
 
         " autocmd BufRead,BufNewFile *.cfg set ft=cisco
     endif
@@ -523,6 +533,7 @@ let g:pymode_lint_cwindow = 0
 let g:pymode_lint_on_write = 0
 let g:pymode_rope_complete_on_dot = 0
 let g:pymode_rope = 0
+let g:pyflakes_use_quickfix = 0
 
 Plugin 'surround.vim'
 
@@ -630,7 +641,6 @@ vnoremap <c-a> :call Incr()<cr>
 
 " Load project specific settings.
 for s:name in [
-\ expand('./rc.vim'),
 \ expand('../rc.vim'),
 \ expand('~/.vim/projects/' . fnamemodify(getcwd(), ":t") . '.vim'),
 \ expand('~/.vim/projects/' . fnamemodify(getcwd(), ":h:t") . '.vim'),
@@ -644,5 +654,4 @@ endfor
 " Neovim settings
 syntax on
 nmap <C-6> :buffer #<CR>
-set mouse=a
 set backspace=2
