@@ -524,6 +524,7 @@ let g:bufExplorerShowTabBuffer=0
 let g:bufExplorerShowRelativePath=1
 
 Plugin 'Python-mode-klen'
+" let g:pymode_python = 'python3'
 let g:pymode_lint_checkers = ['pyflakes']
 let g:pymode_lint_cwindow = 0
 let g:pymode_lint_on_write = 0
@@ -538,11 +539,15 @@ Plugin 'Syntastic'
 let g:syntastic_enable_signs = 1
 let g:syntastic_disabled_filetypes = ['html']
 let g:syntastic_python_python_exec = '/usr/bin/python3'
+let g:syntastic_python_flake8_exec = '/home/sirex/.venvs/databot/bin/flake8'
 let g:syntastic_python_checkers = ['python', 'flake8']
 let g:syntastic_filetype_map = {'python.django': 'python'}
 let g:syntastic_python_pep8_args = '--ignore=E501'
+let g:syntastic_python_flake8_args = '--ignore=E501'
 
 Plugin 'UltiSnips'
+" let g:UltiSnipsUsePythonVersion = 3
+
 Plugin 'honza/vim-snippets'
 
 " Former zen coding, now renamed to emmet.
