@@ -84,7 +84,8 @@ nmap    <S-F5>      :cprevious<CR>
 nmap    <C-F5>      :cc<CR>
 vmap    <F6>        <ESC>:exec "'<,'>w !vpaste ".&ft<CR>
 nmap    <F7>        :call ToggleList("Quickfix List", 'c')<CR>
-nmap    <F8>        :make<CR>
+nmap    <F8>        :silent make<CR>
+nmap    <C-F8>      :make<CR>
 nmap    <F11>       :set hlsearch!<CR>
 nmap    <F12>       :setlocal spell!<CR>
 nmap    <SPACE>     ^
