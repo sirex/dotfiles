@@ -509,26 +509,26 @@ endif
 " Plugins
 " =======
 
-" How to install Vundle:
+" How to install vim-plug:
 "
-"     git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+"     curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim 
 "
-" https://github.com/gmarik/Vundle.vim
+" https://github.com/junegunn/vim-plug
 " set the runtime path to include Vundle and initialize
-"
-filetype off
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin("~/.vim/vundle")
 
-Plugin 'gmarik/Vundle.vim'
+source ~/.config/nvim/nvim/autoload/plug.vim
 
-Plugin 'bufexplorer.zip'
+call plug#begin('~/.vim/plugged')
+
+Plug 'gmarik/Vundle.vim'
+
+Plug 'bufexplorer.zip'
 "   Do not show buffers from other tabs.
 let g:bufExplorerFindActive=0
 let g:bufExplorerShowTabBuffer=0
 let g:bufExplorerShowRelativePath=1
 
-Plugin 'Python-mode-klen'
+Plug 'Python-mode-klen'
 " let g:pymode_python = 'python3'
 let g:pymode_lint_checkers = ['pyflakes']
 let g:pymode_lint_cwindow = 0
@@ -537,9 +537,9 @@ let g:pymode_rope_complete_on_dot = 0
 let g:pymode_rope = 0
 let g:pyflakes_use_quickfix = 0
 
-Plugin 'surround.vim'
+Plug 'tpope/vim-surround'
 
-Plugin 'Syntastic'
+Plug 'Syntastic'
 let g:syntastic_enable_signs = 1
 let g:syntastic_disabled_filetypes = ['html']
 let g:syntastic_python_python_exec = '/usr/bin/python3'
@@ -549,64 +549,62 @@ let g:syntastic_filetype_map = {'python.django': 'python'}
 let g:syntastic_python_pep8_args = '--ignore=E501'
 let g:syntastic_python_flake8_args = '--ignore=E501'
 
-Plugin 'UltiSnips'
+Plug 'UltiSnips'
 " let g:UltiSnipsUsePythonVersion = 3
 
-Plugin 'honza/vim-snippets'
+Plug 'honza/vim-snippets'
 
 " Former zen coding, now renamed to emmet.
 " Key to expand: <c-y>,
-Plugin 'mattn/emmet-vim'
+Plug 'mattn/emmet-vim'
 let g:user_zen_settings = {
 \  'indentation' : '    '
 \}
 
-Plugin 'delimitMate.vim'
+Plug 'delimitMate.vim'
 
-Plugin 'The-NERD-tree'
+Plug 'The-NERD-tree'
 let g:NERDTreeQuitOnOpen = 0
 let g:NERDTreeWinPos = "right"
 let g:NERDTreeWinSize = 30
 let g:NERDTreeIgnore = ['^__pycache__$', '\.egg-info$', '\~$']
 
-Plugin 'Tagbar'
+Plug 'Tagbar'
 let g:tagbar_width = 30
 let g:tagbar_sort = 0
 
-Plugin 'less-syntax'
+Plug 'less-syntax'
 
-Plugin 'VOoM'
+Plug 'VOoM'
 
-Plugin 'ludovicchabant/vim-lawrencium'
+Plug 'ludovicchabant/vim-lawrencium'
 let g:lawrencium_trace = 0
 
-Plugin 'vim-coffee-script'
+Plug 'vim-coffee-script'
 
-Plugin 'sparql.vim'
+Plug 'sparql.vim'
 
-Plugin 'mustache/vim-mustache-handlebars'
+Plug 'mustache/vim-mustache-handlebars'
 
-Plugin 'Jinja'
+Plug 'Jinja'
 
-Plugin 'openscad.vim'
+Plug 'openscad.vim'
 
-Plugin 'Handlebars'
+Plug 'Handlebars'
 
-Plugin 'fugitive.vim'
+Plug 'fugitive.vim'
 
-Plugin 'ctrlp.vim'
+Plug 'ctrlp.vim'
 
-Plugin 'n3.vim'
+Plug 'n3.vim'
 
-Plugin 'benekastah/neomake'
+Plug 'benekastah/neomake'
 
-Plugin 'editorconfig/editorconfig-vim'
+Plug 'editorconfig/editorconfig-vim'
 
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
+" Add plugins to &runtimepath
+call plug#end()
 
-" plugin: nginx git git@github.com:evanmiller/nginx-vim-syntax.git
 
 
 function! QuickFixBookmark()
