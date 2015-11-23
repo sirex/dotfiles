@@ -567,7 +567,7 @@ Plug 'The-NERD-tree'
 let g:NERDTreeQuitOnOpen = 0
 let g:NERDTreeWinPos = "right"
 let g:NERDTreeWinSize = 30
-let g:NERDTreeIgnore = ['^__pycache__$', '\.egg-info$', '\~$']
+let g:NERDTreeIgnore = ['^__pycache__$', '\.egg-info$', '\~$', '\.pyc$']
 
 Plug 'Tagbar'
 let g:tagbar_width = 30
