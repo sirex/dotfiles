@@ -99,6 +99,13 @@ def vim(cfg):
     )
 
 
+def neovim(cfg):
+    ifmissing(cfg, '{home}/.config/nvim', symlink, '{pwd}/.config/nvim', '{target}')
+    ifmissing(cfg, '{home}/.local/share/nvim/swap/', makedirs, '{target}')
+    ifmissing(cfg, '{home}/.local/share/nvim/undo/', makedirs, '{target}')
+    ifmissing(cfg, '{home}/.local/share/nvim/backup/', makedirs, '{target}')
+
+
 def terminator(cfg):
     ifmissing(cfg, '{home}/.config/terminator/', makedirs, '{target}')
     ifmissing(cfg, '{home}/.config/terminator/config',
@@ -123,9 +130,8 @@ def buildout(cfg):
 
 def default(cfg):
     ifmissing(cfg, zsh)
-    ifmissing(cfg, hg)
     ifmissing(cfg, git)
-    ifmissing(cfg, vim)
+    ifmissing(cfg, neovim)
     ifmissing(cfg, terminator)
     ifmissing(cfg, gnome_terminal)
     ifmissing(cfg, buildout)
