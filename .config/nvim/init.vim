@@ -201,19 +201,19 @@ set suffixes+=.pyc,.pyo
 set wildignore+=*.pyc,*.pyo
 let g:netrw_list_hide='\.\(pyc\|pyo\)$'
 
-" Backups
+" backups
 if v:version >= 730
     " Backups are not needed, since persistent undo is enabled. Also, these days
     " everyone uses version control systems.
     set nobackup
     set writebackup
-    set undodir=~/.vim/var/undo
+    set undodir=~/.local/share/nvim/undo
     set undofile
 else
     set backup
-    set backupdir=~/.vim/var/backup
+    set backupdir=~/.local/share/nvim/backup
 endif
-set directory=~/.vim/var/swap
+set directory=~/.local/share/nvim/swap
 
 " Python tracebacks (unittest + doctest output)
 set errorformat=\ %#File\ \"%f\"\\,\ line\ %l\\,\ %m
@@ -511,14 +511,14 @@ endif
 
 " How to install vim-plug:
 "
-"     curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim 
+"     curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim 
 "
 " https://github.com/junegunn/vim-plug
 " set the runtime path to include Vundle and initialize
 
-source ~/.config/nvim/nvim/autoload/plug.vim
+" source ~/.config/nvim/autoload/plug.vim
 
-call plug#begin('~/.vim/plugged')
+call plug#begin('~/.config/nvim/plugged')
 
 Plug 'gmarik/Vundle.vim'
 
@@ -577,8 +577,8 @@ Plug 'less-syntax'
 
 Plug 'VOoM'
 
-Plug 'ludovicchabant/vim-lawrencium'
-let g:lawrencium_trace = 0
+" Plug 'ludovicchabant/vim-lawrencium'
+" let g:lawrencium_trace = 0
 
 Plug 'vim-coffee-script'
 
@@ -608,7 +608,7 @@ call plug#end()
 
 
 function! QuickFixBookmark()
-  let bookmarks_file = expand("~/.vim/bookmarks.txt")
+  let bookmarks_file = expand("~/.config/nvim/bookmarks.txt")
   let item  = "  File \"".expand("%")."\", line ".line('.').", in unknown\n"
   let item .= "    ".getline('.')
   exec 'cgetfile '.bookmarks_file
@@ -646,8 +646,8 @@ vnoremap <c-a> :call Incr()<cr>
 " Load project specific settings.
 for s:name in [
 \ expand('../rc.vim'),
-\ expand('~/.vim/projects/' . fnamemodify(getcwd(), ":t") . '.vim'),
-\ expand('~/.vim/projects/' . fnamemodify(getcwd(), ":h:t") . '.vim'),
+\ expand('~/.config/nvim/projects/' . fnamemodify(getcwd(), ":t") . '.vim'),
+\ expand('~/.config/nvim/projects/' . fnamemodify(getcwd(), ":h:t") . '.vim'),
 \]
     if filereadable(expand(s:name))
         exe "source " . expand(s:name)
