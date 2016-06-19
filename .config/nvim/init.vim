@@ -84,7 +84,7 @@ nmap    <S-F5>      :cprevious<CR>
 nmap    <C-F5>      :cc<CR>
 vmap    <F6>        <ESC>:exec "'<,'>w !vpaste ".&ft<CR>
 nmap    <F7>        :call ToggleList("Quickfix List", 'c')<CR>
-nmap    <F8>        :silent make<CR>
+nmap    <F8>        :silent make!<CR>
 nmap    <C-F8>      :make<CR>
 nmap    <F11>       :set hlsearch!<CR>
 nmap    <F12>       :setlocal spell!<CR>
@@ -543,7 +543,7 @@ Plug 'Syntastic'
 let g:syntastic_enable_signs = 1
 let g:syntastic_disabled_filetypes = ['html']
 let g:syntastic_python_python_exec = '/usr/bin/python3'
-let g:syntastic_python_flake8_exec = '/home/sirex/.venvs/databot/bin/flake8'
+let g:syntastic_python_flake8_exec = '/usr/local/bin/flake8'
 let g:syntastic_python_flake8_args = '--ignore=E501'
 let g:syntastic_python_pep8_args = '--ignore=E501'
 let g:syntastic_python_checkers = ['python', 'flake8']
@@ -656,6 +656,9 @@ endfor
 
 
 " Neovim settings
+" https://github.com/neovim/neovim/wiki/Following-HEAD
+
+
 syntax on
 nmap <C-6> :buffer #<CR>
 set backspace=2
@@ -679,7 +682,8 @@ if has('nvim')
 endif
 
 " Turn on true color support
-let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+set termguicolors  " works since 0.1.5
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1  " ignored since 0.1.5
 
 " Solarized theme for terminal
 " https://github.com/altercation/solarized/blob/master/vim-colors-solarized/colors/solarized.vim#L244-L261
