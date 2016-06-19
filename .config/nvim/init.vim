@@ -85,6 +85,7 @@ nmap    <C-F5>      :cc<CR>
 vmap    <F6>        <ESC>:exec "'<,'>w !vpaste ".&ft<CR>
 nmap    <F7>        :call ToggleList("Quickfix List", 'c')<CR>
 nmap    <F8>        :silent make!<CR>
+nmap    <F9>        :SyntasticCheck<CR>
 nmap    <C-F8>      :make<CR>
 nmap    <F11>       :set hlsearch!<CR>
 nmap    <F12>       :setlocal spell!<CR>
@@ -201,7 +202,7 @@ set suffixes+=.pyc,.pyo
 set wildignore+=*.pyc,*.pyo
 let g:netrw_list_hide='\.\(pyc\|pyo\)$'
 
-" backups
+" Backups
 if v:version >= 730
     " Backups are not needed, since persistent undo is enabled. Also, these days
     " everyone uses version control systems.
@@ -586,7 +587,11 @@ Plug 'sparql.vim'
 
 Plug 'mustache/vim-mustache-handlebars'
 
-Plug 'Jinja'
+Plug 'lepture/vim-jinja'
+if !exists("vim_jinja_loaded")
+    let vim_jinja_loaded = 1
+    au BufNewFile,BufRead *.html,*.htm,*.shtml,*.stm set ft=jinja
+endif
 
 Plug 'openscad.vim'
 
@@ -594,6 +599,7 @@ Plug 'Handlebars'
 
 Plug 'fugitive.vim'
 
+" Maybe replace with https://github.com/junegunn/fzf
 Plug 'ctrlp.vim'
 
 Plug 'n3.vim'
@@ -601,6 +607,10 @@ Plug 'n3.vim'
 Plug 'benekastah/neomake'
 
 Plug 'editorconfig/editorconfig-vim'
+
+Plug 'gabrielelana/vim-markdown'
+let g:markdown_enable_mappings = 0
+let g:markdown_enable_input_abbreviations = 0
 
 " Add plugins to &runtimepath
 call plug#end()
@@ -720,3 +730,5 @@ let g:terminal_color_12 = s:base0
 let g:terminal_color_13 = s:violet
 let g:terminal_color_14 = s:base1
 let g:terminal_color_15 = s:base3
+
+let g:terminal_scrollback_buffer_size = 50000

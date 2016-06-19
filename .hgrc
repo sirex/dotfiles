@@ -17,6 +17,7 @@ hgext.pager =
 hgext.progress = 
 hgext.rebase = 
 hgext.record =
+hgext.shelve =
 #hgsubversion =
 
 [diff]
