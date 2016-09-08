@@ -208,13 +208,13 @@ if v:version >= 730
     " everyone uses version control systems.
     set nobackup
     set writebackup
-    set undodir=~/.local/share/nvim/undo
+    set undodir=~/.vim/var/undo
     set undofile
 else
     set backup
-    set backupdir=~/.local/share/nvim/backup
+    set backupdir=~/.vim/var/backup
 endif
-set directory=~/.local/share/nvim/swap
+set directory=~/.vim/var/swap
 
 " Python tracebacks (unittest + doctest output)
 set errorformat=\ %#File\ \"%f\"\\,\ line\ %l\\,\ %m
@@ -409,7 +409,6 @@ if !exists("autocommands_loaded")
 
         " SnipMate
         autocmd FileType python set ft=python.django
-        autocmd FileType html set ft=htmldjango.html
 
         " Makefile
         au FileType make    setl noexpandtab
@@ -432,16 +431,14 @@ if !exists("autocommands_loaded")
         " reStructuredText
         au FileType rst     setl softtabstop=2
         au FileType rst     setl shiftwidth=2
+        au FileType rst     syn sync minlines=300
 
         " HTML
         au FileType html    setl softtabstop=4
         au FileType html    setl shiftwidth=4
         au FileType html    setl foldmethod=indent
         au FileType html    setl foldnestmax=5
-        au FileType htmldjango setl softtabstop=4
-        au FileType htmldjango setl shiftwidth=4
-        au FileType htmldjango setl foldmethod=indent
-        au FileType htmldjango setl foldnestmax=5
+        au FileType html    UltiSnipsAddFiletypes htmldjango
 
         " XML
         au FileType xml     setl softtabstop=4
@@ -483,9 +480,6 @@ if !exists("autocommands_loaded")
         au FileType mail setl formatoptions=tcroqn
         au FileType mail setl textwidth=72
 
-        " Jinja
-        autocmd BufRead,BufNewFile *.jinja setl ft=htmldjango.jinja
-
         " Markdown
         au BufRead,BufNewFile *.md setl ft=markdown
 
@@ -512,14 +506,14 @@ endif
 
 " How to install vim-plug:
 "
-"     curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim 
+"     curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim 
 "
 " https://github.com/junegunn/vim-plug
 " set the runtime path to include Vundle and initialize
 
-" source ~/.config/nvim/autoload/plug.vim
+source ~/.config/nvim/nvim/autoload/plug.vim
 
-call plug#begin('~/.config/nvim/plugged')
+call plug#begin('~/.vim/plugged')
 
 Plug 'gmarik/Vundle.vim'
 
@@ -544,11 +538,12 @@ Plug 'Syntastic'
 let g:syntastic_enable_signs = 1
 let g:syntastic_disabled_filetypes = ['html']
 let g:syntastic_python_python_exec = '/usr/bin/python3'
-let g:syntastic_python_flake8_exec = '/usr/local/bin/flake8'
+let g:syntastic_python_flake8_exec = '/home/sirex/.venvs/databot/bin/flake8'
 let g:syntastic_python_flake8_args = '--ignore=E501'
 let g:syntastic_python_pep8_args = '--ignore=E501'
 let g:syntastic_python_checkers = ['python', 'flake8']
 let g:syntastic_filetype_map = {'python.django': 'python'}
+let g:syntastic_javascript_checkers = ['eslint']
 
 Plug 'UltiSnips'
 " let g:UltiSnipsUsePythonVersion = 3
@@ -578,8 +573,8 @@ Plug 'less-syntax'
 
 Plug 'VOoM'
 
-" Plug 'ludovicchabant/vim-lawrencium'
-" let g:lawrencium_trace = 0
+Plug 'ludovicchabant/vim-lawrencium'
+let g:lawrencium_trace = 0
 
 Plug 'vim-coffee-script'
 
@@ -599,6 +594,8 @@ Plug 'Handlebars'
 
 Plug 'fugitive.vim'
 
+" Plug 'airblade/vim-gitgutter'
+
 " Maybe replace with https://github.com/junegunn/fzf
 Plug 'ctrlp.vim'
 
@@ -612,13 +609,21 @@ Plug 'gabrielelana/vim-markdown'
 let g:markdown_enable_mappings = 0
 let g:markdown_enable_input_abbreviations = 0
 
+Plug 'digitaltoad/vim-jade'
+
+Plug 'mfukar/robotframework-vim'
+
+" JSX support
+Plug 'pangloss/vim-javascript'
+Plug 'mxw/vim-jsx'
+
 " Add plugins to &runtimepath
 call plug#end()
 
 
 
 function! QuickFixBookmark()
-  let bookmarks_file = expand("~/.config/nvim/bookmarks.txt")
+  let bookmarks_file = expand("~/.vim/bookmarks.txt")
   let item  = "  File \"".expand("%")."\", line ".line('.').", in unknown\n"
   let item .= "    ".getline('.')
   exec 'cgetfile '.bookmarks_file
@@ -656,8 +661,8 @@ vnoremap <c-a> :call Incr()<cr>
 " Load project specific settings.
 for s:name in [
 \ expand('../rc.vim'),
-\ expand('~/.config/nvim/projects/' . fnamemodify(getcwd(), ":t") . '.vim'),
-\ expand('~/.config/nvim/projects/' . fnamemodify(getcwd(), ":h:t") . '.vim'),
+\ expand('~/.vim/projects/' . fnamemodify(getcwd(), ":t") . '.vim'),
+\ expand('~/.vim/projects/' . fnamemodify(getcwd(), ":h:t") . '.vim'),
 \]
     if filereadable(expand(s:name))
         exe "source " . expand(s:name)
@@ -666,9 +671,6 @@ endfor
 
 
 " Neovim settings
-" https://github.com/neovim/neovim/wiki/Following-HEAD
-
-
 syntax on
 nmap <C-6> :buffer #<CR>
 set backspace=2
@@ -689,46 +691,46 @@ if has('nvim')
     tnoremap <M-7> <C-\><C-n>7gt
     tnoremap <M-8> <C-\><C-n>8gt
     tnoremap <M-9> <C-\><C-n>9gt
+
+    " Turn on true color support
+    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+    set termguicolors
+
+    " Solarized theme for terminal
+    " https://github.com/altercation/solarized/blob/master/vim-colors-solarized/colors/solarized.vim#L244-L261
+    let s:base03      = "#002b36"
+    let s:base02      = "#073642"
+    let s:base01      = "#586e75"
+    let s:base00      = "#657b83"
+    let s:base0       = "#839496"
+    let s:base1       = "#93a1a1"
+    let s:base2       = "#eee8d5"
+    let s:base3       = "#fdf6e3"
+    let s:yellow      = "#b58900"
+    let s:orange      = "#cb4b16"
+    let s:red         = "#dc322f"
+    let s:magenta     = "#d33682"
+    let s:violet      = "#6c71c4"
+    let s:blue        = "#268bd2"
+    let s:cyan        = "#2aa198"
+    let s:green       = "#859900"
+
+    let g:terminal_color_0 = s:base02
+    let g:terminal_color_1 = s:red
+    let g:terminal_color_2 = s:green
+    let g:terminal_color_3 = s:yellow
+    let g:terminal_color_4 = s:blue
+    let g:terminal_color_5 = s:magenta
+    let g:terminal_color_6 = s:cyan
+    let g:terminal_color_7 = s:base2
+    let g:terminal_color_8 = s:base03
+    let g:terminal_color_9 = s:orange
+    let g:terminal_color_10 = s:base01
+    let g:terminal_color_11 = s:base00
+    let g:terminal_color_12 = s:base0
+    let g:terminal_color_13 = s:violet
+    let g:terminal_color_14 = s:base1
+    let g:terminal_color_15 = s:base3
+
+    let g:terminal_scrollback_buffer_size = 50000
 endif
-
-" Turn on true color support
-set termguicolors  " works since 0.1.5
-let $NVIM_TUI_ENABLE_TRUE_COLOR=1  " ignored since 0.1.5
-
-" Solarized theme for terminal
-" https://github.com/altercation/solarized/blob/master/vim-colors-solarized/colors/solarized.vim#L244-L261
-let s:base03      = "#002b36"
-let s:base02      = "#073642"
-let s:base01      = "#586e75"
-let s:base00      = "#657b83"
-let s:base0       = "#839496"
-let s:base1       = "#93a1a1"
-let s:base2       = "#eee8d5"
-let s:base3       = "#fdf6e3"
-let s:yellow      = "#b58900"
-let s:orange      = "#cb4b16"
-let s:red         = "#dc322f"
-let s:magenta     = "#d33682"
-let s:violet      = "#6c71c4"
-let s:blue        = "#268bd2"
-let s:cyan        = "#2aa198"
-let s:green       = "#859900"
-
-let g:terminal_color_0 = s:base02
-let g:terminal_color_1 = s:red
-let g:terminal_color_2 = s:green
-let g:terminal_color_3 = s:yellow
-let g:terminal_color_4 = s:blue
-let g:terminal_color_5 = s:magenta
-let g:terminal_color_6 = s:cyan
-let g:terminal_color_7 = s:base2
-let g:terminal_color_8 = s:base03
-let g:terminal_color_9 = s:orange
-let g:terminal_color_10 = s:base01
-let g:terminal_color_11 = s:base00
-let g:terminal_color_12 = s:base0
-let g:terminal_color_13 = s:violet
-let g:terminal_color_14 = s:base1
-let g:terminal_color_15 = s:base3
-
-let g:terminal_scrollback_buffer_size = 50000

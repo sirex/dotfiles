@@ -4,3 +4,4 @@ $PROMPT = (
     '< {BOLD_GREEN}{user}@{hostname}{NO_COLOR} : {YELLOW}{cwd}{NO_COLOR} >{branch_color}{curr_branch}{NO_COLOR} {env_name}\n'
     '{BOLD_GREEN}{prompt_end}{NO_COLOR} '
 )
+$PATH.insert(0, '/home/sirex/.nvm/versions/v4.4.7/bin')
