@@ -75,8 +75,8 @@ function rcd {
 # virtualenvwrapper
 # http://virtualenvwrapper.readthedocs.org/
 export WORKON_HOME=$HOME/.venvs
-export VIRTUALENVWRAPPER_SCRIPT=/usr/local/bin/virtualenvwrapper.sh
-source /usr/local/bin/virtualenvwrapper_lazy.sh
+export VIRTUALENVWRAPPER_SCRIPT=/usr/share/virtualenvwrapper/virtualenvwrapper.sh
+source /usr/share/virtualenvwrapper/virtualenvwrapper_lazy.sh
 
 if [ -f $HOME/.local/zshrc ] ; then
     source $HOME/.local/zshrc

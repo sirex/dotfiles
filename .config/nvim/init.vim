@@ -208,13 +208,13 @@ if v:version >= 730
     " everyone uses version control systems.
     set nobackup
     set writebackup
-    set undodir=~/.vim/var/undo
+    set undodir=~/.local/share/nvim/undo
     set undofile
 else
     set backup
-    set backupdir=~/.vim/var/backup
+    set backupdir=~/.local/share/nvim/backup
 endif
-set directory=~/.vim/var/swap
+set directory=~/.local/share/nvim/swap
 
 " Python tracebacks (unittest + doctest output)
 set errorformat=\ %#File\ \"%f\"\\,\ line\ %l\\,\ %m
