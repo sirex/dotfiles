@@ -37,6 +37,9 @@ export HGEDITOR=$HOME/bin/hgeditor
 export PYTHONIOENCODING=UTF-8
 export LESS="-R"
 
+# https://gist.github.com/cliffano/9868180#gistcomment-1915662
+export ANSIBLE_STDOUT_CALLBACK=debug
+
 # Aliases
 alias '..'='cd ..'
 alias -g ...='../..'

@@ -167,6 +167,7 @@ set foldmethod=marker
 set foldlevel=20
 set showcmd     " Show count of selected lines or characters
 set shell=/bin/sh
+set title  " Update terminal title to reflect opened file
 
 " Text wrapping
 set textwidth=79
@@ -543,12 +544,15 @@ Plug 'tpope/vim-surround'
 Plug 'Syntastic'
 let g:syntastic_enable_signs = 1
 let g:syntastic_disabled_filetypes = ['html']
-let g:syntastic_python_python_exec = '/usr/bin/python3'
-let g:syntastic_python_flake8_exec = '/usr/local/bin/flake8'
+let g:syntastic_python_python_exec = '/usr/bin/python3.6'
+let g:syntastic_python_flake8_exec = '/home/sirex/.venvs/py36/bin/flake8'
 let g:syntastic_python_flake8_args = '--ignore=E501'
 let g:syntastic_python_pep8_args = '--ignore=E501'
 let g:syntastic_python_checkers = ['python', 'flake8']
 let g:syntastic_filetype_map = {'python.django': 'python'}
+let g:syntastic_html_checkers = []
+let g:syntastic_javascript_checkers = ['eslint']
+
 
 Plug 'UltiSnips'
 " let g:UltiSnipsUsePythonVersion = 3
