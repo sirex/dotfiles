@@ -512,8 +512,6 @@ endif
 " https://github.com/junegunn/vim-plug
 " set the runtime path to include Vundle and initialize
 
-source ~/.config/nvim/nvim/autoload/plug.vim
-
 call plug#begin('~/.vim/plugged')
 
 Plug 'gmarik/Vundle.vim'
