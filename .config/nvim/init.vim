@@ -76,7 +76,7 @@ endfunction
 let mapleader = ","
 nmap    <F1>        :Gstatus<CR>
 nmap    <F2>        :update<CR>
-imap    <F2>        <ESC>:update<CR>a
+imap    <F2>        <C-O><F2>
 nmap    <F3>        :BufExplorer<CR>
 nmap    <F4>        :call ToggleNERDTreeAndTagbar()<CR>
 nmap    <F5>        :cnext<CR>
@@ -84,7 +84,7 @@ nmap    <S-F5>      :cprevious<CR>
 nmap    <C-F5>      :cc<CR>
 vmap    <F6>        <ESC>:exec "'<,'>w !vpaste ".&ft<CR>
 nmap    <F7>        :call ToggleList("Quickfix List", 'c')<CR>
-nmap    <F8>        :silent make!<CR>
+nmap    <F8>        :update \| silent make!<CR>
 nmap    <F9>        :SyntasticCheck<CR>
 nmap    <C-F8>      :make<CR>
 nmap    <F11>       :set hlsearch!<CR>
@@ -167,6 +167,7 @@ set foldmethod=marker
 set foldlevel=20
 set showcmd     " Show count of selected lines or characters
 set shell=/bin/sh
+set title       " Set terminal title to 'titlestring'
 
 " Text wrapping
 set textwidth=79
@@ -538,7 +539,7 @@ Plug 'Syntastic'
 let g:syntastic_enable_signs = 1
 let g:syntastic_disabled_filetypes = ['html']
 let g:syntastic_python_python_exec = '/usr/bin/python3'
-let g:syntastic_python_flake8_exec = '/home/sirex/.venvs/databot/bin/flake8'
+let g:syntastic_python_flake8_exec = '/usr/local/bin/flake8'
 let g:syntastic_python_flake8_args = '--ignore=E501'
 let g:syntastic_python_pep8_args = '--ignore=E501'
 let g:syntastic_python_checkers = ['python', 'flake8']
@@ -616,6 +617,8 @@ Plug 'mfukar/robotframework-vim'
 " JSX support
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
+
+Plug 'cespare/vim-toml'
 
 " Add plugins to &runtimepath
 call plug#end()
