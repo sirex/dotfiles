@@ -497,6 +497,9 @@ if !exists("autocommands_loaded")
         au FileType yaml    setl softtabstop=2
         au FileType yaml    setl shiftwidth=2
 
+        " Yarn's: http://blog.liw.fi/posts/yarn/
+        au BufRead,BufNewFile *.yarn setl ft=markdown
+
         " autocmd BufRead,BufNewFile *.cfg set ft=cisco
     endif
 endif
