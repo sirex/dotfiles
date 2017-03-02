@@ -550,7 +550,7 @@ else
     let g:syntastic_python_python_exec = '/usr/bin/python3'
     let g:syntastic_python_flake8_exec = '/usr/local/bin/flake8'
 endif
-let g:syntastic_python_flake8_args = '--ignore=E501,F821 --builtins=unicode'
+let g:syntastic_python_flake8_args = '--ignore=E501 --builtins=unicode'
 let g:syntastic_python_pep8_args = '--ignore=E501'
 let g:syntastic_python_checkers = ['python', 'flake8']
 let g:syntastic_filetype_map = {'python.django': 'python'}
