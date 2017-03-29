@@ -633,6 +633,12 @@ Plug 'mxw/vim-jsx'
 
 Plug 'cespare/vim-toml'
 
+Plug 'davidhalter/jedi-vim'
+let g:jedi#popup_on_dot = 0
+let g:jedi#force_py_version = 3
+let g:jedi#smart_auto_mappings = 0
+set completeopt=menuone,longest
+
 " Add plugins to &runtimepath
 call plug#end()
 
@@ -752,4 +758,7 @@ if has('nvim')
     let g:terminal_color_15 = s:base3
 
     let g:terminal_scrollback_buffer_size = 50000
+
+    " https://neovim.io/doc/user/provider.html
+    let g:python3_host_prog = '/usr/bin/python3'
 endif
