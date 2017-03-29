@@ -525,6 +525,8 @@ let g:bufExplorerFindActive=0
 let g:bufExplorerShowTabBuffer=0
 let g:bufExplorerShowRelativePath=1
 
+Plug 'hdima/python-syntax'
+
 Plug 'Python-mode-klen'
 " let g:pymode_python = 'python3'
 let g:pymode_lint_checkers = ['pyflakes']
