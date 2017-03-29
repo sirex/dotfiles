@@ -497,6 +497,9 @@ if !exists("autocommands_loaded")
         au FileType yaml    setl softtabstop=2
         au FileType yaml    setl shiftwidth=2
 
+        " Yarn's: http://blog.liw.fi/posts/yarn/
+        au BufRead,BufNewFile *.yarn setl ft=markdown
+
         " autocmd BufRead,BufNewFile *.cfg set ft=cisco
     endif
 endif
@@ -522,6 +525,8 @@ let g:bufExplorerFindActive=0
 let g:bufExplorerShowTabBuffer=0
 let g:bufExplorerShowRelativePath=1
 
+Plug 'hdima/python-syntax'
+
 Plug 'Python-mode-klen'
 " let g:pymode_python = 'python3'
 let g:pymode_lint_checkers = ['pyflakes']
@@ -534,16 +539,20 @@ let g:pyflakes_use_quickfix = 0
 Plug 'tpope/vim-surround'
 
 Plug 'Syntastic'
+" How to debug Syntastic:
+" :let g:syntastic_debug = 3
+" :SyntasticCheck
+" :messages
 let g:syntastic_enable_signs = 1
 let g:syntastic_disabled_filetypes = ['html']
-if filereadable('/usr/bin/python3.6')
-    let g:syntastic_python_python_exec = '/usr/bin/python3.6'
+if filereadable('/home/sirex/.venvs/py36/bin/python')
+    let g:syntastic_python_python_exec = '/home/sirex/.venvs/py36/bin/python'
     let g:syntastic_python_flake8_exec = '/home/sirex/.venvs/py36/bin/flake8'
 else
     let g:syntastic_python_python_exec = '/usr/bin/python3'
     let g:syntastic_python_flake8_exec = '/usr/local/bin/flake8'
 endif
-let g:syntastic_python_flake8_args = '--ignore=E501,F821 --builtints=unicode'
+let g:syntastic_python_flake8_args = '--ignore=E501 --builtins=unicode'
 let g:syntastic_python_pep8_args = '--ignore=E501'
 let g:syntastic_python_checkers = ['python', 'flake8']
 let g:syntastic_filetype_map = {'python.django': 'python'}
