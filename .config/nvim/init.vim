@@ -526,6 +526,7 @@ let g:bufExplorerShowTabBuffer=0
 let g:bufExplorerShowRelativePath=1
 
 Plug 'hdima/python-syntax'
+let g:python_highlight_all = 1
 
 Plug 'Python-mode-klen'
 " let g:pymode_python = 'python3'
@@ -637,6 +638,7 @@ Plug 'davidhalter/jedi-vim'
 let g:jedi#popup_on_dot = 0
 let g:jedi#force_py_version = 3
 let g:jedi#smart_auto_mappings = 0
+let g:jedi#show_call_signatures = 2
 set completeopt=menuone,longest
 
 " Add plugins to &runtimepath
