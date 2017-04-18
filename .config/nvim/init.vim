@@ -203,6 +203,9 @@ set suffixes+=.pyc,.pyo
 set wildignore+=*.pyc,*.pyo
 let g:netrw_list_hide='\.\(pyc\|pyo\)$'
 
+" Enable mouse in terminal
+set mouse=a
+
 " Backups
 if v:version >= 730
     " Backups are not needed, since persistent undo is enabled. Also, these days
