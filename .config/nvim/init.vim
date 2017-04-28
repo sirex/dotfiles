@@ -156,6 +156,7 @@ cnoremap        <M-BS>          <C-W>
 
 " Look and feel.
 colorscheme desert
+
 set background=dark
 set guifont=Terminus\ 12
 set guioptions=irL
@@ -766,4 +767,8 @@ if has('nvim')
 
     " https://neovim.io/doc/user/provider.html
     let g:python3_host_prog = '/usr/bin/python3'
+
+    " transparent background
+    hi Normal guibg=NONE
+    hi NonText guibg=NONE
 endif
