@@ -168,7 +168,7 @@ set foldmethod=marker
 set foldlevel=20
 set showcmd     " Show count of selected lines or characters
 set shell=/bin/sh
-set title       " Set terminal title to 'titlestring'
+" set title       " Set terminal title to 'titlestring'
 
 " Text wrapping
 set textwidth=79
