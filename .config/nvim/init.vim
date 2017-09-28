@@ -108,7 +108,7 @@ nmap    <M-7>       7gt
 nmap    <M-8>       8gt
 nmap    <M-9>       9gt
 nmap    to          :tabedit %<CR>
-nmap    tc          :tabclose %<CR>
+nmap    tc          :tabclose<CR>
 nmap    tt          :tabnew \| tjump <C-R><C-W><CR>
 nmap    tj          gT
 nmap    tk          gt
@@ -168,7 +168,7 @@ set foldmethod=marker
 set foldlevel=20
 set showcmd     " Show count of selected lines or characters
 set shell=/bin/sh
-set title       " Set terminal title to 'titlestring'
+" set title       " Set terminal title to 'titlestring'
 
 " Text wrapping
 set textwidth=79
@@ -197,7 +197,7 @@ set autoindent
 set nosmartindent
 
 " Tags
-set tags=./tags,./../tags,./../../tags,tags
+set tags=tags,../tags,../../tags
 
 " Ignores
 set suffixes+=.pyc,.pyo
