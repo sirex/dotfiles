@@ -82,9 +82,11 @@ export WORKON_HOME=$HOME/.venvs
 if [ -f /usr/local/bin/virtualenvwrapper.sh ] ; then
     export VIRTUALENVWRAPPER_SCRIPT=/usr/local/bin/virtualenvwrapper.sh
     source /usr/local/bin/virtualenvwrapper_lazy.sh
-else
+elif [ -f /usr/share/virtualenvwrapper/virtualenvwrapper.sh ] ; then
     export VIRTUALENVWRAPPER_SCRIPT=/usr/share/virtualenvwrapper/virtualenvwrapper.sh
     source /usr/share/virtualenvwrapper/virtualenvwrapper_lazy.sh
+else
+    source /usr/bin/virtualenvwrapper.sh
 fi
 
 if [ -f $HOME/.local/zshrc ] ; then
