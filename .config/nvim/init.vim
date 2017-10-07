@@ -222,7 +222,7 @@ endif
 set directory=~/.local/share/nvim/swap
 
 " Python tracebacks (unittest + doctest output)
-set errorformat=\ %#File\ \"%f\"\\,\ line\ %l\\,\ %m
+set errorformat=\ %#File\ \"%f\"\\,\ line\ %l%m
 set errorformat+=\@File\:\ %f
 " set errorformat+=%f:%l:\ [%t]%m,%f:%l:%m
 
