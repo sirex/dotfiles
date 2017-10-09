@@ -222,7 +222,7 @@ endif
 set directory=~/.local/share/nvim/swap
 
 " Python tracebacks (unittest + doctest output)
-set errorformat=\ %#File\ \"%f\"\\,\ line\ %l\\,\ %m
+set errorformat=\ %#File\ \"%f\"\\,\ line\ %l%m
 set errorformat+=\@File\:\ %f
 " set errorformat+=%f:%l:\ [%t]%m,%f:%l:%m
 
@@ -237,7 +237,8 @@ let html_no_rendering = 1
 
 " Grep
 " Do recursive grep by default and do not grep binary files.
-set grepprg=ag\ --nogroup\ --nocolor\ --smart-case
+set grepprg=rg\ --vimgrep\ --smart-case
+set grepformat^=%f:%l:%c:%m
 function! SilentGrep(args)
     execute "silent! grep! " . a:args
     botright copen
@@ -252,7 +253,7 @@ vmap <leader>gf y:G <c-r>%<home><c-right> "<c-r>""<left>
 
 " Find
 function! Find(args)
-    execute "cgetexpr system('ag --nocolor --nogroup --smart-case -g " . a:args . " \\\| sed ''s/^/@File: /''')"
+    execute "cgetexpr system('rg --smart-case -g " . a:args . " --files \\\| sed ''s/^/@File: /''')"
     botright copen
 endfunction
 command! -nargs=* -complete=file F call Find(<q-args>)
