@@ -551,7 +551,10 @@ Plug 'Syntastic'
 " :messages
 let g:syntastic_enable_signs = 1
 let g:syntastic_disabled_filetypes = ['html']
-if filereadable('/home/sirex/.venvs/py36/bin/python')
+if filereadable('/usr/bin/flake8')
+    let g:syntastic_python_python_exec = '/usr/bin/python3'
+    let g:syntastic_python_flake8_exec = '/usr/bin/flake8'
+elseif filereadable('/home/sirex/.venvs/py36/bin/python')
     let g:syntastic_python_python_exec = '/home/sirex/.venvs/py36/bin/python'
     let g:syntastic_python_flake8_exec = '/home/sirex/.venvs/py36/bin/flake8'
 else
