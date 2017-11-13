@@ -92,3 +92,5 @@ fi
 if [ -f $HOME/.local/zshrc ] ; then
     source $HOME/.local/zshrc
 fi
+
+source /etc/profile.d/vte.sh
