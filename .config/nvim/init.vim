@@ -515,12 +515,12 @@ endif
 
 " How to install vim-plug:
 "
-"     curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim 
+"     curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim 
 "
 " https://github.com/junegunn/vim-plug
 " set the runtime path to include Vundle and initialize
 
-call plug#begin('~/.vim/plugged')
+call plug#begin('~/.config/nvim/plugged')
 
 Plug 'gmarik/Vundle.vim'
 
