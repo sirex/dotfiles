@@ -729,7 +729,8 @@ if has('nvim')
     set termguicolors
 
     " Enable blinking cursor shape
-    let $NVIM_TUI_ENABLE_CURSOR_SHAPE=2
+    let $NVIM_TUI_ENABLE_CURSOR_SHAPE=2  " This was replace with guicursor since 0.2
+    set guicursor=n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20,a:blinkon250
 
     " Solarized theme for terminal
     " https://github.com/altercation/solarized/blob/master/vim-colors-solarized/colors/solarized.vim#L244-L261
