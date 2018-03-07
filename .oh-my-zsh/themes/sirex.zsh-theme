@@ -16,6 +16,9 @@ WHITE_BOLD=$fg_bold[white]
 BLUE_BOLD=$fg_bold[blue]
 RESET_COLOR=$reset_color
 
+
+ZSH_THEME_TERM_TITLE_IDLE="%2~"
+
 RETURN_CODE="%(?..%{$YELLOW%}%? ↵%{$RESET_COLOR%})"
 
 PROMPT='
