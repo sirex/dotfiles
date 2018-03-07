@@ -180,3 +180,6 @@ jsonb
 QvarnLabs
 pailiustruoti
 puslapiuojamos
+Gunicorn
+gunicorn
+pid

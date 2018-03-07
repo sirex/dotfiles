@@ -776,4 +776,7 @@ if has('nvim')
     " transparent background
     hi Normal guibg=NONE
     hi NonText guibg=NONE
+
+    au TermOpen * setlocal nonumber
+    au TermOpen * setlocal hidden
 endif
