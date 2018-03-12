@@ -642,6 +642,9 @@ Plug 'mxw/vim-jsx'
 
 Plug 'cespare/vim-toml'
 
+" Vue.js
+Plug 'posva/vim-vue'
+
 " Plug 'davidhalter/jedi-vim'
 " let g:jedi#popup_on_dot = 0
 " let g:jedi#force_py_version = 3
