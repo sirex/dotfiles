@@ -33,7 +33,7 @@ source $ZSH/oh-my-zsh.sh
 export PATH=$PATH:$HOME/.local/bin:$HOME/bin
 
 export AUTHOR="Mantas Zimnickas <sirexas@gmail.com>"
-export EDITOR=vim
+export EDITOR=nvim
 export HGEDITOR=$HOME/bin/hgeditor
 export PYTHONIOENCODING=UTF-8
 export LESS="-R"
