@@ -401,3 +401,11 @@ div.CodeMirror-selected {background: rgba(221, 240, 255, 0.19) !important;}
 .edit_mode .cell.selected .CodeMirror.CodeMirror-focused:not(.cm-fat-cursor) {
   background-color: #141414;
 }
+
+.jupyter-widgets {
+  color: #7F7A80;
+}
+
+.widget-inline-hbox .widget-label {
+  color: #7F7A80;
+}
