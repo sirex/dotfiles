@@ -224,7 +224,6 @@ set directory=~/.local/share/nvim/swap
 " Python tracebacks (unittest + doctest output)
 set errorformat=\ %#File\ \"%f\"\\,\ line\ %l%m
 set errorformat+=\@File\:\ %f
-" set errorformat+=%f:%l:\ [%t]%m,%f:%l:%m
 
 " Set python input/output encoding to UTF-8.
 let $PYTHONIOENCODING = 'utf_8'
@@ -533,7 +532,7 @@ let g:bufExplorerShowRelativePath=1
 Plug 'hdima/python-syntax'
 let g:python_highlight_all = 1
 
-Plug 'Python-mode-klen'
+Plug 'python-mode/python-mode'
 " let g:pymode_python = 'python3'
 let g:pymode_lint_checkers = ['pyflakes']
 let g:pymode_lint_cwindow = 0
@@ -644,6 +643,9 @@ Plug 'cespare/vim-toml'
 
 " Vue.js
 Plug 'posva/vim-vue'
+
+" GhostTest
+Plug 'raghur/vim-ghost', {'do': ':GhostInstall'}
 
 " Plug 'davidhalter/jedi-vim'
 " let g:jedi#popup_on_dot = 0
