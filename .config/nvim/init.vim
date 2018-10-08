@@ -647,6 +647,9 @@ Plug 'posva/vim-vue'
 " GhostTest
 Plug 'raghur/vim-ghost', {'do': ':GhostInstall'}
 
+" vim-spellsync
+Plug 'micarmst/vim-spellsync'
+
 " Plug 'davidhalter/jedi-vim'
 " let g:jedi#popup_on_dot = 0
 " let g:jedi#force_py_version = 3
