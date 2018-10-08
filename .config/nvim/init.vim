@@ -84,7 +84,7 @@ nmap    <S-F5>      :cprevious<CR>
 nmap    <C-F5>      :cc<CR>
 vmap    <F6>        <ESC>:exec "'<,'>w !vpaste ".&ft<CR>
 nmap    <F7>        :call ToggleList("Quickfix List", 'c')<CR>
-nmap    <F8>        :update \| silent make!<CR>
+nmap    <F8>        :update \| Neomake!<CR>
 nmap    <F9>        :SyntasticCheck<CR>
 nmap    <C-F8>      :make<CR>
 nmap    <F11>       :set hlsearch!<CR>
@@ -623,7 +623,7 @@ Plug 'ctrlp.vim'
 
 Plug 'n3.vim'
 
-Plug 'benekastah/neomake'
+Plug 'neomake/neomake'
 
 Plug 'editorconfig/editorconfig-vim'
 
@@ -785,3 +785,50 @@ if has('nvim')
     au TermOpen * setlocal nonumber
     au TermOpen * setlocal hidden
 endif
+
+
+
+
+" https://github.com/neomake/neomake/issues/112#issuecomment-318926748
+let s:spinner_index = 0
+let s:active_spinners = 0
+let s:spinner_states = ['|', '/', '--', '\', '|', '/', '--', '\']
+
+function! StartSpinner()
+    let b:show_spinner = 1
+    let s:active_spinners += 1
+    if s:active_spinners == 1
+        let s:spinner_timer = timer_start(1000 / len(s:spinner_states), 'SpinSpinner', {'repeat': -1})
+    endif
+endfunction
+
+function! StopSpinner()
+    let b:show_spinner = 0
+    let s:active_spinners -= 1
+    if s:active_spinners == 0
+        :call timer_stop(s:spinner_timer)
+    endif
+endfunction
+
+function! SpinSpinner(timer)
+    let s:spinner_index = float2nr(fmod(s:spinner_index + 1, len(s:spinner_states)))
+    redraw
+endfunction
+
+function! SpinnerText()
+    if get(b:, 'show_spinner', 0) == 0
+        return " "
+    endif
+
+    return s:spinner_states[s:spinner_index]
+endfunction
+
+augroup neomake_hooks
+    au!
+    autocmd User NeomakeJobInit :call StartSpinner()
+    autocmd User NeomakeJobInit :echom "Build started"
+    autocmd User NeomakeFinished :call StopSpinner()
+    autocmd User NeomakeFinished :echom "Build complete"
+augroup END
+
+set statusline+=\ %{SpinnerText()}
