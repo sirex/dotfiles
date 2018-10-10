@@ -523,7 +523,7 @@ call plug#begin('~/.config/nvim/plugged')
 
 Plug 'gmarik/Vundle.vim'
 
-Plug 'bufexplorer.zip'
+Plug 'jlanzarotta/bufexplorer'
 "   Do not show buffers from other tabs.
 let g:bufExplorerFindActive=0
 let g:bufExplorerShowTabBuffer=0
@@ -543,31 +543,7 @@ let g:pyflakes_use_quickfix = 0
 
 Plug 'tpope/vim-surround'
 
-Plug 'Syntastic'
-" How to debug Syntastic:
-" :let g:syntastic_debug = 3
-" :SyntasticCheck
-" :messages
-let g:syntastic_enable_signs = 1
-let g:syntastic_disabled_filetypes = ['html']
-if filereadable('/usr/bin/flake8')
-    let g:syntastic_python_python_exec = '/usr/bin/python3'
-    let g:syntastic_python_flake8_exec = '/usr/bin/flake8'
-elseif filereadable('/home/sirex/.venvs/py36/bin/python')
-    let g:syntastic_python_python_exec = '/home/sirex/.venvs/py36/bin/python'
-    let g:syntastic_python_flake8_exec = '/home/sirex/.venvs/py36/bin/flake8'
-else
-    let g:syntastic_python_python_exec = '/usr/bin/python3'
-    let g:syntastic_python_flake8_exec = '/usr/local/bin/flake8'
-endif
-let g:syntastic_python_flake8_args = '--ignore=E501 --builtins=unicode'
-let g:syntastic_python_pep8_args = '--ignore=E501'
-let g:syntastic_python_checkers = ['python', 'flake8']
-let g:syntastic_filetype_map = {'python.django': 'python'}
-let g:syntastic_html_checkers = []
-let g:syntastic_javascript_checkers = ['eslint']
-
-Plug 'UltiSnips'
+Plug 'sirver/UltiSnips'
 " let g:UltiSnipsUsePythonVersion = 3
 
 Plug 'honza/vim-snippets'
@@ -579,28 +555,18 @@ let g:user_zen_settings = {
 \  'indentation' : '    '
 \}
 
-Plug 'delimitMate.vim'
+Plug 'Raimondi/delimitMate'
 
-Plug 'The-NERD-tree'
+Plug 'scrooloose/nerdtree'
 let g:NERDTreeQuitOnOpen = 0
 let g:NERDTreeWinPos = "right"
 let g:NERDTreeWinSize = 30
 let g:NERDTreeIgnore = ['^__pycache__$', '\.egg-info$', '\~$', '\.pyc$']
 
-Plug 'Tagbar'
-let g:tagbar_width = 30
-let g:tagbar_sort = 0
-
-Plug 'less-syntax'
-
-Plug 'VOoM'
+Plug 'vim-voom/VOoM'
 
 Plug 'ludovicchabant/vim-lawrencium'
 let g:lawrencium_trace = 0
-
-Plug 'vim-coffee-script'
-
-Plug 'sparql.vim'
 
 Plug 'mustache/vim-mustache-handlebars'
 
@@ -610,18 +576,9 @@ if !exists("vim_jinja_loaded")
     au BufNewFile,BufRead *.html,*.htm,*.shtml,*.stm set ft=jinja
 endif
 
-Plug 'openscad.vim'
-
-Plug 'Handlebars'
-
-Plug 'fugitive.vim'
+Plug 'tpope/vim-fugitive'
 
 " Plug 'airblade/vim-gitgutter'
-
-" Maybe replace with https://github.com/junegunn/fzf
-Plug 'ctrlp.vim'
-
-Plug 'n3.vim'
 
 Plug 'neomake/neomake'
 
@@ -660,6 +617,8 @@ Plug 'micarmst/vim-spellsync'
 " Add plugins to &runtimepath
 call plug#end()
 
+" When reading a buffer (after 1s), and when writing (no delay).
+call neomake#configure#automake('rw', 1000)
 
 
 function! QuickFixBookmark()
@@ -829,19 +788,16 @@ endfunction
 augroup neomake_hooks
     au!
     autocmd User NeomakeJobInit :call StartSpinner()
-    autocmd User NeomakeJobInit :echom "Build started"
     autocmd User NeomakeFinished :call StopSpinner()
-    autocmd User NeomakeFinished :echom "Build complete"
 augroup END
 
 set statusline=
 set statusline+=\ %n\ %*            "buffer number
 set statusline+=\ %<%f%*            "full path
 set statusline+=%m%*                "modified flag
-set statusline+=\ %{fugitive#statusline()}%*    
+set statusline+=\ [%{fugitive#head()}]%*    
 set statusline+=\ %{SpinnerText()}
 set statusline+=%=%5l%*             "current line
 set statusline+=/%L%*               "total lines
 set statusline+=%4v\ %*             "virtual column number
 set statusline+=0x%04B\ %*          "character under cursor
-
