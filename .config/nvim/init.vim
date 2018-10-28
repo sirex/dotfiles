@@ -791,6 +791,8 @@ augroup neomake_hooks
     autocmd User NeomakeFinished :call StopSpinner()
 augroup END
 
+let g:neomake_makeprg_buffer_output = 0
+
 set statusline=
 set statusline+=\ %n\ %*            "buffer number
 set statusline+=\ %<%f%*            "full path
