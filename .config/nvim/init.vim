@@ -37,6 +37,15 @@ function! ToggleList(bufname, pfx)
   endif
 endfunction
 
+function! ToggleNERDTree()
+    " Detect which plugins are open
+    if exists('t:NERDTreeBufName')
+        NERDTreeFind
+    else
+        NERDTreeToggle
+    endif
+endfunction
+
 
 " Mappings
 let mapleader = ","
@@ -44,7 +53,7 @@ nmap    <F1>        :Gstatus<CR>
 nmap    <F2>        :update<CR>
 imap    <F2>        <C-O><F2>
 nmap    <F3>        :BufExplorer<CR>
-nmap    <F4>        :NERDTreeToggle<CR>
+nmap    <F4>        :call ToggleNERDTree()<CR>
 nmap    <F5>        :cnext<CR>
 nmap    <S-F5>      :cprevious<CR>
 nmap    <C-F5>      :cc<CR>
@@ -714,49 +723,7 @@ if has('nvim')
     au TermOpen * setlocal hidden
 endif
 
-
-
-
-" https://github.com/neomake/neomake/issues/112#issuecomment-318926748
-let s:spinner_index = 0
-let s:active_spinners = 0
-let s:spinner_states = ['|', '/', '--', '\', '|', '/', '--', '\']
-
-function! StartSpinner()
-    let b:show_spinner = 1
-    let s:active_spinners += 1
-    if s:active_spinners == 1
-        let s:spinner_timer = timer_start(1000 / len(s:spinner_states), 'SpinSpinner', {'repeat': -1})
-    endif
-endfunction
-
-function! StopSpinner()
-    let b:show_spinner = 0
-    let s:active_spinners -= 1
-    if s:active_spinners == 0
-        :call timer_stop(s:spinner_timer)
-    endif
-endfunction
-
-function! SpinSpinner(timer)
-    let s:spinner_index = float2nr(fmod(s:spinner_index + 1, len(s:spinner_states)))
-    redraw
-endfunction
-
-function! SpinnerText()
-    if get(b:, 'show_spinner', 0) == 0
-        return " "
-    endif
-
-    return s:spinner_states[s:spinner_index]
-endfunction
-
-augroup neomake_hooks
-    au!
-    autocmd User NeomakeJobInit :call StartSpinner()
-    autocmd User NeomakeFinished :call StopSpinner()
-augroup END
-
+" Neomake settings
 let g:neomake_makeprg_buffer_output = 0
 
 set statusline=
@@ -764,7 +731,6 @@ set statusline+=\ %n\ %*            "buffer number
 set statusline+=\ %<%f%*            "full path
 set statusline+=%m%*                "modified flag
 set statusline+=\ [%{fugitive#head()}]%*    
-set statusline+=\ %{SpinnerText()}
 set statusline+=%=%5l%*             "current line
 set statusline+=/%L%*               "total lines
 set statusline+=%4v\ %*             "virtual column number
