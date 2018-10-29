@@ -589,6 +589,8 @@ Plug 'micarmst/vim-spellsync'
 " let g:jedi#show_call_signatures = 2
 " set completeopt=menuone,longest
 
+Plug 'wsdjeg/vim-fetch'
+
 " Add plugins to &runtimepath
 call plug#end()
 
