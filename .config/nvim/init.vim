@@ -10,40 +10,6 @@
 set nocompatible
 
 
-function! ToggleNERDTreeAndTagbar()
-    " Detect which plugins are open
-    if exists('t:NERDTreeBufName')
-        let nerdtree_open = bufwinnr(t:NERDTreeBufName) != -1
-        let nerdtree_window = bufwinnr(t:NERDTreeBufName)
-    else
-        let nerdtree_open = 0
-        let nerdtree_window = -1
-    endif
-    let tagbar_open = bufwinnr('__Tagbar__') != -1
-    let tagbar_window = bufwinnr('__Tagbar__')
-    let current_window = winnr()
-
-    " Perform the appropriate action
-    if nerdtree_open && tagbar_open
-        NERDTreeFind
-    elseif nerdtree_open && current_window == nerdtree_window
-        NERDTreeToggle
-        TagbarOpen
-        execute bufwinnr('__Tagbar__') . 'wincmd w'
-    elseif nerdtree_open
-        NERDTreeFind
-    elseif tagbar_open && current_window == tagbar_window
-        TagbarClose
-        NERDTreeToggle
-        execute bufwinnr(t:NERDTreeBufName) . 'wincmd w'
-    elseif tagbar_open
-        TagbarShowTag
-        execute bufwinnr('__Tagbar__') . 'wincmd w'
-    else
-        NERDTreeFind
-    endif
-endfunction
-
 function! GetBufferList()
   redir =>buflist
   silent! ls
@@ -78,7 +44,7 @@ nmap    <F1>        :Gstatus<CR>
 nmap    <F2>        :update<CR>
 imap    <F2>        <C-O><F2>
 nmap    <F3>        :BufExplorer<CR>
-nmap    <F4>        :call ToggleNERDTreeAndTagbar()<CR>
+nmap    <F4>        :NERDTreeToggle<CR>
 nmap    <F5>        :cnext<CR>
 nmap    <S-F5>      :cprevious<CR>
 nmap    <C-F5>      :cc<CR>
