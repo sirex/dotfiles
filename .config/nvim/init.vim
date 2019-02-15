@@ -46,6 +46,12 @@ function! ToggleNERDTree()
     endif
 endfunction
 
+function! OpenFileInPrevWindow()
+    let cfile = expand("<cfile>")
+    wincmd p
+    execute "edit " . cfile
+endfunction
+
 
 " Mappings
 let mapleader = ","
@@ -89,6 +95,7 @@ nmap    tj          gT
 nmap    tk          gt
 nmap    th          :tabfirst<CR>
 nmap    tl          :tablast<CR>
+nmap    ,f          :call OpenFileInPrevWindow()<CR>
 
 " Quick search for python class and def statments.
 nmap    c/          /\<class 
