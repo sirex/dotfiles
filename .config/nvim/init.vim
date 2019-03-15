@@ -78,15 +78,16 @@ function! ExecutePythonFile()
     endif
 
     call writefile(
-        \ ['', '----', '', '.. code-block:: python', ''] +
-        \ map(readfile(pyfile), {i, v -> '  ' . v}) +
+        \ [strftime('%Y-%m-%d %H:%M:%S'), '-------------------', '', '.. code-block:: python', ''] +
+        \ map(readfile(pyfile), {i, v -> substitute('  ' . v, ' \+$', '', '')}) +
         \ ['', 'OUTPUT::', ''] +
-        \ map(systemlist(python . ' ' . $HOME . '/.config/nvim/pyexecute.py' . ' ' . pyfile), {i, v -> '  ' . v}) +
+        \ map(systemlist(python . ' ' . $HOME . '/.config/nvim/pyexecute.py' . ' ' . pyfile), 
+        \     {i, v -> substitute('  ' . v, ' \+$', '', '')}) +
         \ ['', ''], output, 'a')
 
     execute 'edit! ' . output
     normal G
-    call search('^----', 'b')
+    call search('^OUTPUT::', 'b')
     normal zz
     wincmd p
 endfunction
