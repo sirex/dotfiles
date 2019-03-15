@@ -52,6 +52,45 @@ function! OpenFileInPrevWindow()
     execute "edit " . cfile
 endfunction
 
+function! ExecutePythonFile()
+    let python = findfile('python', 'env/bin/python,venv/bin/python,' . substitute($PATH, ':', ',', 'g'))
+    let output = '/tmp/pyexoutput.rst'
+    let pyfile = bufname('%')
+
+    if pyfile == output
+        return
+    endif
+
+    update
+
+    if empty(bufname(output))
+        wincmd s
+        execute 'edit! ' . output
+        write
+    endif
+
+    let winnr = bufwinnr(output)
+    if winnr < 0
+        wincmd s
+        execute 'edit! ' . output
+    else
+        execute winnr . 'wincmd  w'
+    endif
+
+    call writefile(
+        \ ['', '----', '', '.. code-block:: python', ''] +
+        \ map(readfile(pyfile), {i, v -> '  ' . v}) +
+        \ ['', 'OUTPUT::', ''] +
+        \ map(systemlist(python . ' ' . $HOME . '/.config/nvim/pyexecute.py' . ' ' . pyfile), {i, v -> '  ' . v}) +
+        \ ['', ''], output, 'a')
+
+    execute 'edit! ' . output
+    normal G
+    call search('^----', 'b')
+    normal zz
+    wincmd p
+endfunction
+
 
 " Mappings
 let mapleader = ","
@@ -68,6 +107,7 @@ nmap    <F7>        :call ToggleList("Quickfix List", 'c')<CR>
 nmap    <F8>        :update \| Neomake!<CR>
 nmap    <F9>        :SyntasticCheck<CR>
 nmap    <C-F8>      :make<CR>
+nmap    <F10>       :call ExecutePythonFile()<CR>
 nmap    <F11>       :set hlsearch!<CR>
 nmap    <F12>       :setlocal spell!<CR>
 nmap    <SPACE>     ^
