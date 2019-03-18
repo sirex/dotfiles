@@ -26,7 +26,7 @@ def execute(filename, globals=None, locals=None):
     if expr:
         value = eval(compile(ast.Expression(body=expr.value), filename=filename, mode="eval"), globals, locals)
 
-        if not hasattr(expr.value, 'func') or expr.value.func.id != 'print':
+        if not hasattr(expr.value, 'func') or not hasattr(expr.value.func, 'id') or expr.value.func.id != 'print':
             return value
 
     return NA
