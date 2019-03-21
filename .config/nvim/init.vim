@@ -109,6 +109,7 @@ nmap    <F8>        :update \| Neomake!<CR>
 nmap    <F9>        :SyntasticCheck<CR>
 nmap    <C-F8>      :make<CR>
 nmap    <F10>       :call ExecutePythonFile()<CR>
+nmap    <C-K>      :call ExecutePythonFile()<CR>
 nmap    <F11>       :set hlsearch!<CR>
 nmap    <F12>       :setlocal spell!<CR>
 nmap    <SPACE>     ^
