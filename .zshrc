@@ -94,4 +94,3 @@ if [ -f $HOME/.local/zshrc ] ; then
 fi
 
 source /etc/profile.d/vte.sh
-source ~/.poetry/env
