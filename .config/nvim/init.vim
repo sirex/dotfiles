@@ -52,6 +52,19 @@ function! OpenFileInPrevWindow()
     execute "edit " . cfile
 endfunction
 
+function! TmapSelected()
+    " get_visual_selection is borrowed from https://stackoverflow.com/a/6271254/475477
+    let [line_start, column_start] = getpos("'<")[1:2]
+    let [line_end, column_end] = getpos("'>")[1:2]
+    let lines = getline(line_start, line_end)
+    if len(lines) == 0
+        return ''
+    endif
+    let lines[-1] = lines[-1][: column_end - (&selection == 'inclusive' ? 1 : 2)]
+    let lines[0] = lines[0][column_start - 1:]
+    execute "Tmap " . lines[0]
+endfunction
+
 function! ExecutePythonFile()
     let python = findfile('python', 'env/bin/python,venv/bin/python,' . substitute($PATH, ':', ',', 'g'))
     let output = '/tmp/pyexoutput.rst'
@@ -137,6 +150,7 @@ nmap    tk          gt
 nmap    th          :tabfirst<CR>
 nmap    tl          :tablast<CR>
 nmap    ,f          :call OpenFileInPrevWindow()<CR>
+vmap    ,m          :call TmapSelected()<CR>
 
 " Quick search for python class and def statments.
 nmap    c/          /\<class 
