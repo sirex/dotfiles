@@ -639,6 +639,13 @@ Plug 'micarmst/vim-spellsync'
 
 Plug 'wsdjeg/vim-fetch'
 
+Plug 'kassio/neoterm'
+let g:neoterm_shell = "zsh"
+let g:neoterm_autoinsert = 0
+
+Plug 'janko/vim-test'
+let test#strategy = "neovim"
+
 " Add plugins to &runtimepath
 call plug#end()
 
