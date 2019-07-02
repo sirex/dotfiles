@@ -660,6 +660,10 @@ let g:neoterm_autoinsert = 0
 Plug 'janko/vim-test'
 let test#strategy = "neovim"
 
+Plug 'mrtazz/simplenote.vim'
+let g:SimplenoteFiletype = "rst"
+let g:SimplenoteSingleWindow = 1
+
 " Add plugins to &runtimepath
 call plug#end()
 
