@@ -149,7 +149,7 @@ nmap    tj          gT
 nmap    tk          gt
 nmap    th          :tabfirst<CR>
 nmap    tl          :tablast<CR>
-nmap    ,f          :call OpenFileInPrevWindow()<CR>
+nmap    ,f          :GoToFile<CR>
 vmap    ,m          :call TmapSelected()<CR>
 
 " Quick search for python class and def statments.
