@@ -1,3 +1,4 @@
+import os
 import re
 
 import pynvim
@@ -88,7 +89,7 @@ class GoToFile:
         line = self.nvim.current.line
         column = self.nvim.funcs.col('.')
         path, lineno = find_file(line, column)
-        if path:
+        if path and os.path.exists(path):
             self.nvim.command('wincmd p')
             self.nvim.command('edit %s' % path)
             if lineno:
