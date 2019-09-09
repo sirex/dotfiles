@@ -2,3 +2,4 @@
 /.jupyter/migrated
 /.jupyter/lab/workspaces/
 /.config/nvim/autoload/plug.vim.old
+*.pyc

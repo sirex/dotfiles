@@ -10,5 +10,5 @@
 
     // Theme
     // [missing schema description]
-    "theme": "material"
+    "theme": "solarized dark"
 }

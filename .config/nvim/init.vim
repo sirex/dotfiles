@@ -280,12 +280,12 @@ function! SilentGrep(args)
     botright copen
 endfunction
 command! -nargs=* -complete=file G call SilentGrep(<q-args>)
-nmap <leader>gg :G 
-nmap <leader>gG :G <c-r><c-w>
-vmap <leader>gg y:G "<c-r>""<left>
-nmap <leader>gf :G <c-r>%<home><c-right> 
-nmap <leader>gF :G <c-r>%<home><c-right> <c-r><c-w>
-vmap <leader>gf y:G <c-r>%<home><c-right> "<c-r>""<left>
+nmap <leader>gg :T rg  
+nmap <leader>gG :T rg -w <c-r><c-w>
+vmap <leader>gg y:T rg "<c-r>""<left>
+nmap <leader>gf :T rg <c-r>%<home><c-right> 
+nmap <leader>gF :T rg <c-r>%<home><c-right> <c-r><c-w>
+vmap <leader>gf y:T rg <c-r>%<home><c-right> "<c-r>""<left>
 
 " Find
 function! Find(args)
