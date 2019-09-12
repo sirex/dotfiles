@@ -1,0 +1,14 @@
+Pygments
+ipython
+jupyterlab==0.35.6
+matplotlib
+numpy
+pandas
+pip-tools
+pp-ez
+pprintpp
+requests
+ruamel.yaml
+scipy
+seaborn
+xlrd
