@@ -152,12 +152,13 @@ class GoToFile:
     @pynvim.command('GoToFile', nargs='*', range='')
     def goto_file_command(self, args, range):
         line = self.nvim.current.line
-        with open('/tmp/gf.log', 'a') as f:
-            f.write(repr(line) + '\n')
         line = ''.join([c for c in line if c.isprintable()])
         column = self.nvim.funcs.col('.')
         path, lineno = find_file(line, column)
-        if path and os.path.exists(path):
+        fpath = os.path.join(self.nvim.funcs.getcwd(), path)
+        with open('/tmp/gf.log', 'a') as f:
+            f.write(repr(path) + ' full path: ' + fpath + ' exists: ' + str(os.path.exists(path)) + '\n')
+        if path and os.path.exists(fpath):
             self.nvim.command('wincmd p')
             self.nvim.command('edit %s' % path)
             if lineno:

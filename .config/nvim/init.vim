@@ -656,6 +656,7 @@ Plug 'wsdjeg/vim-fetch'
 Plug 'kassio/neoterm'
 let g:neoterm_shell = "zsh"
 let g:neoterm_autoinsert = 0
+let g:neoterm_autoscroll = 1
 
 Plug 'janko/vim-test'
 let test#strategy = "neovim"
