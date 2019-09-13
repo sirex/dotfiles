@@ -665,6 +665,8 @@ Plug 'mrtazz/simplenote.vim'
 let g:SimplenoteFiletype = "rst"
 let g:SimplenoteSingleWindow = 1
 
+Plug 'JuliaEditorSupport/julia-vim'
+
 " Add plugins to &runtimepath
 call plug#end()
 
