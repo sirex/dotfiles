@@ -11,4 +11,5 @@ requests
 ruamel.yaml
 scipy
 seaborn
+tqdm
 xlrd
