@@ -109,7 +109,7 @@ endfunction
 " Mappings
 let mapleader = ","
 nmap    <F1>        :Gstatus<CR>
-nmap    <F2>        :update<CR>
+nmap    <F2>        :update \| Neomake<CR>
 imap    <F2>        <C-O><F2>
 nmap    <F3>        :BufExplorer<CR>
 nmap    <F4>        :call ToggleNERDTree()<CR>
@@ -618,6 +618,8 @@ Plug 'tpope/vim-fugitive'
 " Plug 'airblade/vim-gitgutter'
 
 Plug 'neomake/neomake'
+let g:neomake_python_enabled_makers = ['python', 'pyflakes']
+
 
 Plug 'editorconfig/editorconfig-vim'
 
@@ -669,9 +671,6 @@ Plug 'JuliaEditorSupport/julia-vim'
 
 " Add plugins to &runtimepath
 call plug#end()
-
-" When reading a buffer (after 1s), and when writing (no delay).
-call neomake#configure#automake('rw', 1000)
 
 
 function! QuickFixBookmark()
