@@ -618,7 +618,7 @@ Plug 'tpope/vim-fugitive'
 " Plug 'airblade/vim-gitgutter'
 
 Plug 'neomake/neomake'
-let g:neomake_python_enabled_makers = ['python', 'pyflakes']
+let g:neomake_python_enabled_makers = ['python', 'flake8']
 
 
 Plug 'editorconfig/editorconfig-vim'
