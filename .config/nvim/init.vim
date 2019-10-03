@@ -142,15 +142,12 @@ nmap    <M-6>       6gt
 nmap    <M-7>       7gt
 nmap    <M-8>       8gt
 nmap    <M-9>       9gt
-nmap    to          :tabedit %<CR>
-nmap    tc          :tabclose<CR>
-nmap    tt          :tabnew \| tjump <C-R><C-W><CR>
-nmap    tj          gT
-nmap    tk          gt
-nmap    th          :tabfirst<CR>
-nmap    tl          :tablast<CR>
-nmap    ,f          :GoToFile<CR>
-vmap    ,m          :call TmapSelected()<CR>
+nmap    <leader>f   :GoToFile<CR>
+vmap    <leader>m   :call TmapSelected()<CR>
+nmap    <leader>d   :call FullDiff()<CR>
+nmap    <leader>g   :T rg -w <c-r><c-w><CR>
+vmap    <leader>x   y:@"<CR>
+nmap    <leader>w   :call Browser()<CR>
 
 " Quick search for python class and def statments.
 nmap    c/          /\<class 
@@ -280,12 +277,6 @@ function! SilentGrep(args)
     botright copen
 endfunction
 command! -nargs=* -complete=file G call SilentGrep(<q-args>)
-nmap <leader>gg :T rg  
-nmap <leader>gG :T rg -w <c-r><c-w>
-vmap <leader>gg y:T rg "<c-r>""<left>
-nmap <leader>gf :T rg <c-r>%<home><c-right> 
-nmap <leader>gF :T rg <c-r>%<home><c-right> <c-r><c-w>
-vmap <leader>gf y:T rg <c-r>%<home><c-right> "<c-r>""<left>
 
 " Find
 function! Find(args)
@@ -303,12 +294,7 @@ function! IDSearch(args)
     execute "set grepprg=" . escape(grepprg, " ")
 endfun
 command! -nargs=* -complete=file ID call IDSearch(<q-args>)
-nmap <leader>gi :ID
-nmap <leader>gI :ID <c-r><c-w>
 
-
-" Execute selected vim script.
-vmap <leader>x y:@"<CR>
 
 
 function! Browser()
@@ -323,7 +309,6 @@ function! Browser()
         echo "No URI found in line."
     endif
 endfunction
-map <Leader>w :call Browser()<CR>
 
 
 " Diff
@@ -332,7 +317,6 @@ function! FullDiff()
   execute "edit " . getcwd()
   execute "VCSDiff"
 endfunction
-map <leader>d :call FullDiff()<CR>
 
 " Jump to line in source code from diff output.
 "

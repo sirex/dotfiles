@@ -1,12 +1,17 @@
 Pygments
 ipython
+ipython-sql
 jupyterlab==0.35.6
 matplotlib
 numpy
+openpyxl
 pandas
+pgspecial
+pip-tools
 pip-tools
 pp-ez
 pprintpp
+psycopg2-binary
 requests
 ruamel.yaml
 scipy
