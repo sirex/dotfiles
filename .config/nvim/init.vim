@@ -149,6 +149,11 @@ nmap    <leader>g   :T rg -w <c-r><c-w><CR>
 vmap    <leader>x   y:@"<CR>
 nmap    <leader>w   :call Browser()<CR>
 
+" https://github.com/kassio/neoterm
+nmap    gx          <Plug>(neoterm-repl-send)
+xmap    gx          <Plug>(neoterm-repl-send)
+nmap    gxx         <Plug>(neoterm-repl-send-line)
+
 " Quick search for python class and def statments.
 nmap    c/          /\<class 
 nmap    m/          /\<def 
