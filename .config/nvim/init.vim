@@ -194,8 +194,6 @@ cnoremap        <Esc>f          <S-Right>
 cnoremap        <M-BS>          <C-W>
 
 " Look and feel.
-colorscheme desert
-
 set background=dark
 set guifont=Terminus\ 12
 set guioptions=irL
@@ -658,6 +656,12 @@ let g:SimplenoteSingleWindow = 1
 
 Plug 'JuliaEditorSupport/julia-vim'
 
+Plug 'vim-scripts/ebnf.vim'
+
+" Color schemes
+Plug 'altercation/vim-colors-solarized'
+Plug 'jnurmine/Zenburn'
+
 " Add plugins to &runtimepath
 call plug#end()
 
@@ -752,7 +756,7 @@ if has('nvim')
     let s:base3       = "#fdf6e3"
     let s:yellow      = "#b58900"
     let s:orange      = "#cb4b16"
-    let s:red         = "#dc322f"
+    let s:red         = "#e37170"
     let s:magenta     = "#d33682"
     let s:violet      = "#6c71c4"
     let s:blue        = "#268bd2"
@@ -801,3 +805,6 @@ set statusline+=%=%5l%*             "current line
 set statusline+=/%L%*               "total lines
 set statusline+=%4v\ %*             "virtual column number
 set statusline+=0x%04B\ %*          "character under cursor
+
+" colorscheme desert
+colorscheme zenburn
