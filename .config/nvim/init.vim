@@ -645,6 +645,9 @@ Plug 'micarmst/vim-spellsync'
 Plug 'wsdjeg/vim-fetch'
 
 Plug 'kassio/neoterm'
+let g:neoterm_size = 25
+let g:neoterm_default_mod = 'botright'
+let g:neoterm_auto_repl_cmd = 0
 let g:neoterm_shell = "zsh"
 let g:neoterm_autoinsert = 0
 let g:neoterm_autoscroll = 1
