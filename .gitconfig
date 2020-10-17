@@ -27,3 +27,5 @@ default = current
 
 [pager]
 stash = false
+[pull]
+	rebase = true

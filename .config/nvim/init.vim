@@ -110,6 +110,7 @@ endfunction
 let mapleader = ","
 nmap    <F1>        :Gstatus<CR>
 nmap    <F2>        :update \| Neomake<CR>
+nmap    <C-S>       :update<CR>
 imap    <F2>        <C-O><F2>
 nmap    <F3>        :BufExplorer<CR>
 nmap    <F4>        :call ToggleNERDTree()<CR>
