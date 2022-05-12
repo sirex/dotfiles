@@ -195,7 +195,6 @@ cnoremap        <Esc>f          <S-Right>
 cnoremap        <M-BS>          <C-W>
 
 " Look and feel.
-set background=dark
 set guifont=Terminus\ 12
 set guioptions=irL
 set number
@@ -810,5 +809,6 @@ set statusline+=/%L%*               "total lines
 set statusline+=%4v\ %*             "virtual column number
 set statusline+=0x%04B\ %*          "character under cursor
 
+set background=dark
 " colorscheme desert
 colorscheme zenburn

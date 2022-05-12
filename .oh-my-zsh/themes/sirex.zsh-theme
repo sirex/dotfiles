@@ -22,5 +22,6 @@ ZSH_THEME_TERM_TITLE_IDLE="%2~"
 RETURN_CODE="%(?..%{$YELLOW%}%? ↵%{$RESET_COLOR%})"
 
 PROMPT='
-< %{$GREEN_BOLD%}%n@%M%{$RESET_COLOR%} : %{$YELLOW%}%/%{$RESET_COLOR%} > $(current_branch) ${RETURN_CODE} 
-%{$GREEN_BOLD%}>%{$RESET_COLOR%} '
+<%{$GREEN%}%n%{$RESET_COLOR%}@%{$YELLOW%}%M%{$RESET_COLOR%}:%/> $(current_branch) ${RETURN_CODE} 
+%(!.#.$) '
+

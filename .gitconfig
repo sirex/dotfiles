@@ -29,3 +29,5 @@ default = current
 stash = false
 [pull]
 	rebase = true
+[init]
+	defaultBranch = master

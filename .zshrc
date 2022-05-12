@@ -55,6 +55,7 @@ alias -g X='| xargs'
 alias -g V='| vim -'
 alias -g XV='| xargs vim'
 alias rg='rg --no-heading'
+alias r='. ranger'
 
 #alias lab="ipython --no-confirm-exit --no-banner --pylab --autocall=2 --colors=Linux -c 'from __future__ import division ; from datetime import datetime, timedelta, date ; now = datetime.now ; today = date.today ; dt = datetime ; td = timedelta ; year = td(days=365) ; month = td(days=30) ; week = td(days=7) ; day = td(days=1)' -i"
 alias lab="ipython --no-confirm-exit --no-banner --pylab --autocall=2 -i"
