@@ -96,3 +96,5 @@ if [ -f $HOME/.local/zshrc ] ; then
 fi
 
 source /etc/profile.d/vte.sh
+source /usr/share/fzf/key-bindings.zsh
+bindkey '¢' fzf-cd-widget
