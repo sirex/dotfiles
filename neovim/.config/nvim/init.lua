@@ -104,7 +104,7 @@ function _G.gotofile_on_prev_window()
     for i = 1, #patterns do
         local pat = patterns[i]
         fname, lnum = line:match(pat)
-        if res then
+        if fname then
             break
         end
     end
