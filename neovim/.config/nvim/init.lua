@@ -91,17 +91,29 @@ map("x", "<A-j>", ":move '>+1<CR>gv-gv")
 map("x", "<A-k>", ":move '<-2<CR>gv-gv")
 
 -- Lua related mappings
-map("v", "<leader>ls", ":'<lt>,'>source<cr>")    -- execute selected lua coce
+map("v", "<leader>ls", ":'<lt>,'>source<cr>")    -- execute selected lua code
 
 
 function _G.gotofile_on_prev_window()
-    local bufnr = vim.fn.bufnr()
-    local row, col = unpack(vim.api.nvim_win_get_cursor(0))
-    vim.cmd('wincmd p')
-    vim.cmd('buffer ' .. bufnr)
-    vim.cmd('norm ' .. row .. 'gg')
-    vim.cmd('norm ' .. col .. '|')
-    vim.cmd('norm gF')
+    local line = vim.api.nvim_get_current_line()
+    local fname, lnum = nil, nil
+    local patterns = {
+        'File "([^"]+)", line (%d+)',
+        '([%w_/.-]+):(%d+)',
+    }
+    for i = 1, #patterns do
+        local pat = patterns[i]
+        fname, lnum = line:match(pat)
+        if res then
+            break
+        end
+    end
+
+    if fname then
+        vim.cmd('wincmd p')
+        vim.cmd('edit ' .. fname)
+        vim.cmd('norm ' .. lnum .. 'gg')
+    end
 end
 map('n', '<leader>gf', '<cmd>lua gotofile_on_prev_window()<cr>')
 
