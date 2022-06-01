@@ -24,23 +24,33 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+import datetime
+
 from libqtile import bar, layout, widget
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 
 mod = "mod4"
+ctrl = "control"
+alt = "mod1"
+shift = "shift"
+
 terminal = guess_terminal()
+launcher = 'rofi -show drun'
 
 keys = [
     # A list of available commands that can be bound to keys can be found
     # at https://docs.qtile.org/en/latest/manual/config/lazy.html
+    # https://docs.qtile.org/en/latest/manual/config/keys.html#special-keys
+
     # Switch between windows
     Key([mod], "h", lazy.layout.left(), desc="Move focus to left"),
     Key([mod], "l", lazy.layout.right(), desc="Move focus to right"),
     Key([mod], "j", lazy.layout.down(), desc="Move focus down"),
     Key([mod], "k", lazy.layout.up(), desc="Move focus up"),
-    Key([mod], "space", lazy.layout.next(), desc="Move window focus to other window"),
+    Key([alt], "Tab", lazy.layout.next(), desc="Move window focus to next window"),
+    Key([mod, 'shift'], "Tab", lazy.layout.previous(), desc="Move window focus to previous window"),
     # Move windows between left/right columns or move up/down in current stack.
     # Moving out of range in Columns layout will create new column.
     Key([mod, "shift"], "h", lazy.layout.shuffle_left(), desc="Move window to the left"),
@@ -49,10 +59,10 @@ keys = [
     Key([mod, "shift"], "k", lazy.layout.shuffle_up(), desc="Move window up"),
     # Grow windows. If current window is on the edge of screen and direction
     # will be to screen edge - window would shrink.
-    Key([mod, "control"], "h", lazy.layout.grow_left(), desc="Grow window to the left"),
-    Key([mod, "control"], "l", lazy.layout.grow_right(), desc="Grow window to the right"),
-    Key([mod, "control"], "j", lazy.layout.grow_down(), desc="Grow window down"),
-    Key([mod, "control"], "k", lazy.layout.grow_up(), desc="Grow window up"),
+    Key([mod, ctrl], "h", lazy.layout.grow_left(), desc="Grow window to the left"),
+    Key([mod, ctrl], "l", lazy.layout.grow_right(), desc="Grow window to the right"),
+    Key([mod, ctrl], "j", lazy.layout.grow_down(), desc="Grow window down"),
+    Key([mod, ctrl], "k", lazy.layout.grow_up(), desc="Grow window up"),
     Key([mod], "n", lazy.layout.normalize(), desc="Reset all window sizes"),
     # Toggle between split and unsplit sides of stack.
     # Split = all windows displayed
@@ -64,40 +74,60 @@ keys = [
         lazy.layout.toggle_split(),
         desc="Toggle between split and unsplit sides of stack",
     ),
+
     Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
+    Key([mod], "i", lazy.spawn("firefox"), desc="Launch web browser"),
+    Key([mod], "o", lazy.spawn(f"{terminal} -e ranger"), desc="Launch ranger"),
+    Key([mod], "n", lazy.spawn(f"{terminal} -e nvim"), desc="Launch nvim"),
+    Key([mod], "u", lazy.spawn(f"{terminal} -e htop"), desc="Launch htop"),
+    Key([mod], "c", lazy.spawn("rofi -show calc -modi calc -no-show-match -no-sort"), desc="Rofi calc"),
+
     # Toggle between different layouts as defined below
     Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
     Key([mod], "q", lazy.window.kill(), desc="Kill focused window"),
-    Key(["mod1", 'control'], "Delete", lazy.restart(), desc="Restart Qtile"),
-    Key([mod, "control"], "r", lazy.reload_config(), desc="Reload the config"),
-    Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
-    Key([mod], "r", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
-    Key([mod], "asciitilde", lazy.window.toggle_floating(), desc="Toggle floating"),
+    Key([ctrl, alt], "Delete", lazy.restart(), desc="Restart Qtile"),
+    Key([mod, ctrl], "r", lazy.reload_config(), desc="Reload the config"),
+    Key([mod, ctrl], "q", lazy.shutdown(), desc="Shutdown Qtile"),
+    Key([mod], "f", lazy.window.toggle_floating(), desc="Toggle floating"),
+    Key([mod, shift], 'f', lazy.window.toggle_fullscreen(), desc="Toggle Fullscreen"),
+    Key([mod], "space", lazy.spawn('rofi -show drun'), desc="Run launcher"),
+    Key([mod, ctrl], "space", lazy.spawn('rofi -show run'), desc="Run launcher"),
+    Key([mod], "Page_Down", lazy.screen.next_group(), desc="Next group"),
+    Key([mod], "Page_Up", lazy.screen.prev_group(), desc="Previous group"),
+
+    # Volume controls
+    Key([], 'XF86AudioRaiseVolume', lazy.spawn('amixer set Master 5%+')),
+    Key([], 'XF86AudioLowerVolume', lazy.spawn('amixer set Master 5%-')),
+    Key([], 'XF86AudioMute', lazy.spawn('amixer set Master toggle')),
+
+    # Screenshot
+    Key([], 'Print', lazy.spawn('gnome-screenshot -i')),
+
 ]
 
-groups = [Group(i) for i in "123456789"]
+groups = [Group(i) for i in "0123456789"]
+gscreen = [1, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
-for i in groups:
+for s, g in enumerate(groups):
     keys.extend(
         [
-            # mod1 + letter of group = switch to group
+            # Switch to group
             Key(
                 [mod],
-                i.name,
-                lazy.group[i.name].toscreen(),
-                desc="Switch to group {}".format(i.name),
+                g.name,
+                lazy.group[g.name].toscreen(gscreen[s]),
+                lazy.to_screen(gscreen[s]),
+                desc="Switch to group {}".format(g.name),
             ),
-            # mod1 + shift + letter of group = switch to & move focused window to group
+            # Move focused window to group
             Key(
                 [mod, "shift"],
-                i.name,
-                lazy.window.togroup(i.name, switch_group=True),
-                desc="Switch to & move focused window to group {}".format(i.name),
+                g.name,
+                lazy.window.togroup(g.name),
+                lazy.group[g.name].toscreen(gscreen[s]),
+                lazy.to_screen(gscreen[s]),
+                desc="Switch to & move focused window to group {}".format(g.name),
             ),
-            # Or, use below if you prefer not to switch to that group.
-            # # mod1 + shift + letter of group = move focused window to group
-            # Key([mod, "shift"], i.name, lazy.window.togroup(i.name),
-            #     desc="move focused window to group {}".format(i.name)),
         ]
     )
 
@@ -119,31 +149,59 @@ layouts = [
 
 widget_defaults = dict(
     font="sans",
-    fontsize=12,
+    fontsize=16,
     padding=3,
 )
 extension_defaults = widget_defaults.copy()
 
+class ClockLocale(widget.Clock):
+    WEEKDAYS = [
+        'pirmadienis',
+        'antradienis',
+        'trečiadienis',
+        'ketvirtadienis',
+        'penktadienis',
+        'šeštadienis',
+        'sekmadienis',
+    ]
+
+    def poll(self):
+        if self.timezone:
+            now = datetime.datetime.now(datetime.timezone.utc).astimezone(self.timezone)
+        else:
+            now = datetime.datetime.now(datetime.timezone.utc).astimezone()
+        now = now + self.DELTA
+        week_name = self.WEEKDAYS[now.weekday()]
+        fmt = self.format.replace('%A', week_name)
+        return now.strftime(fmt)
+        
+
+space = 20
+bar_size = 32
 screens = [
     Screen(
         top=bar.Bar(
             [
                 widget.GroupBox(),
-                widget.Prompt(),
                 widget.WindowName(),
-                widget.Chord(
-                    chords_colors={
-                        "launch": ("#ff0000", "#ffffff"),
-                    },
-                    name_transform=lambda name: name.upper(),
-                ),
-                widget.Systray(),
-                widget.Clock(format="%Y-%m-%d %H:%M"),
-                widget.QuickExit(),
+                # widget.Chord(
+                #     chords_colors={
+                #         "launch": ("#ff0000", "#ffffff"),
+                #     },
+                #     name_transform=lambda name: name.upper(),
+                # ),
+                widget.Spacer(),
+                ClockLocale(format="%A | %Y-%m-%d %H:%M", fontsize=20),
+                widget.Spacer(space),
+                widget.OpenWeather(location='Vilnius', format='{icon} {temp:.0f}℃'),
+                widget.Spacer(space),
+                widget.CPUGraph(width=100, border_width=1),
+                widget.MemoryGraph(width=100, border_width=1),
+                widget.Memory(measure_mem='G', format='{MemUsed:.0f}{mm}'),
+                widget.Spacer(),
+                widget.Systray(icon_size=bar_size - 5),
             ],
-            32,
-            # border_width=[2, 0, 2, 0],  # Draw top and bottom borders
-            # border_color=["ff00ff", "000000", "ff00ff", "000000"]  # Borders are magenta
+            bar_size,
         ),
     ),
     Screen(),
@@ -158,7 +216,7 @@ mouse = [
 
 dgroups_key_binder = None
 dgroups_app_rules = []  # type: list
-follow_mouse_focus = True
+follow_mouse_focus = False
 bring_front_click = False
 cursor_warp = False
 floating_layout = layout.Floating(
