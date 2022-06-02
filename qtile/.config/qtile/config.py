@@ -83,7 +83,8 @@ keys = [
     Key([mod], "c", lazy.spawn("rofi -show calc -modi calc -no-show-match -no-sort"), desc="Rofi calc"),
 
     # Toggle between different layouts as defined below
-    Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
+    Key([mod], "Tab", lazy.screen.toggle_group(), desc="Toggle between layouts"),
+    Key([mod], "grave", lazy.next_layout(), desc="Toggle between layouts"),
     Key([mod], "q", lazy.window.kill(), desc="Kill focused window"),
     Key([ctrl, alt], "Delete", lazy.restart(), desc="Restart Qtile"),
     Key([mod, ctrl], "r", lazy.reload_config(), desc="Reload the config"),
@@ -124,9 +125,9 @@ for s, g in enumerate(groups):
                 [mod, "shift"],
                 g.name,
                 lazy.window.togroup(g.name),
-                lazy.group[g.name].toscreen(gscreen[s]),
-                lazy.to_screen(gscreen[s]),
-                desc="Switch to & move focused window to group {}".format(g.name),
+                # lazy.group[g.name].toscreen(gscreen[s]),
+                # lazy.to_screen(gscreen[s]),
+                desc=f"Move focused window to group {g.name}",
             ),
         ]
     )
@@ -154,6 +155,7 @@ widget_defaults = dict(
 )
 extension_defaults = widget_defaults.copy()
 
+
 class ClockLocale(widget.Clock):
     WEEKDAYS = [
         'pirmadienis',
@@ -166,15 +168,16 @@ class ClockLocale(widget.Clock):
     ]
 
     def poll(self):
+        now = datetime.datetime.now(datetime.timezone.utc)
         if self.timezone:
-            now = datetime.datetime.now(datetime.timezone.utc).astimezone(self.timezone)
+            now = now.astimezone(self.timezone)
         else:
-            now = datetime.datetime.now(datetime.timezone.utc).astimezone()
+            now = now.astimezone()
         now = now + self.DELTA
         week_name = self.WEEKDAYS[now.weekday()]
         fmt = self.format.replace('%A', week_name)
         return now.strftime(fmt)
-        
+
 
 space = 20
 bar_size = 32
