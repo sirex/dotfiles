@@ -40,6 +40,12 @@ endtry
 ]]
 
 
+--------------------------------------------------------------------
+-- Environment
+
+vim.env.SSH_AUTH_SOCK = vim.env.XDG_RUNTIME_DIR .. "/ssh-agent.socket"
+
+
 ---------------------------------------------------------------------
 -- Keymaps
 
@@ -794,24 +800,24 @@ vim.cmd('vmap gt <Plug>(neoterm-repl-send)')
 ---------------------------------------------------------------------
 -- iron
 
-local iron = load "iron.core"
-
-if iron then
-    iron.setup {
-        config = {
-            buflisted = true,
-        },
-        -- Iron doesn't set keymaps by default anymore. Set them here
-        -- or use `should_map_plug = true` and map from you vim files
-        keymaps = {
-            send_motion = "<leader>sc",
-            visual_send = "<leader>sc",
-            send_line = "<leader>sl",
-            repeat_cmd = "<leader>s.",
-            cr = "<leader>s<cr>",
-            interrupt = "<leader>s<space>",
-            exit = "<leader>sq",
-            clear = "<leader>cl",
-        }
-    }
-end
+-- local iron = load "iron.core"
+-- 
+-- if iron then
+--     iron.setup {
+--         config = {
+--             buflisted = true,
+--         },
+--         -- Iron doesn't set keymaps by default anymore. Set them here
+--         -- or use `should_map_plug = true` and map from you vim files
+--         keymaps = {
+--             send_motion = "<leader>sc",
+--             visual_send = "<leader>sc",
+--             send_line = "<leader>sl",
+--             repeat_cmd = "<leader>s.",
+--             cr = "<leader>s<cr>",
+--             interrupt = "<leader>s<space>",
+--             exit = "<leader>sq",
+--             clear = "<leader>cl",
+--         }
+--     }
+-- end
