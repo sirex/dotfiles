@@ -107,6 +107,10 @@ keys = [
     # Screenshot
     Key([], 'Print', lazy.spawn('gnome-screenshot -i')),
 
+    # System
+    Key([mod], "x", lazy.spawn(
+        'i3lock --color=000000 --ignore-empty-password --show-failed-attempts'
+    ), desc="Lock screen"),
 ]
 
 groups = [Group(i) for i in "0123456789"]
