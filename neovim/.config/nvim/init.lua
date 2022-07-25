@@ -30,6 +30,7 @@ o.completeopt = { "menu", "menuone", "noselect" }
 o.wildignore = { "*.pyc", "__pycache__" }
 o.cmdheight = 1
 o.laststatus = 3
+o.guicursor = {"a:blinkon1"}
 
 vim.cmd [[
 try
