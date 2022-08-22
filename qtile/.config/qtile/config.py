@@ -113,8 +113,8 @@ keys = [
     ), desc="Lock screen"),
 ]
 
-groups = [Group(i) for i in "0123456789"]
-gscreen = [1, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+groups = [Group(i) for i in "1234567890"]
+gscreen = [0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
 
 for s, g in enumerate(groups):
     keys.extend(
