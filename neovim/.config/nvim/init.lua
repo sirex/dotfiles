@@ -247,8 +247,7 @@ if packer then
         -- LSP
         -- enable LSP
         use "neovim/nvim-lspconfig"
-
-        -- simple to use language server installer
+        use "tamago324/nlsp-settings.nvim"
         use "williamboman/nvim-lsp-installer"
 
         --  debugger
@@ -407,7 +406,20 @@ end
 
 local lspconfig = load "lspconfig"
 local lspinstaller = load "nvim-lsp-installer"
+local nlspsettings = load "nlspsettings"
 local cmp_nvim_lsp = load "cmp_nvim_lsp"
+
+if nlspsettings then
+    -- https://github.com/tamago324/nlsp-settings.nvim
+    -- :LspSettings local pylsp
+    nlspsettings.setup({
+      config_home = vim.fn.stdpath('config') .. '/nlsp-settings',
+      local_settings_dir = ".nlsp-settings",
+      local_settings_root_markers_fallback = { '.git' },
+      append_default_schemas = true,
+      loader = 'json',
+    })
+end
 
 if lspconfig and lspinstaller then
 
