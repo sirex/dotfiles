@@ -304,7 +304,13 @@ if treesitter then
         highlight = {
             enable = true,
             -- list of language that will be disabled
-            disable = { "" },
+            disable = function(lang, buf)
+                local max_filesize = 100 * 1024 -- 100 KB
+                local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+                if ok and stats and stats.size > max_filesize then
+                    return true
+                end
+            end,
             additional_vim_regex_highlighting = true,
         },
         indent = {
@@ -408,6 +414,17 @@ local lspconfig = load "lspconfig"
 local lspinstaller = load "nvim-lsp-installer"
 local nlspsettings = load "nlspsettings"
 local cmp_nvim_lsp = load "cmp_nvim_lsp"
+
+-- Usage:
+--
+--   :LspSettings local pylsp
+--   :e .nlsp-settings/pylsp.json
+--   {
+--       "pylsp.plugins.jedi.environment": "/home/sirex/.cache/pypoetry/virtualenvs/vitrina-dJ5t4DVf-py3.10"
+--   }
+--   :w
+--   :LspSettings update pylsp
+--
 
 if nlspsettings then
     -- https://github.com/tamago324/nlsp-settings.nvim
