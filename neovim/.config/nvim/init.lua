@@ -481,7 +481,7 @@ if lspconfig and lspinstaller then
 
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     if cmp_nvim_lsp then
-        capabilities = cmp_nvim_lsp.update_capabilities(capabilities)
+        capabilities = cmp_nvim_lsp.default_capabilities(capabilities)
     end
 
     local signs = {
