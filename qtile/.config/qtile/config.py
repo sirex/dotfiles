@@ -28,19 +28,30 @@ import os
 import datetime
 import subprocess
 
+from libqtile import bar
 from libqtile import hook
-from libqtile import bar, layout, widget
-from libqtile.config import Click, Drag, Group, Key, Match, Screen
+from libqtile import layout
+from libqtile import widget
+from libqtile.config import Click
+from libqtile.config import Drag
+from libqtile.config import DropDown
+from libqtile.config import Group
+from libqtile.config import Key
+from libqtile.config import Match
+from libqtile.config import ScratchPad
+from libqtile.config import Screen
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 
-mod = "mod4"
+mod = "mod4"       # Super key
 ctrl = "control"
 alt = "mod1"
 shift = "shift"
 
 terminal = guess_terminal()
 launcher = 'rofi -show drun'
+
+mon = 1  # default monitor
 
 keys = [
     # A list of available commands that can be bound to keys can be found
@@ -56,10 +67,10 @@ keys = [
     Key([mod, 'shift'], "Tab", lazy.layout.previous(), desc="Move window focus to previous window"),
     # Move windows between left/right columns or move up/down in current stack.
     # Moving out of range in Columns layout will create new column.
-    Key([mod, "shift"], "h", lazy.layout.shuffle_left(), desc="Move window to the left"),
-    Key([mod, "shift"], "l", lazy.layout.shuffle_right(), desc="Move window to the right"),
-    Key([mod, "shift"], "j", lazy.layout.shuffle_down(), desc="Move window down"),
-    Key([mod, "shift"], "k", lazy.layout.shuffle_up(), desc="Move window up"),
+    Key([mod, shift], "h", lazy.layout.shuffle_left(), desc="Move window to the left"),
+    Key([mod, shift], "l", lazy.layout.shuffle_right(), desc="Move window to the right"),
+    Key([mod, shift], "j", lazy.layout.shuffle_down(), desc="Move window down"),
+    Key([mod, shift], "k", lazy.layout.shuffle_up(), desc="Move window up"),
     # Grow windows. If current window is on the edge of screen and direction
     # will be to screen edge - window would shrink.
     Key([mod, ctrl], "h", lazy.layout.grow_left(), desc="Grow window to the left"),
@@ -83,7 +94,20 @@ keys = [
     Key([mod], "o", lazy.spawn(f"{terminal} -e ranger"), desc="Launch ranger"),
     Key([mod], "n", lazy.spawn(f"{terminal} -e nvim"), desc="Launch nvim"),
     Key([mod], "u", lazy.spawn(f"{terminal} -e htop"), desc="Launch htop"),
-    Key([mod], "c", lazy.spawn("rofi -show calc -modi calc -no-show-match -no-sort"), desc="Rofi calc"),
+    Key([mod], "p", lazy.spawn(f"rofi-pass -m {mon}"), desc="Get password"),
+    # Alt+1 autotype
+    # Alt+2 type user
+    # Alt+3 type pass
+    # Alt+4 open url
+    # Alt+u copy name
+    # Alt+l copy url
+    # Alt+p copy pass
+    # Alt+o show
+    # Alt+h help
+
+    # ScratchPad keys
+    Key([mod], "s", lazy.group['scratchpad'].dropdown_toggle('term')),
+    Key([mod], "c", lazy.group['scratchpad'].dropdown_toggle('calc')),
 
     # Toggle between different layouts as defined below
     Key([mod], "Tab", lazy.screen.toggle_group(), desc="Toggle between layouts"),
@@ -94,8 +118,8 @@ keys = [
     Key([mod, ctrl], "q", lazy.shutdown(), desc="Shutdown Qtile"),
     Key([mod], "f", lazy.window.toggle_floating(), desc="Toggle floating"),
     Key([mod, shift], 'f', lazy.window.toggle_fullscreen(), desc="Toggle Fullscreen"),
-    Key([mod], "space", lazy.spawn('rofi -show drun'), desc="Run launcher"),
-    Key([mod, ctrl], "space", lazy.spawn('rofi -show run'), desc="Run launcher"),
+    Key([mod], "space", lazy.spawn(f'rofi -show drun -m {mon}'), desc="Run launcher"),
+    Key([mod, ctrl], "space", lazy.spawn(f'rofi -show run -{mon}'), desc="Run launcher"),
     Key([mod], "Page_Down", lazy.screen.next_group(), desc="Next group"),
     Key([mod], "Page_Up", lazy.screen.prev_group(), desc="Previous group"),
 
@@ -117,42 +141,35 @@ groups = [Group(i) for i in "1234567890"]
 gscreen = [0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
 
 for s, g in enumerate(groups):
-    keys.extend(
-        [
-            # Switch to group
-            Key(
-                [mod],
-                g.name,
-                lazy.group[g.name].toscreen(gscreen[s]),
-                lazy.to_screen(gscreen[s]),
-                desc="Switch to group {}".format(g.name),
-            ),
-            # Move focused window to group
-            Key(
-                [mod, "shift"],
-                g.name,
-                lazy.window.togroup(g.name),
-                # lazy.group[g.name].toscreen(gscreen[s]),
-                # lazy.to_screen(gscreen[s]),
-                desc=f"Move focused window to group {g.name}",
-            ),
-        ]
-    )
+    keys += [
+        # Switch to group
+        Key(
+            [mod],
+            g.name,
+            lazy.group[g.name].toscreen(gscreen[s]),
+            lazy.to_screen(gscreen[s]),
+            desc="Switch to group {}".format(g.name),
+        ),
+        # Move focused window to group
+        Key(
+            [mod, "shift"],
+            g.name,
+            lazy.window.togroup(g.name),
+            # lazy.group[g.name].toscreen(gscreen[s]),
+            # lazy.to_screen(gscreen[s]),
+            desc=f"Move focused window to group {g.name}",
+        ),
+    ]
+
+groups.append(ScratchPad('scratchpad', [
+    DropDown('term', terminal),
+    DropDown('calc', f'{terminal} -e qalc'),
+]))
+
 
 layouts = [
     layout.Columns(border_focus_stack=["#d75f5f", "#8f3d3d"], border_width=4),
     layout.Max(),
-    # Try more layouts by unleashing below layouts.
-    # layout.Stack(num_stacks=2),
-    # layout.Bsp(),
-    # layout.Matrix(),
-    # layout.MonadTall(),
-    # layout.MonadWide(),
-    # layout.RatioTile(),
-    # layout.Tile(),
-    # layout.TreeTab(),
-    # layout.VerticalTile(),
-    # layout.Zoomy(),
 ]
 
 widget_defaults = dict(

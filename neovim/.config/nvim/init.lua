@@ -30,7 +30,7 @@ o.completeopt = { "menu", "menuone", "noselect" }
 o.wildignore = { "*.pyc", "__pycache__" }
 o.cmdheight = 1
 o.laststatus = 3
-o.guicursor = {"a:blinkon1"}
+o.guicursor = {"a:blinkon1,i:ver25"}
 
 vim.cmd [[
 try
@@ -39,6 +39,16 @@ catch /^Vim\%((\a\+)\)\=:E185/
   colorscheme desert
 endtry
 ]]
+
+-- Fix cursor shape change
+-- https://github.com/alacritty/alacritty/issues/5450
+vim.cmd
+[[
+    augroup change_cursor
+        au!
+        au ExitPre * :set guicursor=a:ver90
+    augroup END
+]] 
 
 
 --------------------------------------------------------------------

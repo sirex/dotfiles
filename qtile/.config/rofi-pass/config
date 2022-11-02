@@ -1,0 +1,12 @@
+# vi: ft=sh
+
+# primary, clipboard, both
+clip=both
+
+_rofi () {
+	rofi -no-auto-select -i -m 1 "$@"
+}
+
+# This must be set, because of this bug:
+# https://github.com/carnager/rofi-pass/issues/226
+help_color="#4872FF"
