@@ -478,7 +478,7 @@ if lspconfig and lspinstaller then
         vim.cmd [[ command! Format execute 'lua vim.lsp.buf.formatting()' ]]
 
         -- Set autocommands conditional on server_capabilities
-        if client.resolved_capabilities.document_highlight then
+        if client.server_capabilities.document_highlight then
             vim.api.nvim_exec([[
                 augroup lsp_document_highlight
                 autocmd! * <buffer>
