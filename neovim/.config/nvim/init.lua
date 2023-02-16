@@ -627,20 +627,21 @@ end
 local telescope = load "telescope"
 
 if telescope then
-    map('n', '<leader>fa',  "<cmd>Telescope<cr>")
-    map('n', '<leader>ff',  "<cmd>lua require('telescope.builtin').find_files()<cr>")
-    map('n', '<C-N>',       "<cmd>lua require('telescope.builtin').find_files()<cr>")
-    map('n', '<leader>vs',  "<cmd>lua require('telescope.builtin').git_status()<cr>")
-    map('n', '<leader>fc',  "<cmd>lua require('telescope.builtin').command_history()<cr>")
-    map('n', '<leader>fj',  "<cmd>lua require('telescope.builtin').jumplist()<cr>")
-    map('n', '<leader>fk',  "<cmd>lua require('telescope.builtin').keymaps()<cr>")
-    map('n', '<leader>fg',  "<cmd>lua require('telescope.builtin').live_grep()<cr>")
-    map('n', '<leader>fb',  "<cmd>lua require('telescope.builtin').buffers()<cr>")
-    map('n', '<C-e>',       "<cmd>lua require('telescope.builtin').buffers()<cr>")
-    map('n', '<leader>fh',  "<cmd>lua require('telescope.builtin').help_tags()<cr>")
-    map('n', '<leader>fo',  "<cmd>lua require('telescope.builtin').oldfiles()<cr>")
-    map('n', '<leader>fm',  "<cmd>lua require('telescope.builtin').man_pages()<cr>")
-    map('n', '<leader>fw',  "<cmd>lua require('telescope.builtin').grep_string()<cr>")
+    map('n', '<leader>fa',  '<cmd>Telescope<cr>')
+    map('n', '<leader>ff',  '<cmd>lua require("telescope.builtin").find_files()<cr>')
+    map('n', '<C-N>',       '<cmd>lua require("telescope.builtin").find_files()<cr>')
+    map('n', '<leader>vs',  '<cmd>lua require("telescope.builtin").git_status()<cr>')
+    map('n', '<leader>fc',  '<cmd>lua require("telescope.builtin").command_history()<cr>')
+    map('n', '<leader>fj',  '<cmd>lua require("telescope.builtin").jumplist()<cr>')
+    map('n', '<leader>fk',  '<cmd>lua require("telescope.builtin").keymaps()<cr>')
+    map('n', '<leader>fg',  '<cmd>lua require("telescope.builtin").live_grep()<cr>')
+    map('n', '<leader>fG',  '<cmd>lua require("telescope.builtin").live_grep(vimgrep_arguments={"rg", "--color=never", "--no-heading", "--with-filename", "--line-number", "--column", "--smart-case", "--no-ignore"})<cr>')
+    map('n', '<leader>fb',  '<cmd>lua require("telescope.builtin").buffers()<cr>')
+    map('n', '<C-e>',       '<cmd>lua require("telescope.builtin").buffers()<cr>')
+    map('n', '<leader>fh',  '<cmd>lua require("telescope.builtin").help_tags()<cr>')
+    map('n', '<leader>fo',  '<cmd>lua require("telescope.builtin").oldfiles()<cr>')
+    map('n', '<leader>fm',  '<cmd>lua require("telescope.builtin").man_pages()<cr>')
+    map('n', '<leader>fw',  '<cmd>lua require("telescope.builtin").grep_string()<cr>')
 
     if lspconfig then
         map('n', '<leader>fr',  "<cmd>lua require('telescope.builtin').lsp_references()<cr>")
@@ -681,7 +682,7 @@ map('n', '<leader>nf', '<cmd>NERDTreeFind<cr>')
 vim.g.NERDTreeMapPreview = 'o'
 vim.g.NERDTreeRespectWildIgnore = 1
 vim.g.NERDTreeWinSize = 30
-vim.g.NERDTreeWinPos = 'right'
+vim.g.NERDTreeWinPos = 'left'
 vim.g.NERDTreeIgnore = {
     '^__pycache__$',
     '\\.egg-info$',

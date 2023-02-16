@@ -90,7 +90,7 @@ keys = [
     ),
 
     Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
-    Key([mod], "i", lazy.spawn("firefox"), desc="Launch web browser"),
+    Key([mod], "i", lazy.spawn("chromium"), desc="Launch web browser"),
     Key([mod], "o", lazy.spawn(f"{terminal} -e ranger"), desc="Launch ranger"),
     Key([mod], "n", lazy.spawn(f"{terminal} -e nvim"), desc="Launch nvim"),
     Key([mod], "u", lazy.spawn(f"{terminal} -e htop"), desc="Launch htop"),
@@ -119,7 +119,7 @@ keys = [
     Key([mod], "f", lazy.window.toggle_floating(), desc="Toggle floating"),
     Key([mod, shift], 'f', lazy.window.toggle_fullscreen(), desc="Toggle Fullscreen"),
     Key([mod], "space", lazy.spawn(f'rofi -show drun -m {mon}'), desc="Run launcher"),
-    Key([mod, ctrl], "space", lazy.spawn(f'rofi -show run -{mon}'), desc="Run launcher"),
+    Key([mod, shift], "space", lazy.spawn(f'rofi -show run -{mon}'), desc="Run launcher"),
     Key([mod], "Page_Down", lazy.screen.next_group(), desc="Next group"),
     Key([mod], "Page_Up", lazy.screen.prev_group(), desc="Previous group"),
 
@@ -127,6 +127,12 @@ keys = [
     Key([], 'XF86AudioRaiseVolume', lazy.spawn('amixer set Master 5%+')),
     Key([], 'XF86AudioLowerVolume', lazy.spawn('amixer set Master 5%-')),
     Key([], 'XF86AudioMute', lazy.spawn('amixer set Master toggle')),
+
+    # Audio player controls
+    Key([], 'XF86AudioPlay', lazy.spawn('playerctl play-pause')),
+    Key([], 'XF86AudioStop', lazy.spawn('playerctl stop')),
+    Key([], 'XF86AudioPrev', lazy.spawn('playerctl previous')),
+    Key([], 'XF86AudioNext', lazy.spawn('playerctl next')),
 
     # Screenshot
     Key([], 'Print', lazy.spawn('gnome-screenshot -i')),
