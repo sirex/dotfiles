@@ -233,6 +233,12 @@ screens = [
                 widget.Memory(measure_mem='G', format='{MemUsed:.0f}{mm}'),
                 widget.Spacer(),
                 widget.Systray(icon_size=bar_size - 5),
+                widget.Battery(
+                    charge_char='▲',
+                    discharge_char='▼',
+                    empty_charge='×',
+                    format='🔋{char}{percent:2.0%}',
+                ),
             ],
             bar_size,
         ),
