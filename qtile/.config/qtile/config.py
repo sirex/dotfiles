@@ -95,6 +95,7 @@ keys = [
     Key([mod], "n", lazy.spawn(f"{terminal} -e nvim"), desc="Launch nvim"),
     Key([mod], "u", lazy.spawn(f"{terminal} -e htop"), desc="Launch htop"),
     Key([mod], "p", lazy.spawn(f"rofi-pass -m {mon}"), desc="Get password"),
+    Key([mod], "e", lazy.spawn("gkbd-keyboard-display -l lt"), desc="Keyboard layout"),
     # Alt+1 autotype
     # Alt+2 type user
     # Alt+3 type pass
