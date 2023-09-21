@@ -42,6 +42,7 @@ from libqtile.config import ScratchPad
 from libqtile.config import Screen
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
+from libqtile.log_utils import logger
 
 mod = "mod4"       # Super key
 ctrl = "control"
@@ -211,37 +212,50 @@ class ClockLocale(widget.Clock):
         return now.strftime(fmt)
 
 
+battery = widget.Battery(
+    charge_char='▲',
+    discharge_char='▼',
+    empty_charge='×',
+    format='🔋{char}{percent:2.0%}',
+)
+try:
+    battery._battery.update_status()
+except RuntimeError:
+    logger.exception(
+        "Error while reading battery, "
+        "maybe computer does not have a battery?"
+    )
+    battery = None
+
+
 space = 20
 bar_size = 32
+widgets = [
+    widget.GroupBox(),
+    widget.WindowName(),
+    # widget.Chord(
+    #     chords_colors={
+    #         "launch": ("#ff0000", "#ffffff"),
+    #     },
+    #     name_transform=lambda name: name.upper(),
+    # ),
+    widget.Spacer(),
+    ClockLocale(format="%A | %Y-%m-%d %H:%M", fontsize=20),
+    widget.Spacer(space),
+    widget.OpenWeather(location='Vilnius', format='{icon} {temp:.0f}℃'),
+    widget.Spacer(space),
+    widget.CPUGraph(width=100, border_width=1),
+    widget.MemoryGraph(width=100, border_width=1),
+    widget.Memory(measure_mem='G', format='{MemUsed:.0f}{mm}'),
+    widget.Spacer(),
+    widget.Systray(icon_size=bar_size - 5),
+    battery,
+]
+widgets = list(filter(None, widgets))
 screens = [
     Screen(
         top=bar.Bar(
-            [
-                widget.GroupBox(),
-                widget.WindowName(),
-                # widget.Chord(
-                #     chords_colors={
-                #         "launch": ("#ff0000", "#ffffff"),
-                #     },
-                #     name_transform=lambda name: name.upper(),
-                # ),
-                widget.Spacer(),
-                ClockLocale(format="%A | %Y-%m-%d %H:%M", fontsize=20),
-                widget.Spacer(space),
-                widget.OpenWeather(location='Vilnius', format='{icon} {temp:.0f}℃'),
-                widget.Spacer(space),
-                widget.CPUGraph(width=100, border_width=1),
-                widget.MemoryGraph(width=100, border_width=1),
-                widget.Memory(measure_mem='G', format='{MemUsed:.0f}{mm}'),
-                widget.Spacer(),
-                widget.Systray(icon_size=bar_size - 5),
-                widget.Battery(
-                    charge_char='▲',
-                    discharge_char='▼',
-                    empty_charge='×',
-                    format='🔋{char}{percent:2.0%}',
-                ),
-            ],
+            widgets,
             bar_size,
         ),
     ),
