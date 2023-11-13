@@ -138,10 +138,10 @@ keys = [
     Key([], 'XF86AudioNext', lazy.spawn('playerctl next')),
 
     # Audio player controls (for keyboard)
-    Key([mod, shift], 'k', lazy.spawn('playerctl play-pause')),
-    Key([mod, shift], 'i', lazy.spawn('playerctl stop')),
-    Key([mod, shift], 'h', lazy.spawn('playerctl previous')),
-    Key([mod, shift], 'l', lazy.spawn('playerctl next')),
+    Key([mod, alt], 'k', lazy.spawn('playerctl play-pause')),
+    Key([mod, alt], 'i', lazy.spawn('playerctl stop')),
+    Key([mod, alt], 'h', lazy.spawn('playerctl previous')),
+    Key([mod, alt], 'l', lazy.spawn('playerctl next')),
 
     # Screenshot
     Key([], 'Print', lazy.spawn('gnome-screenshot -i')),
