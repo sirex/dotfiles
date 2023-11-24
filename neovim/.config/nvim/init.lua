@@ -258,7 +258,10 @@ if packer then
         -- enable LSP
         use "neovim/nvim-lspconfig"
         use "tamago324/nlsp-settings.nvim"
-        use "williamboman/nvim-lsp-installer"
+        -- https://github.com/williamboman/nvim-lsp-installer/discussions/876
+        -- use "williamboman/nvim-lsp-installer"
+        use "williamboman/mason.nvim"
+        use "williamboman/mason-lspconfig.nvim"
 
         --  debugger
         use 'mfussenegger/nvim-dap'
@@ -419,6 +422,7 @@ end
 ---------------------------------------------------------------------
 -- lsp
 
+require("mason").setup()
 
 local lspconfig = load "lspconfig"
 local lspinstaller = load "nvim-lsp-installer"
@@ -538,38 +542,6 @@ if lspconfig and lspinstaller then
     })
 
     local servers = {}
-
-    -------------------------------------------------------
-    -- lua
-    -- Make runtime files discoverable to the server
-    local runtime_path = vim.split(package.path, ';')
-    table.insert(runtime_path, 'lua/?.lua')
-    table.insert(runtime_path, 'lua/?/init.lua')
-    servers.sumneko_lua = {
-        settings = {
-            Lua = {
-                runtime = {
-                    -- Tell the language server which version of Lua you're
-                    -- using (most likely LuaJIT in the case of Neovim)
-                    version = 'LuaJIT',
-                    -- Setup your lua path
-                    path = runtime_path,
-                },
-                diagnostics = {
-                    -- Get the language server to recognize the `vim` global
-                    globals = { 'vim' },
-                },
-                workspace = {
-                    -- Make the server aware of Neovim runtime files
-                    library = vim.api.nvim_get_runtime_file('', true),
-                },
-                -- Do not send telemetry data containing a randomized but unique identifier
-                telemetry = {
-                    enable = false,
-                },
-            },
-        },
-    }
 
     -------------------------------------------------------
     -- pylsp
