@@ -1,0 +1,24 @@
+live_config_reload = true
+
+[cursor.style]
+blinking = "On"
+shape = "Block"
+
+[cursor.vi_mode_style]
+blinking = "On"
+shape = "Beam"
+
+[font]
+size = 10.0
+
+[font.bold]
+family = "Terminus"
+
+[font.italic]
+family = "Terminus"
+
+[font.normal]
+family = "Terminus"
+
+[mouse]
+hide_when_typing = true
