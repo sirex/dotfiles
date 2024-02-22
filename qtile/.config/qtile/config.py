@@ -27,6 +27,7 @@
 import os
 import datetime
 import subprocess
+from shutil import which
 
 from libqtile import bar
 from libqtile import hook
@@ -49,8 +50,17 @@ ctrl = "control"
 alt = "mod1"
 shift = "shift"
 
-terminal = guess_terminal()
+terminal = guess_terminal('alacritty')
 launcher = 'rofi -show drun'
+
+if which('nautilus', os.X_OK):
+    fm = 'nautilus --new-window'
+elif which('pcmanfm', os.X_OK):
+    fm = 'pcmanfm --new-win'
+elif which('ranger', os.X_OK):
+    fm = f'{terminal} -e ranger'
+else:
+    fm = 'false'
 
 mon = 1  # default monitor
 
@@ -93,7 +103,7 @@ keys = [
     Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
     Key([mod], "i", lazy.spawn("chromium"), desc="Launch web browser"),
     Key([mod], "o", lazy.spawn(f"{terminal} -e ranger"), desc="Launch ranger"),
-    Key([mod], "f", lazy.spawn("nautilus --new-window"), desc="Launch nautilus"),
+    Key([mod], "f", lazy.spawn(fm), desc="Launch nautilus"),
     Key([mod], "n", lazy.spawn(f"{terminal} -e nvim"), desc="Launch nvim"),
     Key([mod], "u", lazy.spawn(f"{terminal} -e htop"), desc="Launch htop"),
     Key([mod], "p", lazy.spawn(f"rofi-pass -m {mon}"), desc="Get password"),

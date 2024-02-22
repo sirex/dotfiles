@@ -11,14 +11,15 @@ shape = "Beam"
 [font]
 size = 10.0
 
+# fc-list | grep -i terminus
 [font.bold]
-family = "Terminus"
+family = "xos4 Terminus"
 
 [font.italic]
-family = "Terminus"
+family = "xos4 Terminus"
 
 [font.normal]
-family = "Terminus"
+family = "xos4 Terminus"
 
 [mouse]
 hide_when_typing = true
