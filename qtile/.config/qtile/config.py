@@ -137,9 +137,9 @@ keys = [
     Key([mod], "Page_Up", lazy.screen.prev_group(), desc="Previous group"),
 
     # Volume controls
-    Key([], 'XF86AudioRaiseVolume', lazy.spawn('amixer set Master 5%+')),
-    Key([], 'XF86AudioLowerVolume', lazy.spawn('amixer set Master 5%-')),
-    Key([], 'XF86AudioMute', lazy.spawn('amixer set Master toggle')),
+    Key([], 'XF86AudioRaiseVolume', lazy.spawn('pactl set-sink-volume @DEFAULT_SINK@ +5%')),
+    Key([], 'XF86AudioLowerVolume', lazy.spawn('pactl set-sink-volume @DEFAULT_SINK@ -5%')),
+    Key([], 'XF86AudioMute', lazy.spawn('pactl set-sink-mute @DEFAULT_SINK@ toggle')),
 
     # Audio player controls
     Key([], 'XF86AudioPlay', lazy.spawn('playerctl play-pause')),
