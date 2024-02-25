@@ -105,6 +105,7 @@ keys = [
     Key([mod], "o", lazy.spawn(f"{terminal} -e ranger"), desc="Launch ranger"),
     Key([mod], "f", lazy.spawn(fm), desc="Launch nautilus"),
     Key([mod], "n", lazy.spawn(f"{terminal} -e nvim"), desc="Launch nvim"),
+    Key([mod], "c", lazy.spawn(f'{terminal} -e nvim -c "T qalc"'), desc="Qalcuate!")
     Key([mod], "u", lazy.spawn(f"{terminal} -e htop"), desc="Launch htop"),
     Key([mod], "p", lazy.spawn(f"rofi-pass -m {mon}"), desc="Get password"),
     Key([mod], "e", lazy.spawn("gkbd-keyboard-display -l lt"), desc="Keyboard layout"),
@@ -120,7 +121,6 @@ keys = [
 
     # ScratchPad keys
     Key([mod], "s", lazy.group['scratchpad'].dropdown_toggle('term')),
-    Key([mod], "c", lazy.group['scratchpad'].dropdown_toggle('calc')),
 
     # Toggle between different layouts as defined below
     Key([mod], "Tab", lazy.screen.toggle_group(), desc="Toggle between layouts"),
@@ -188,7 +188,6 @@ for s, g in enumerate(groups):
 
 groups.append(ScratchPad('scratchpad', [
     DropDown('term', terminal),
-    DropDown('calc', f'{terminal} -e qalc'),
 ]))
 
 
