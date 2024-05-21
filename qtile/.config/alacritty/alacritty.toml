@@ -9,17 +9,18 @@ blinking = "On"
 shape = "Beam"
 
 [font]
-size = 10.0
+size = 12.0
 
 # fc-list | grep -i terminus
+# fc-list | grep -i terminess
 [font.bold]
-family = "xos4 Terminus"
+family = "Terminess Nerd Font"
 
 [font.italic]
-family = "xos4 Terminus"
+family = "Terminess Nerd Font"
 
 [font.normal]
-family = "xos4 Terminus"
+family = "Terminess Nerd Font"
 
 [mouse]
 hide_when_typing = true
