@@ -105,6 +105,7 @@ keys = [
     Key([mod], "o", lazy.spawn(f"{terminal} -e ranger"), desc="Launch ranger"),
     Key([mod], "f", lazy.spawn(fm), desc="Launch nautilus"),
     Key([mod], "n", lazy.spawn(f"{terminal} -e nvim"), desc="Launch nvim"),
+    Key([mod], "t", lazy.spawn(f"{terminal} -e nvim /home/sirex/timelog.txt"), desc="Timelog"),
     Key([mod], "c", lazy.spawn(f"{terminal} -e nvim -c 'T qalc'"), desc="Qalcuate!"),
     Key([mod], "u", lazy.spawn(f"{terminal} -e htop"), desc="Launch htop"),
     Key([mod], "p", lazy.spawn(f"rofi-pass -m {mon}"), desc="Get password"),
