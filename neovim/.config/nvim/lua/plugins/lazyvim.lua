@@ -60,10 +60,46 @@ return {
     }
   },
   {
+    "ahmedkhalf/project.nvim",
+    opts = {
+      -- All the patterns used to detect root dir, when **"pattern"** is in
+      -- detection_methods
+      patterns = {
+        -- default
+        ".git",
+        "_darcs",
+        ".hg",
+        ".bzr",
+        ".svn",
+        "Makefile",
+        "package.json",
+        -- custom
+        ".obsidian"
+      },
+    },
+    event = "VeryLazy",
+  },
+  {
     'neovim/nvim-lspconfig',
     opts = {
       document_highlight = { enabled = false },
       inlay_hints = { enabled = false, }
     },
+  },
+  {
+    "echasnovski/mini.snippets",
+    opts = function(_, opts)
+      local snippets = require("mini.snippets")
+      local config_path = vim.fn.stdpath("config")
+
+      opts.snippets = { -- override opts.snippets provided by extra...
+        -- Load custom file with global snippets first (order matters)
+        snippets.gen_loader.from_file(config_path .. "/snippets/global.json"),
+
+        -- Load snippets based on current language by reading files from
+        -- "snippets/" subdirectories from 'runtimepath' directories.
+        snippets.gen_loader.from_lang(), -- this is the default in the extra...
+      }
+    end,
   },
 }

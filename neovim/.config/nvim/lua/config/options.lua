@@ -4,14 +4,27 @@
 -- Add any additional options here
 
 
-local o = vim.opt
+-- LazyVim root dir detection
+-- Each entry can be:
+-- * the name of a detector function like `lsp` or `cwd`
+-- * a pattern or array of patterns like `.git` or `lua`.
+-- * a function with signature `function(buf) -> string|string[]`
+vim.g.root_spec = {
+  "lsp",
+  {
+    ".git",
+    ".obsidina",
+    "lua"
+  },
+  "cwd"
+}
 
 -- Do not highligh search term
-o.hlsearch = false
+vim.opt.hlsearch = false
 
-o.spelllang = { "lt", "en" }
+vim.opt.spelllang = { "lt", "en" }
 
-o.number = true
-o.relativenumber = false
+vim.opt.number = true
+vim.opt.relativenumber = false
 
-o.smoothscroll = false
+vim.opt.smoothscroll = false
