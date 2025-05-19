@@ -49,4 +49,4 @@ PROMPT="
 ${git_info}\
 ${venv_info}\
 $exit_code
-%{$reset_color%}"
+%{$terminfo[bold]$fg[blue]%}$ %{$reset_color%}"

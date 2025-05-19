@@ -30,7 +30,8 @@ alias -g X='| xargs'
 alias lg='lazygit'
 
 if which eza >/dev/null ; then
-    alias ls="eza -lMh --git --git-repos --icons=auto --time-style=long-iso --smart-group"
+    alias ls="eza -lMh --icons=auto --time-style=long-iso --smart-group"
+    alias lss="eza -lMh --icons=auto --time-style=long-iso --smart-group --total-size --sort=size"
 else
     alias ls='ls -1p --color --group-directories-first --time-style=long-iso -l'
 fi
