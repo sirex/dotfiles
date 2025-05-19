@@ -36,6 +36,11 @@ return {
       { "<leader>gg", "<cmd>LazyGitCurrentFile<cr>", desc = "Git Status" },
       { "<leader>gl", "<cmd>LazyGitFilterCurrentFile<cr>", desc = "Git Log (current file)" },
       { "<leader>gL", "<cmd>LazyGitFilter<cr>", desc = "Git Log" },
+      { "<leader>gb", "<cmd>Gitsigns blame<cr>", desc = "Git blame" },
+      { "<leader>gB", "<cmd>Gitsigns blame_line<cr>", desc = "Git blame line" },
+      { "<leader>gd", "<cmd>Gitsigns diffthis<cr>", desc = "Git diff this file" },
+      { "<leader>ga", "<cmd>Gitsigns stage_hunk<cr>", desc = "Git stage hunk" },
+      { "<leader>g-", "<cmd>Gitsigns undo_stage_hunk<cr>", desc = "Git undo stage hunk" },
     },
   },
 }

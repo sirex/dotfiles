@@ -72,6 +72,9 @@ end, { desc = "Toggle spell" })
 vim.keymap.set("n", "<leader>st", function()
   vim.o.expandtab = not vim.o.expandtab
 end, { desc = "Toggle tabs" })
+vim.keymap.set("n", "<leader>sw", function()
+  vim.wo.wrap = not vim.wo.wrap
+end, { desc = "Toggle wrap" })
 
 -- Lazy
 vim.keymap.set("n", "<leader>l", "<cmd>Lazy<cr>", { desc = "Lazy" })
