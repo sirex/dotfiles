@@ -3,9 +3,21 @@ return {
   ---@module 'oil'
   ---@type oil.SetupOpts
   keys = {
-    { "<leader>-", "<CMD>Oil<CR>", desc = "Oil: File browser" },
+    { "-", "<CMD>Oil<CR>", desc = "Oil: File browser" },
   },
-  opts = {},
+  opts = {
+    keymaps = {
+      ["<C-CR>"] = { "actions.select", opts = { horizontal = true } },
+      ["<S-CR>"] = { "actions.select", opts = { vertical = true } },
+      ["<C-r>"] = "actions.refresh",
+
+      -- Restore global keymaps
+      ["<C-s>"] = "<CMD>write<CR>",
+      ["<C-h>"] = "<C-w><C-h>",
+      ["<C-l>"] = "<C-w><C-l>",
+    },
+    delete_to_trash = true,
+  },
   -- Optional dependencies
   dependencies = {
     { "echasnovski/mini.icons", opts = {} },

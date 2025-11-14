@@ -32,11 +32,11 @@ configuration {
   spacing: 0;
 
   bg: #282C34;
-	fg: #ABB2BF;
-	blue: #61AFEF;
-	blue-alt: #61AFEF15;
-	red: #E06C75;
-	green: #6CE075;
+  fg: #ABB2BF;
+  blue: #61AFEF;
+  blue-alt: #61AFEF15;
+  red: #E06C75;
+  green: #6CE075;
   red-alt: #E06C7515;
 
   background-color: @bg;

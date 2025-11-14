@@ -284,19 +284,19 @@ return {
     opts = function(_, opts)
       local nls = require("null-ls")
       opts.sources = vim.list_extend(opts.sources or {}, {
-        nls.builtins.diagnostics.markdownlint_cli2,
+        -- nls.builtins.diagnostics.markdownlint_cli2,
         nls.builtins.diagnostics.mypy,
         nls.builtins.diagnostics.rstcheck,
       })
     end,
   },
-  {
-    "mfussenegger/nvim-lint",
-    optional = true,
-    opts = {
-      linters_by_ft = {
-        markdown = { "markdownlint-cli2" },
-      },
-    },
-  },
+  -- {
+  --   "mfussenegger/nvim-lint",
+  --   optional = true,
+  --   opts = {
+  --     linters_by_ft = {
+  --       markdown = { "markdownlint-cli2" },
+  --     },
+  --   },
+  -- },
 }

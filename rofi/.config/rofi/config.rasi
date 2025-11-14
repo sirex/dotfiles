@@ -1,0 +1,36 @@
+configuration {
+  modi: "combi,drun,window,run,ssh";
+  combi-modi: "drun,window,run,ssh";
+
+  // Default terminal for SSH and Terminal=true desktop files
+  terminal: "kitty";
+
+  // Distinguish run vs drun
+  run-shell-command: "kitty --holkb-accept-altd '{cmd}'";  // on kb-accept-alt
+
+  // Look and feel
+  show-icons: true;
+  icon-theme: "Papirus";
+
+  // Key bindings
+  kb-accept-entry: "Return";
+  kb-accept-custom: "Control+Return";
+  kb-accept-alt: "Shift+Return";
+  // kb-row-up: "Up,Control+k";
+  // kb-row-down: "Down,Control+j";
+
+  timeout {
+    action: "kb-cancel";
+    delay:  0;
+  }
+
+  filebrowser {
+    directories-first: true;
+    sorting-method:    "name";
+  }
+}
+
+@theme "onedark.rasi"
+* {
+  width: 512px;
+}

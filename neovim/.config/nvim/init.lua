@@ -1,5 +1,5 @@
 require("custom.options")
-require("custom.mappings")
+require("custom.keymaps")
 require("custom.autocmds")
 local lazy = require("custom.lazy")
 

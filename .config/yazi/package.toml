@@ -1,7 +1,12 @@
 [[plugin.deps]]
 use = "yazi-rs/plugins:mount"
-rev = "4b027c7"
-hash = "dd97eede8e20e59cd2604e8006e470e2"
+rev = "8f1d971"
+hash = "4fccaaf10c36dc2466e2438a386ff017"
+
+[[plugin.deps]]
+use = "walldmtd/fs-usage"
+rev = "d00655e"
+hash = "4c19faa86a2326ef1054644133568c8e"
 
 [flavor]
 deps = []

@@ -1,29 +1,3 @@
-local repl = {
-  ["ą"] = "a",
-  ["č"] = "c",
-  ["ę"] = "e",
-  ["ė"] = "e",
-  ["į"] = "i",
-  ["š"] = "s",
-  ["Į"] = "I",
-  ["ų"] = "u",
-  ["ū"] = "u",
-  ["ž"] = "z",
-  ["Ą"] = "A",
-  ["Č"] = "C",
-  ["Ę"] = "E",
-  ["Ė"] = "E",
-  ["Š"] = "S",
-  ["Ų"] = "U",
-  ["Ū"] = "U",
-  ["Ž"] = "Z",
-}
----@param input string
----@return string
-local function unidecode(input)
-  return (input:gsub("[%z\1-\127\194-\244][\128-\191]*", repl))
-end
-
 -- Returns something like `1744098387-HBDM`.
 ---@return string
 local function random_id()
@@ -38,7 +12,7 @@ end
 ---@return string
 local function node_id_func(title)
   if title ~= nil then
-    return (unidecode(title):gsub("[^A-Za-z0-9_-]", ""))
+    return title
   else
     return random_id()
   end
@@ -46,21 +20,23 @@ end
 
 -- https://github.com/epwalsh/obsidian.nvim
 return {
-  "epwalsh/obsidian.nvim",
+  "obsidian-nvim/obsidian.nvim",
   ft = "markdown",
   keys = {
-    { "<leader>oo", "<cmd>ObsidianToday<cr>", desc = "Obsidian daily note" },
-    { "<leader>op", "<cmd>ObsidianToday -1<cr>", desc = "Obsidian daily note (previous day)" },
-    { "<leader>oy", "<cmd>ObsidianYesterday<cr>", desc = "Obsidian daily note (previous work day)" },
-    { "<leader>or", "<cmd>ObsidianBacklinks<cr>", desc = "Obsidian backlinks" },
-    { "<leader>oi", "<cmd>ObsidianPasteImg<cr>", desc = "Obsidian passte image from clipboard" },
-    { "<leader>ot", "<cmd>ObsidianTOC<cr>", desc = "Obsidian table of content" },
+    { "<leader>oo", "<cmd>Obsidian today<cr>", desc = "Obsidian daily note" },
+    { "<leader>op", "<cmd>Obsidian today -1<cr>", desc = "Obsidian daily note (previous day)" },
+    { "<leader>oy", "<cmd>Obsidian yesterday<cr>", desc = "Obsidian daily note (previous work day)" },
+    { "<leader>or", "<cmd>Obsidian backlinks<cr>", desc = "Obsidian backlinks" },
+    { "<leader>oi", "<cmd>Obsidian paste img<cr>", desc = "Obsidian passte image from clipboard" },
+    { "<leader>ot", "<cmd>Obsidian toc<cr>", desc = "Obsidian table of content" },
+    { "<leader>oe", "<cmd>Obsidian open<cr>", desc = "Open note in Obsidian app" },
   },
   dependencies = {
     -- Required.
     "nvim-lua/plenary.nvim",
   },
   opts = {
+
     workspaces = {
       { name = "personal", path = "~/notes" },
       { name = "work", path = "~/ivpk/notes" },
@@ -86,14 +62,26 @@ return {
 
     -- Optional, customize how note IDs are generated given an optional title.
     note_id_func = node_id_func,
+    wiki_link_func = "use_alias_only",
 
     -- `:ObsidianFollowLink` on a link to an external URL
     ---@param url string
     follow_url_func = function(url)
       vim.fn.jobstart({ "xdg-open", url }) -- Linux
     end,
+
+    -- Optional, by default when you use `:ObsidianFollowLink` on a link to an image
+    -- file it will be ignored but you can customize this behavior here.
+    ---@param img string
+    follow_img_func = function(img)
+      vim.fn.jobstart({ "xdg-open", img }) -- linux
+    end,
+
     ui = {
       enable = false,
     },
+
+    -- Do not show warnings to change `:ObsidianBacklinks` to `:Obsidian backlings`.
+    legacy_commands = false,
   },
 }
