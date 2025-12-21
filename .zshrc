@@ -54,3 +54,5 @@ source <(fzf --zsh)
 
 # Zoxide
 eval "$(zoxide init zsh)"
+
+if [ -e /home/sirex/.nix-profile/etc/profile.d/nix.sh ]; then . /home/sirex/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer

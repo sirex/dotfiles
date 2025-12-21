@@ -27,7 +27,7 @@ return {
     { "<leader>op", "<cmd>Obsidian today -1<cr>", desc = "Obsidian daily note (previous day)" },
     { "<leader>oy", "<cmd>Obsidian yesterday<cr>", desc = "Obsidian daily note (previous work day)" },
     { "<leader>or", "<cmd>Obsidian backlinks<cr>", desc = "Obsidian backlinks" },
-    { "<leader>oi", "<cmd>Obsidian paste img<cr>", desc = "Obsidian passte image from clipboard" },
+    { "<leader>oi", "<cmd>Obsidian paste_img<cr>", desc = "Obsidian passte image from clipboard" },
     { "<leader>ot", "<cmd>Obsidian toc<cr>", desc = "Obsidian table of content" },
     { "<leader>oe", "<cmd>Obsidian open<cr>", desc = "Open note in Obsidian app" },
   },
@@ -58,6 +58,10 @@ return {
       -- If this is a relative path it will be interpreted as relative to the vault root.
       -- You can always override this per image by passing a full path to the command instead of just a filename.
       img_folder = "files", -- This is the default
+      img_name_func = function()
+        return string.format("IMG_%s.png", os.date("%Y%m%d_%H%M%S"))
+      end,
+      confirm_img_paste = false,
     },
 
     -- Optional, customize how note IDs are generated given an optional title.
