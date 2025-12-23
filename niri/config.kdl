@@ -255,7 +255,7 @@ spawn-at-startup "swayidle" "-w" \
   "before-sleep" "swaylock -f -i ~/Pictures/Wallpapers/mountains-wallpaper-2560x1440-starry-night-forest-silhouette-25334.jpg"
 
 // To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
-spawn-sh-at-startup "qs -c /etc/xdg/quickshell/noctalia-shell"
+//spawn-sh-at-startup "qs -c /etc/xdg/quickshell/noctalia-shell"
 
 hotkey-overlay {
     // Uncomment this line to disable the "Important Hotkeys" pop-up at startup.
@@ -332,6 +332,14 @@ window-rule {
     draw-border-with-background false
 }
 
+window-rule {
+    match app-id="floating-kitty"
+    opacity 0.85
+    open-floating true
+    default-column-width { fixed 1200; }
+    default-window-height { fixed 1000; }
+}
+
 // Example: block out two password managers from screen capture.
 // (This example rule is commented out with a "/-" in front.)
 /-window-rule {
@@ -379,6 +387,7 @@ binds {
     Mod+Shift+Space hotkey-overlay-title="Run an Command: rofi" { spawn "rofi" "-show" "run"; }
     Mod+Ctrl+Space hotkey-overlay-title="Run an Menu: rofi" { spawn "~/.local/bin/rofi-menu.py"; }
     Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
+    Super+Ctrl+S { spawn "kitty" "--class" "floating-kitty" "zsh" "-c" "home-manager switch --flake ~/dotfiles#home; exec zsh"; }
 
     // Use spawn-sh to run a shell command. Do this if you need pipes, multiple commands, etc.
     // Note: the entire command goes as a single argument. It's passed verbatim to `sh -c`.
