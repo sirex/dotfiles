@@ -8,6 +8,9 @@ let
       end
     '';
   };
+  link = path:
+    config.lib.file.mkOutOfStoreSymlink
+      "${config.home.homeDirectory}/dotfiles/${path}";
 in
 {
   # imports = [
@@ -120,15 +123,48 @@ in
 
     extraFiles = { "lua/utils.lua".source = ./utils.lua; };
 
+    globals = {
+      mapleader = " ";
+      maplocalleader = " ";
+    };
+
     # The settings you'd usually put in init.lua
     opts = {
-      number = true;         # Line numbers
+      number = true;  # Line numbers
+      mouse = "a";
       hlsearch = false;
       timeout = true;
-      timeoutlen = 300;
+      clipboard = "unnamedplus";
+      splitright = true;
+      splitbelow = true;
+      updatetime = 250;  # Decrease update time
+      timeoutlen = 300;  # Decrease mapped sequence wait time
+      undofile = true;
+      breakindent = true;
+      signcolumn = "yes";  # Keep signcolumn on by default
+      inccommand = "split";  # Preview substitutions live, as you type!
+      cursorline = true;  # Show which line your cursor is on
+      scrolloff = 10;  # Minimal number of screen lines to keep above and below the cursor.
+      spelllang = ["lt" "en"];
+      linebreak = true;
+
+      # if performing an operation that would fail due to unsaved changes in the buffer (like `:q`),
+      # instead raise a dialog asking if you wish to save the current file(s)
+      # See `:help 'confirm'`
+      confirm = true;
+
+      # Sets how neovim will display certain whitespace characters in the editor.
+      #  See `:help 'list'`
+      #  and `:help 'listchars'`
+      list = true;
+      listchars = { tab = "» "; trail = "·"; nbsp = "␣"; };
+
+      # Case-insensitive searching UNLESS \C or one or more capital letters in the search term
+      ignorecase = true;
+      smartcase = true;
 
       # Tabs
-      expandtab = true;      # Convert tabs to spaces
+      expandtab = true;  # Convert tabs to spaces
       tabstop = 2;
       softtabstop = 2;
       shiftwidth = 2;
@@ -144,11 +180,13 @@ in
       };
     };
 
-    globals.mapleader = " ";
     keymaps = [
       # Basic
       { mode = "n"; key = "<Esc>"; action = "<cmd>nohlsearch<CR>"; options.desc = "Clear highlights"; }
       { mode = ["i" "x" "n" "s"]; key = "<C-s>"; action = "<cmd>up<cr><esc>"; options.desc = "Save File"; }
+      { mode = "n"; key = "<leader>ch"; action = "<cmd>e ~/dotfiles/home.nix<cr>"; options.desc = "[C]onfigure [H]ome.nix"; }
+      { mode = "n"; key = "<leader>cn"; action = "<cmd>e ~/dotfiles/niri/config.kdl<cr>"; options.desc = "[C]onfigure [N]iri"; }
+      { mode = "n"; key = "<leader>cv"; action = lua "neovim_configs"; options.desc = "[C]onfigure Neo[V]im"; }
 
       # Movement (better up/down)
       { mode = ["n" "x"]; key = "j"; action = "v:count == 0 ? 'gj' : 'j'"; options = { expr = true; silent = true; desc = "Down"; }; }
@@ -400,10 +438,40 @@ in
         };
       };
 
+      treesitter = {
+        enable = true;
+        nixvimInjections = true;
+        settings = {
+          auto_install = false;
+          sync_install = false;
+          parser_install_dir.__raw = "vim.fs.joinpath(vim.fn.stdpath('data'), 'treesitter')";
+          ensure_installed = [ 
+            "bash"
+            "c"
+            "diff"
+            "html"
+            "xml"
+            "lua"
+            "luadoc"
+            "markdown"
+            "markdown_inline"
+            "query"
+            "vim"
+            "vimdoc"
+            "python"
+            "nix" 
+            "kdl"
+          ];
+          highlight.enable = true;
+          indent.enable = true;
+        };
+      };
+
     };
   };
 
   xdg.configFile = {
-    "niri/config.kdl".source = ./niri/config.kdl;
+    "niri".source = link "niri";
   };
+
 }

@@ -32,6 +32,11 @@ function M.mru()
 	})
 end
 
+-- Shortcut for searching your Neovim configuration files
+function M.neovim_configs()
+  require("telescope.builtin").find_files({ cwd = vim.fn.expand("~/dotfiles/neovim/.config/nvim") })
+end
+
 -- Obsidian
 
 function M.note_id(title)
