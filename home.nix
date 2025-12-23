@@ -194,10 +194,21 @@ in
 
       # Window Navigation
       { mode = "n"; key = "<Tab>"; action = "<C-W>p"; options.desc = "Switch to previous window"; }
+      { mode = "n"; key = "<C-Tab>"; action = "<C-6>"; options.desc = "Switch to previous buffer"; }
       { mode = "n"; key = "<C-h>"; action = "<C-w><C-h>"; options.desc = "Move left"; }
       { mode = "n"; key = "<C-l>"; action = "<C-w><C-l>"; options.desc = "Move right"; }
       { mode = "n"; key = "<C-j>"; action = "<C-w><C-j>"; options.desc = "Move down"; }
       { mode = "n"; key = "<C-k>"; action = "<C-w><C-k>"; options.desc = "Move up"; }
+
+      # Window Resizing
+      { mode = "n"; key = "<C-n>"; action = "<cmd>vertical resize -5<CR>"; options = { silent = true; desc = "Decrease window width"; }; }
+      { mode = "n"; key = "<C-m>"; action = "<cmd>vertical resize +5<CR>"; options = { silent = true; desc = "Increase window width"; }; }
+      { mode = "n"; key = "<C-M-n>"; action = "<cmd>resize -5<CR>"; options = { silent = true; desc = "Decrease window height"; }; }
+      { mode = "n"; key = "<C-M-m>"; action = "<cmd>resize +5<CR>"; options = { silent = true; desc = "Increase window height"; }; }
+
+      # Scrolling
+      { mode = "n"; key = "<A-j>"; action = "<c-d>"; options.desc = "Half page down"; }
+      { mode = "n"; key = "<A-k>"; action = "<c-u>"; options.desc = "Half page up"; }
 
       # Terminal Mode Navigation
       { mode = "t"; key = "<Esc><Esc>"; action = "<C-\\><C-n>"; options.desc = "Exit terminal mode"; }
@@ -205,11 +216,6 @@ in
       { mode = "t"; key = "<C-l>"; action = "<C-\\><C-n><C-w><C-l>"; options.desc = "Move right (term)"; }
       { mode = "t"; key = "<C-j>"; action = "<C-\\><C-n><C-w><C-j>"; options.desc = "Move down (term)"; }
       { mode = "t"; key = "<C-k>"; action = "<C-\\><C-n><C-w><C-k>"; options.desc = "Move up (term)"; }
-
-      # Scrolling & Buffers
-      { mode = "n"; key = "<C-Tab>"; action = "<C-6>"; options.desc = "Last buffer"; }
-      { mode = "n"; key = "<A-j>"; action = "<c-d>"; options.desc = "Half page down"; }
-      { mode = "n"; key = "<A-k>"; action = "<c-u>"; options.desc = "Half page up"; }
 
       # Diagnostics
       { mode = "n"; key = "<leader>q"; action.__raw = "vim.diagnostic.setloclist"; options.desc = "Open diagnostic Quickfix"; }

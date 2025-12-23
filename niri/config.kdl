@@ -192,6 +192,7 @@ window-rule {
     match app-id=r#"^org\.gnome\.Nautilus$"#
     match app-id=r#"^steam$"#
     match app-id=r#"^xdg-desktop-portal$"#
+    match app-id="qalculate-gtk"
     open-floating true
 }
 window-rule {

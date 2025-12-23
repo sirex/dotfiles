@@ -12,6 +12,7 @@ binds {
     Mod+E hotkey-overlay-title="Open a File Editor: nvim" { spawn "kitty" "-e" "nvim"; }
     Mod+D hotkey-overlay-title="Open a File Manager: yazi" { spawn "kitty" "-e" "yazi"; }
     Mod+W hotkey-overlay-title="Open a Web Browser: chromium" { spawn "chromium" "--new-window"; }
+    Mod+C hotkey-overlay-title="Open a Calculator: qalculate" { spawn "qalculate-gtk"; }
     Mod+Shift+S { spawn "kitty" "--class" "floating-kitty" "zsh" "-c" "home-manager switch --flake ~/dotfiles#home; exec zsh"; }
     Mod+Shift+Space hotkey-overlay-title="Run an Command: rofi" { spawn "rofi" "-show" "run"; }
     Mod+Ctrl+Space hotkey-overlay-title="Run an Menu: rofi" { spawn "~/.local/bin/rofi-menu.py"; }
