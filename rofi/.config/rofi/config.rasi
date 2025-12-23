@@ -19,6 +19,8 @@ configuration {
   // kb-row-up: "Up,Control+k";
   // kb-row-down: "Down,Control+j";
 
+  case-sensitive: false;
+
   timeout {
     action: "kb-cancel";
     delay:  0;
