@@ -37,6 +37,7 @@ in
     nh
     fd
     ripgrep
+    matugen
   ];
 
   # Home Manager can also manage your environment variables through
@@ -121,7 +122,14 @@ in
     enable = true;
     defaultEditor = true;
 
-    extraFiles = { "lua/utils.lua".source = ./utils.lua; };
+    extraFiles = {
+      "lua/utils.lua".source = ./utils.lua;
+      "lua/snippets.lua".source = ./snippets.lua;
+    };
+
+    extraConfigLua = ''
+      require("snippets")
+    '';
 
     globals = {
       mapleader = " ";
@@ -447,31 +455,114 @@ in
       treesitter = {
         enable = true;
         nixvimInjections = true;
+        ensureInstalled = [ 
+          "bash"
+          "c"
+          "diff"
+          "html"
+          "xml"
+          "lua"
+          "luadoc"
+          "markdown"
+          "markdown_inline"
+          "query"
+          "vim"
+          "vimdoc"
+          "python"
+          "nix" 
+          "kdl"
+        ];
         settings = {
           auto_install = false;
           sync_install = false;
-          parser_install_dir.__raw = "vim.fs.joinpath(vim.fn.stdpath('data'), 'treesitter')";
-          ensure_installed = [ 
-            "bash"
-            "c"
-            "diff"
-            "html"
-            "xml"
-            "lua"
-            "luadoc"
-            "markdown"
-            "markdown_inline"
-            "query"
-            "vim"
-            "vimdoc"
-            "python"
-            "nix" 
-            "kdl"
-          ];
+          # parser_install_dir.__raw = "vim.fs.joinpath(vim.fn.stdpath('data'), 'treesitter')";
           highlight.enable = true;
+          highlight.additional_vim_regex_highlighting = false;
           indent.enable = true;
         };
+        nixGrammars = true;
       };
+
+      luasnip.enable = true;
+      cmp-nvim-lsp.enable = true;
+      cmp-path.enable = true;
+      cmp-nvim-lsp-signature-help.enable = true;
+      cmp_luasnip.enable = true;
+      cmp = {
+        enable = true;
+
+        settings = {
+          # Disable Auto-Popup
+          completion.autocomplete = false;
+          completion.completeopt = "menu,menuone,noinsert";
+
+          snippet.expand = "function(args) require('luasnip').lsp_expand(args.body) end";
+
+          mapping = {
+            # Trigger & Confirm (The Smart TAB)
+            "<Tab>" = ''
+              cmp.mapping(function(fallback)
+                local cmp = require('cmp')
+                local luasnip = require('luasnip')
+
+                if cmp.visible() then
+                  -- 1. If menu is open, confirm selection
+                  cmp.confirm({ select = true })
+                
+                elseif luasnip.locally_jumpable(1) then
+                  -- 2. If inside a snippet, jump to next placeholder
+                  luasnip.jump(1)
+
+                else
+                  -- 3. Check for words to trigger manual completion
+                  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+                  local has_words = col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+
+                  if has_words then
+                    cmp.complete()
+                  else
+                    fallback()
+                  end
+                end
+              end, { "i", "s" })
+            '';
+
+            # Navigation (Keep C-j/C-k or use Up/Down)
+            "<C-j>" = "cmp.mapping.select_next_item()";
+            "<C-k>" = "cmp.mapping.select_prev_item()";
+
+            # Docs Scroll
+            "<M-j>" = "cmp.mapping.scroll_docs(-4)";
+            "<M-k>" = "cmp.mapping.scroll_docs(4)";
+
+            # --- Snippet Jumping (Converted from your Lua) ---
+            "<C-l>" = ''
+              cmp.mapping(function()
+                if require('luasnip').expand_or_locally_jumpable() then
+                  require('luasnip').expand_or_jump()
+                end
+              end, { "i", "s" })
+            '';
+
+            "<C-h>" = ''
+              cmp.mapping(function()
+                if require('luasnip').locally_jumpable(-1) then
+                  require('luasnip').jump(-1)
+                end
+              end, { "i", "s" })
+            '';
+          };
+
+          sources = [
+            { name = "lazydev"; group_index = 0; }
+            { name = "nvim_lsp"; }
+            { name = "luasnip"; }
+            { name = "path"; }
+            { name = "nvim_lsp_signature_help"; }
+          ];
+        };
+      };
+
 
     };
   };
