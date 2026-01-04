@@ -3,8 +3,8 @@
 let
   lua = func: {
     __raw = ''
-      function()
-        require('utils').${func}()
+      function(...)
+        return require('utils').${func}(...)
       end
     '';
   };
@@ -326,6 +326,11 @@ in
 
           ui.enable = false;
           legacy_commands = false;
+
+          completion = {
+            nvim_cmp = true;
+            min_chars = 2;
+          };
         };
       };
 
@@ -553,22 +558,58 @@ in
             '';
           };
 
+          # sources = [
+          #   { name = "obsidian"; }
+          #   { name = "obsidian_new"; }
+          #   { name = "nvim_lsp"; }
+          #   { name = "luasnip"; }
+          #   { name = "path"; }
+          #   { name = "nvim_lsp_signature_help"; }
+          # ];
+
+          # 1. Update SOURCES (Clean up and prioritize)
           sources = [
-            { name = "lazydev"; group_index = 0; }
-            { name = "nvim_lsp"; }
-            { name = "luasnip"; }
-            { name = "path"; }
-            { name = "nvim_lsp_signature_help"; }
+            # Give Obsidian HIGHEST priority (e.g. 100) so it appears at the top
+            { name = "obsidian"; group_index = 1; priority = 100; }
+            { name = "obsidian_new"; group_index = 1; priority = 100; }
+
+            # Standard sources have lower priority
+            { name = "nvim_lsp"; group_index = 2; priority = 50; }
+            { name = "luasnip"; group_index = 2; priority = 50; }
+            { name = "path"; group_index = 2; priority = 50; }
           ];
+
+          # 2. Add SORTING and MATCHING config
+          # This helps find "Mantas" even if the file is "123456_Mantas.md"
+          sorting = {
+            priority_weight = 2;
+            comparators = [
+              "require('cmp.config.compare').offset"
+              "require('cmp.config.compare').exact"
+              "require('cmp.config.compare').score"
+              "require('cmp.config.compare').recently_used"
+              "require('cmp.config.compare').kind"
+              "require('cmp.config.compare').sort_text"
+              "require('cmp.config.compare').length"
+              "require('cmp.config.compare').order"
+            ];
+          };
         };
       };
 
+      lsp = {
+        enable = true;
+        servers = {
+          # You can add language servers here later, e.g., nil_ls = { enable = true; };
+        };
+      };
 
     };
   };
 
   xdg.configFile = {
     "niri".source = link "niri";
+    "DankMaterialShell".source = link "dms";
   };
 
 }
