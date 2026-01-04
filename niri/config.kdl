@@ -241,8 +241,8 @@ debug {
 // Override to disable super+tab
 recent-windows {
     binds {
-        Mod+grave         { next-window scope="output"; }
-        Mod+Shift+grave   { previous-window scope="output"; }
+        Mod+Tab           { next-window scope="output"; }
+        Mod+Shift+Tab     { previous-window scope="output"; }
         Alt+Tab           { next-window filter="app-id"; }
         Alt+Shift+Tab     { previous-window filter="app-id"; }
     }
