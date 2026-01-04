@@ -608,6 +608,7 @@ in
   };
 
   xdg.configFile = {
+    "kitty".source = link "kitty";
     "niri".source = link "niri";
     "DankMaterialShell".source = link "dms";
   };
