@@ -122,6 +122,8 @@ overview {
 // See the binds section below for more spawn examples.
 // This line starts waybar, a commonly used bar for Wayland compositors.
 spawn-at-startup "bash" "-c" "wl-paste --watch cliphist store &"
+// Monitors: ~/.config/kanshi/config
+spawn-at-startup "kanshi"
 environment {
   XDG_CURRENT_DESKTOP "niri"
 }

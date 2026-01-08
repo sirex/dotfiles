@@ -209,10 +209,10 @@ in
       { mode = "n"; key = "<C-k>"; action = "<C-w><C-k>"; options.desc = "Move up"; }
 
       # Window Resizing
-      { mode = "n"; key = "<C-n>"; action = "<cmd>vertical resize -5<CR>"; options = { silent = true; desc = "Decrease window width"; }; }
-      { mode = "n"; key = "<C-m>"; action = "<cmd>vertical resize +5<CR>"; options = { silent = true; desc = "Increase window width"; }; }
-      { mode = "n"; key = "<C-M-n>"; action = "<cmd>resize -5<CR>"; options = { silent = true; desc = "Decrease window height"; }; }
-      { mode = "n"; key = "<C-M-m>"; action = "<cmd>resize +5<CR>"; options = { silent = true; desc = "Increase window height"; }; }
+      { mode = "n"; key = "<C-M-n>"; action = "<cmd>vertical resize -5<CR>"; options = { silent = true; desc = "Decrease window width"; }; }
+      { mode = "n"; key = "<C-M-m>"; action = "<cmd>vertical resize +5<CR>"; options = { silent = true; desc = "Increase window width"; }; }
+      { mode = "n"; key = "<C-n>"; action = "<cmd>resize -5<CR>"; options = { silent = true; desc = "Decrease window height"; }; }
+      { mode = "n"; key = "<C-m>"; action = "<cmd>resize +5<CR>"; options = { silent = true; desc = "Increase window height"; }; }
 
       # Scrolling
       { mode = "n"; key = "<A-j>"; action = "<c-d>"; options.desc = "Half page down"; }
@@ -608,9 +608,12 @@ in
   };
 
   xdg.configFile = {
+    "DankMaterialShell".source = link "dms";
     "kitty".source = link "kitty";
     "niri".source = link "niri";
-    "DankMaterialShell".source = link "dms";
+    "yazi".source = link "yazi";
+    "kanshi".source = link "kanshi";
+    "lazygit".source = link "lazygit";
   };
 
 }

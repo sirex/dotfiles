@@ -1,0 +1,7 @@
+profile {
+  # Dell Inc. DELL U2212HM D09VR36D091L
+  output "DP-1" mode 1920x1080@60 position 0,0
+
+  # Lenovo Group Limited LEN G34w-10 UGW05HF0
+  output "HDMI-A-1" mode 3440x1440@60 position 1920,0
+}
