@@ -309,9 +309,13 @@ in
           new_notes_location = "current_dir";
           preferred_link_style = "wiki";
           wiki_link_func = "use_alias_only";
+          # wiki_link_func = "prepend_note_id";
+          # wiki_link_func = "use_path_only";
+          # wiki_link_func = lua "wiki_link_func";
 
           attachments = {
-            img_folder = "files";
+            # attachments.img_folder is deprecated, use attachments.folder instead.
+            folder = "files";
             confirm_img_paste = false;
             # Replicating img_name_func
             img_name_func = lua "img_name";
@@ -321,8 +325,12 @@ in
           note_id_func = lua "note_id";
 
           # Browser/Image Open logic
-          follow_url_func = lua "follow_url";
-          follow_img_func = lua "follow_img";
+          # follow_url_func is deprecated, use vim.ui.open,
+          # see https://github.com/obsidian-nvim/obsidian.nvim/wiki/Attachment instead.
+          #~follow_url_func = lua "follow_url";
+          # follow_img_func is deprecated, use vim.ui.open,
+          # see https://github.com/obsidian-nvim/obsidian.nvim/wiki/Attachment instead.
+          #~follow_img_func = lua "follow_img";
 
           ui.enable = false;
           legacy_commands = false;
@@ -558,42 +566,14 @@ in
             '';
           };
 
-          # sources = [
-          #   { name = "obsidian"; }
-          #   { name = "obsidian_new"; }
-          #   { name = "nvim_lsp"; }
-          #   { name = "luasnip"; }
-          #   { name = "path"; }
-          #   { name = "nvim_lsp_signature_help"; }
-          # ];
-
-          # 1. Update SOURCES (Clean up and prioritize)
           sources = [
-            # Give Obsidian HIGHEST priority (e.g. 100) so it appears at the top
-            { name = "obsidian"; group_index = 1; priority = 100; }
-            { name = "obsidian_new"; group_index = 1; priority = 100; }
-
-            # Standard sources have lower priority
-            { name = "nvim_lsp"; group_index = 2; priority = 50; }
-            { name = "luasnip"; group_index = 2; priority = 50; }
-            { name = "path"; group_index = 2; priority = 50; }
+            { name = "obsidian"; }
+            { name = "obsidian_new"; }
+            { name = "nvim_lsp"; }
+            { name = "luasnip"; }
+            { name = "path"; }
+            { name = "nvim_lsp_signature_help"; }
           ];
-
-          # 2. Add SORTING and MATCHING config
-          # This helps find "Mantas" even if the file is "123456_Mantas.md"
-          sorting = {
-            priority_weight = 2;
-            comparators = [
-              "require('cmp.config.compare').offset"
-              "require('cmp.config.compare').exact"
-              "require('cmp.config.compare').score"
-              "require('cmp.config.compare').recently_used"
-              "require('cmp.config.compare').kind"
-              "require('cmp.config.compare').sort_text"
-              "require('cmp.config.compare').length"
-              "require('cmp.config.compare').order"
-            ];
-          };
         };
       };
 

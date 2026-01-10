@@ -77,4 +77,23 @@ function M.img_name()
   return string.format("IMG_%s.png", os.date("%Y%m%d_%H%M%S"))
 end
 
+-- programs.nixvim.plugins.obsidian.settings.wiki_link_func = lua "wiki_link_func";
+function M.wiki_link_func(opts)
+  -- DEBUG: Print to :messages so we know it runs
+  vim.print("Obsidian Link Check: ", opts) 
+
+  -- 1. Handle "Create New" candidates (where path is just a string)
+  if type(opts.path) == "string" then
+    return opts.label or opts.path
+  end
+
+  -- 2. Handle Existing Notes (where path is a Table with .name)
+  if opts.path and opts.path.name then
+    return opts.path.name
+  end
+  
+  -- 3. Fallback to ID or Label
+  return opts.id or opts.label
+end
+
 return M
