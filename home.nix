@@ -77,9 +77,6 @@ in
       theme = "sirex";
     };
   };
-  home.file = {
-    ".config/zsh/themes/sirex.zsh-theme".source = ./zsh/themes/sirex.zsh-theme;
-  };
   programs.eza = {
     enable = true;
     icons = "auto";
@@ -244,9 +241,9 @@ in
 
       # Obsidian
       { mode = "n"; key = "<leader>oo"; action = "<cmd>Obsidian today<cr>"; options.desc = "Obsidian daily note"; }
+      { mode = "n"; key = "<leader>ow"; action = "<cmd>Obsidian workspace<cr>"; options.desc = "Obsidian select workspace"; }
       { mode = "n"; key = "<leader>op"; action = "<cmd>Obsidian today -1<cr>"; options.desc = "Obsidian daily note (previous day)"; }
-      # 'yesterday' is a valid shortcut for 'today -1' options.desc = "Obsidian daily note (yesterday)"; }
-      { mode = "n"; key = "<leader>oy"; action = "<cmd>Obsidian yesterday<cr>"; }
+      { mode = "n"; key = "<leader>oy"; action = "<cmd>Obsidian yesterday<cr>"; options.desc = "Obsidian daily note (yesterday)";  }
       { mode = "n"; key = "<leader>or"; action = "<cmd>Obsidian backlinks<cr>"; options.desc = "Obsidian backlinks"; }
       { mode = "n"; key = "<leader>oi"; action = "<cmd>Obsidian paste_img<cr>"; options.desc = "Obsidian paste image"; }
       # Note: 'toc' is not a default command in recent versions. 
@@ -298,6 +295,23 @@ in
           workspaces = [
             { name = "home"; path = "${config.home.homeDirectory}/notes"; }
             { name = "work"; path = "${config.home.homeDirectory}/ivpk/notes"; }
+            # {
+            #   # https://github.com/obsidian-nvim/obsidian.nvim/issues/418
+            #   name = "auto";
+            #   path.__raw = ''
+            #     function()
+            #       local path = vim.fs.dirname(vim.api.nvim_buf_get_name(0))
+            #       local prev = ""
+            #       while path ~= "" and path ~= prev do
+            #         if vim.uv.fs_stat(path .. "/.obsidian") then
+            #           return path
+            #         end
+            #         prev, path = path, vim.fs.dirname(path)
+            #       end
+            #       return nil
+            #     end
+            #   '';
+            # }
           ];
 
           daily_notes = {
@@ -309,9 +323,6 @@ in
           new_notes_location = "current_dir";
           preferred_link_style = "wiki";
           wiki_link_func = "use_alias_only";
-          # wiki_link_func = "prepend_note_id";
-          # wiki_link_func = "use_path_only";
-          # wiki_link_func = lua "wiki_link_func";
 
           attachments = {
             # attachments.img_folder is deprecated, use attachments.folder instead.
@@ -323,14 +334,6 @@ in
 
           # Custom Note ID Logic
           note_id_func = lua "note_id";
-
-          # Browser/Image Open logic
-          # follow_url_func is deprecated, use vim.ui.open,
-          # see https://github.com/obsidian-nvim/obsidian.nvim/wiki/Attachment instead.
-          #~follow_url_func = lua "follow_url";
-          # follow_img_func is deprecated, use vim.ui.open,
-          # see https://github.com/obsidian-nvim/obsidian.nvim/wiki/Attachment instead.
-          #~follow_img_func = lua "follow_img";
 
           ui.enable = false;
           legacy_commands = false;
@@ -587,6 +590,23 @@ in
     };
   };
 
+  home.file = {
+    ".config/zsh/themes/sirex.zsh-theme".source = ./zsh/themes/sirex.zsh-theme;
+    ".local/share/applications/obsidian.desktop".text = ''
+      [Desktop Entry]
+      Name=Obsidian
+      Comment=Obsidian (Wayland)
+      Exec=/usr/bin/obsidian --enable-features=UseOzonePlatform --ozone-platform=wayland %U
+      Terminal=false
+      Type=Application
+      Icon=obsidian
+      MimeType=x-scheme-handler/obsidian;
+      Categories=Office;
+      StartupNotify=true
+      StartupWMClass=obsidian
+    '';
+  };
+
   xdg.configFile = {
     "DankMaterialShell".source = link "dms";
     "kitty".source = link "kitty";
@@ -595,5 +615,4 @@ in
     "kanshi".source = link "kanshi";
     "lazygit".source = link "lazygit";
   };
-
 }
