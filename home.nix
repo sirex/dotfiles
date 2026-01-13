@@ -266,6 +266,8 @@ in
       # Oil
       { mode = "n"; key = "-"; action = "<cmd>Oil<cr>"; options.desc = "Oil: File browser"; }
 
+      # CSVView
+      { mode = "n"; key = "<leader>st"; action = "<cmd>CsvViewToggle<cr>"; options.desc = "Toggle CSV View"; }
     ];
 
     # Here is where we add your requested plugins
@@ -584,6 +586,18 @@ in
         enable = true;
         servers = {
           # You can add language servers here later, e.g., nil_ls = { enable = true; };
+        };
+      };
+
+      csvview = {
+        enable = true;
+        settings = {
+          keymaps = {
+            jump_next_field_end = { __unkeyed-1 = "<Tab>"; mode = [ "n" "v" ]; };
+            jump_prev_field_end = { __unkeyed-1 = "<S-Tab>"; mode = [ "n" "v" ]; };
+            jump_next_row = { __unkeyed-1 = "<Enter>"; mode = [ "n" "v" ]; };
+            jump_prev_row = { __unkeyed-1 = "<S-Enter>"; mode = [ "n" "v" ]; };
+          };
         };
       };
 
