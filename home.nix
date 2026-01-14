@@ -250,6 +250,7 @@ in
       # If this doesn't work, try a specific plugin for TOC or check command name.
       { mode = "n"; key = "<leader>ot"; action = "<cmd>Obsidian toc<cr>"; options.desc = "Obsidian table of content"; }
       { mode = "n"; key = "<leader>oe"; action = "<cmd>Obsidian open<cr>"; options.desc = "Open note in Obsidian app"; }
+      { mode = "n"; key = "<leader>os"; action = "<cmd>Obsidian search<cr>"; options.desc = "Search Obsidian note"; }
 
       # LazyGit
       { mode = "n"; key = "<leader>gg"; action = "<cmd>LazyGitCurrentFile<cr>"; options.desc = "LazyGit (Current File)"; }
