@@ -390,11 +390,17 @@ in
         # Telescope Settings (Defaults)
         settings.defaults = {
           mappings = {
+            n = {
+              "<C-p>" = { __raw = "require('telescope.actions.layout').toggle_preview"; };
+            };
             i = {
               "<C-j>" = "move_selection_next";
               "<C-k>" = "move_selection_previous";
               "<M-j>" = "preview_scrolling_down";
               "<M-k>" = "preview_scrolling_up";
+              "<C-p>" = { __raw = "require('telescope.actions.layout').toggle_preview"; };
+              "<esc>" = "close";
+              "<C-u>" = false;
             };
           };
         };

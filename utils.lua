@@ -29,6 +29,7 @@ function M.mru()
     sort_mru = true,
     sort_lastused = true,
     ignore_current_buffer = true,
+    previewer = false,
   })
 end
 
