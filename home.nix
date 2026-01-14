@@ -389,6 +389,8 @@ in
 
         # Telescope Settings (Defaults)
         settings.defaults = {
+          path_display = [ "filename_first" ];
+
           mappings = {
             n = {
               "<C-p>" = { __raw = "require('telescope.actions.layout').toggle_preview"; };
