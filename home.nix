@@ -1,13 +1,21 @@
 # { config, pkgs, nixvim, ... }:
 { config, pkgs, host, hasNotes ? false, ... }:
 let
-  lua = func: {
+  # lua = func: {
+  #   __raw = ''
+  #     function(...)
+  #       return require('utils').${func}(...)
+  #     end
+  #   '';
+  # };
+  lua = func: args: {
     __raw = ''
-      function(...)
-        return require('utils').${func}(...)
+      function()
+        return require('utils').${func}(${builtins.concatStringsSep ", " (map builtins.toJSON args)})
       end
     '';
   };
+
   link = path:
     config.lib.file.mkOutOfStoreSymlink
       "${config.home.homeDirectory}/dotfiles/${path}";
@@ -191,7 +199,7 @@ in
       { mode = ["i" "x" "n" "s"]; key = "<C-s>"; action = "<cmd>up<cr><esc>"; options.desc = "Save File"; }
       { mode = "n"; key = "<leader>ch"; action = "<cmd>e ~/dotfiles/home.nix<cr>"; options.desc = "[C]onfigure [H]ome.nix"; }
       { mode = "n"; key = "<leader>cn"; action = "<cmd>e ~/dotfiles/niri/config.kdl<cr>"; options.desc = "[C]onfigure [N]iri"; }
-      { mode = "n"; key = "<leader>cv"; action = lua "neovim_configs"; options.desc = "[C]onfigure Neo[V]im"; }
+      { mode = "n"; key = "<leader>cv"; action = lua "neovim_configs" []; options.desc = "[C]onfigure Neo[V]im"; }
 
       # Movement (better up/down)
       { mode = ["n" "x"]; key = "j"; action = "v:count == 0 ? 'gj' : 'j'"; options = { expr = true; silent = true; desc = "Down"; }; }
@@ -229,15 +237,18 @@ in
       { mode = "n"; key = "<C-Enter>"; action = "<cmd>ToggleTerm<cr>"; options.desc = "Toggle terminal panel"; }
       { mode = "n"; key = "<C-e>"; action = "<cmd>ToggleTermSendCurrentLine<cr>j"; options.desc = "Send line to terminal"; }
       { mode = "v"; key = "<C-e>"; action = "<cmd>ToggleTermSendVisualSelection<cr>"; options.desc = "Send selection to terminal"; }
-      { mode = "n"; key = "<leader>tm"; action = lua "set_term_cmd"; options.desc = "[T]erminal [M]ap (Current Line)"; }
-      { mode = "n"; key = "<leader>tt"; action = lua "run_term_cmd"; options.desc = "Execute mapped terminal command"; }
+      { mode = "n"; key = "<leader>tm"; action = lua "set_term_cmd" []; options.desc = "[T]erminal [M]ap (Current Line)"; }
+      { mode = "n"; key = "<leader>tt"; action = lua "run_term_cmd" []; options.desc = "Execute mapped terminal command"; }
 
       # projects.nvim
-      { mode = "n"; key = "<leader>fp"; action = lua "projects"; options.desc = "[F]ind a [P]roject"; }
+      { mode = "n"; key = "<leader>fp"; action = lua "projects" []; options.desc = "[F]ind a [P]roject"; }
       { mode = "n"; key = "<leader>sr"; action = "<cmd>ProjectRoot<cr>"; options.desc = "[S]et Project [R]oot"; }
 
       # Telescope
-      { mode = "n"; key = "<leader><leader>"; action = lua "mru"; options.desc = "[ ] Find existing buffers (MRU)"; }
+      { mode = "n"; key = "<leader><leader>"; action = lua "mru" []; options.desc = "[F]ind existing buffers (MRU)"; }
+      { mode = "n"; key = "<leader>sd"; action = lua "search_dir" []; options.desc = "[S]earch [D]irectory"; }
+      { mode = "n"; key = "<leader>cd"; action = lua "find" [ "~/dotfiles" ];  options.desc = "[C]onfigure [D]otfiles"; }
+      { mode = "n"; key = "<leader>cc"; action = lua "find" [ "~/.config" ];  options.desc = "[C]onfigure .[c]onfig/"; }
 
       # Obsidian
       { mode = "n"; key = "<leader>oo"; action = "<cmd>Obsidian today<cr>"; options.desc = "Obsidian daily note"; }
@@ -332,11 +343,11 @@ in
             folder = "files";
             confirm_img_paste = false;
             # Replicating img_name_func
-            img_name_func = lua "img_name";
+            img_name_func = lua "img_name" [];
           };
 
           # Custom Note ID Logic
-          note_id_func = lua "note_id";
+          note_id_func = lua "note_id" [];
 
           ui.enable = false;
           legacy_commands = false;
@@ -426,11 +437,11 @@ in
           "<leader>ff" = { action = "find_files"; options.desc = "[F]ind [F]iles"; };
           "<leader>fs" = { action = "builtin"; options.desc = "[F]ind [S]elect Telescope"; };
           "<leader>fw" = { action = "grep_string"; options.desc = "[F]ind current [W]ord"; };
-          "<leader>fg" = { action = "live_grep"; options.desc = "[F]ind by [G]rep"; };
           "<leader>fe" = { action = "diagnostics"; options.desc = "[F]ind [E]rrors"; };
           "<leader>fr" = { action = "oldfiles"; options.desc = "[F]ind [R]ecent files"; };
           "<leader>f." = { action = "resume"; options.desc = "[F]ind [R]esume"; };
           "<leader>fm" = { action = "man_pages"; options.desc = "[F]ind [M]an pages"; };
+          "<leader>ss" = { action = "live_grep"; options.desc = "[S]earch"; };
         };
       };
 

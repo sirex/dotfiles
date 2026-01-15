@@ -33,6 +33,37 @@ function M.mru()
   })
 end
 
+function M.find(path)
+  require("telescope.builtin").find_files({
+    cwd = vim.fn.expand(path),
+    prompt_title = "Search: " .. path,
+    hidden = true,
+  })
+end
+
+function M.search_dir()
+  local actions = require("telescope.actions")
+  local action_state = require("telescope.actions.state")
+  local builtin = require("telescope.builtin")
+  builtin.find_files({
+    prompt_title = "Select Directory",
+    find_command = { "fd", "--type", "d", "--hidden", "--exclude", ".git" }, 
+    previewer = false,
+    attach_mappings = function(prompt_bufnr, map)
+      actions.select_default:replace(function()
+        actions.close(prompt_bufnr)
+        local selection = action_state.get_selected_entry()
+        local dir = selection[1]
+        builtin.live_grep({
+          cwd = dir,
+          prompt_title = "Search " .. dir,
+        })
+      end)
+      return true
+    end,
+  })
+end
+
 -- Shortcut for searching your Neovim configuration files
 function M.neovim_configs()
   require("telescope.builtin").find_files({ cwd = vim.fn.expand("~/dotfiles/neovim/.config/nvim") })
