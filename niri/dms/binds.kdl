@@ -51,8 +51,8 @@ binds {
     Mod+Q repeat=false { close-window; }
     Mod+X { maximize-column; }
     Mod+Shift+X { fullscreen-window; }
+    Mod+F { switch-focus-between-floating-and-tiling; }
     Mod+Shift+F { toggle-window-floating; }
-    Mod+Shift+V { switch-focus-between-floating-and-tiling; }
     Mod+T { toggle-column-tabbed-display; }
 
     // === Focus Navigation ===
