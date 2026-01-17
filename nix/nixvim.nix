@@ -14,6 +14,7 @@ in
   imports = [
     ./nixvim/keymaps.nix
     ./nixvim/obsidian.nix
+    ./nixvim/projects.nix
   ];
 
   programs.nixvim = {
@@ -89,23 +90,6 @@ in
     # Here is where we add your requested plugins
     plugins = {
       web-devicons.enable = true;
-
-      # Project management
-      project-nvim = {
-        enable = true;
-        enableTelescope = true;
-        settings = {
-          manual_mode = true;
-          patterns = 
-            [
-            ".git"
-            ".obsidian"
-            "lua"
-            "Makefile"
-            "package.json"
-          ];
-        };
-      };
 
       which-key = {
         enable = true;

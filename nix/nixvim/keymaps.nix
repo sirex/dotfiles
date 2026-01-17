@@ -56,10 +56,6 @@ in
     { mode = "n"; key = "<leader>tm"; action = lua "set_term_cmd" []; options.desc = "[T]erminal [M]ap (Current Line)"; }
     { mode = "n"; key = "<leader>tt"; action = lua "run_term_cmd" []; options.desc = "Execute mapped terminal command"; }
 
-    # projects.nvim
-    { mode = "n"; key = "<leader>fp"; action = lua "projects" []; options.desc = "[F]ind a [P]roject"; }
-    { mode = "n"; key = "<leader>sr"; action = "<cmd>ProjectRoot<cr>"; options.desc = "[S]et Project [R]oot"; }
-
     # Telescope
     { mode = "n"; key = "<leader><leader>"; action = lua "mru" []; options.desc = "[F]ind existing buffers (MRU)"; }
     { mode = "n"; key = "<leader>sd"; action = lua "search_dir" []; options.desc = "[S]earch [D]irectory"; }
