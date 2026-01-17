@@ -38,6 +38,7 @@
           "<C-p>" = { __raw = "require('telescope.actions.layout').toggle_preview"; };
           "<esc>" = "close";
           "<C-u>" = false;
+          "<C-f>" = { __raw = "require('telescope.actions').to_fuzzy_refine"; };
         };
       };
 
