@@ -16,6 +16,7 @@ in
     ./nixvim/obsidian.nix
     ./nixvim/projects.nix
     ./nixvim/whichkey.nix
+    ./nixvim/telescope.nix
   ];
 
   programs.nixvim = {
@@ -91,56 +92,6 @@ in
     # Here is where we add your requested plugins
     plugins = {
       web-devicons.enable = true;
-
-      telescope = {
-        enable = true;
-
-        # Telescope Settings (Defaults)
-        settings.defaults = {
-          path_display = [ "filename_first" ];
-
-          mappings = {
-            n = {
-              "<C-p>" = { __raw = "require('telescope.actions.layout').toggle_preview"; };
-            };
-            i = {
-              "<C-j>" = "move_selection_next";
-              "<C-k>" = "move_selection_previous";
-              "<M-j>" = "preview_scrolling_down";
-              "<M-k>" = "preview_scrolling_up";
-              "<C-p>" = { __raw = "require('telescope.actions.layout').toggle_preview"; };
-              "<esc>" = "close";
-              "<C-u>" = false;
-            };
-          };
-        };
-
-        # Extension Setup
-        extensions = {
-          fzf-native.enable = true; # Nix handles the build process automatically!
-          ui-select = {
-            enable = true;
-            settings = {
-              # This replicates require("telescope.themes").get_dropdown()
-              __raw = "require('telescope.themes').get_dropdown()";
-            };
-          };
-        };
-
-        # Standard Keymaps (Simple built-in pickers)
-        keymaps = {
-          "<leader>fh" = { action = "help_tags"; options.desc = "[F]ind [H]elp"; };
-          "<leader>fk" = { action = "keymaps"; options.desc = "[F]ind [K]eymaps"; };
-          "<leader>ff" = { action = "find_files"; options.desc = "[F]ind [F]iles"; };
-          "<leader>ft" = { action = "builtin"; options.desc = "[F]ind Select [T]elescope"; };
-          "<leader>fe" = { action = "diagnostics"; options.desc = "[F]ind [E]rrors"; };
-          "<leader>fr" = { action = "oldfiles"; options.desc = "[F]ind [R]ecent files"; };
-          "<leader>f." = { action = "resume"; options.desc = "[F]ind [R]esume"; };
-          "<leader>fm" = { action = "man_pages"; options.desc = "[F]ind [M]an pages"; };
-          "<leader>ss" = { action = "live_grep"; options.desc = "[S]earch"; };
-          "<leader>sw" = { action = "grep_string"; options.desc = "[F]ind current [W]ord"; };
-        };
-      };
 
       toggleterm = {
         enable = true;

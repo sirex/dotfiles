@@ -56,12 +56,6 @@ in
     { mode = "n"; key = "<leader>tm"; action = lua "set_term_cmd" []; options.desc = "[T]erminal [M]ap (Current Line)"; }
     { mode = "n"; key = "<leader>tt"; action = lua "run_term_cmd" []; options.desc = "Execute mapped terminal command"; }
 
-    # Telescope
-    { mode = "n"; key = "<leader><leader>"; action = lua "mru" []; options.desc = "[F]ind existing buffers (MRU)"; }
-    { mode = "n"; key = "<leader>sd"; action = lua "search_dir" []; options.desc = "[S]earch [D]irectory"; }
-    { mode = "n"; key = "<leader>cd"; action = lua "find" [ "~/dotfiles" ];  options.desc = "[C]onfigure [D]otfiles"; }
-    { mode = "n"; key = "<leader>cc"; action = lua "find" [ "~/.config" ];  options.desc = "[C]onfigure .[c]onfig/"; }
-
     # LazyGit
     { mode = "n"; key = "<leader>gg"; action = "<cmd>LazyGitCurrentFile<cr>"; options.desc = "LazyGit (Current File)"; }
     { mode = "n"; key = "<leader>gl"; action = "<cmd>LazyGitFilterCurrentFile<cr>"; options.desc = "LazyGit Log (Current File)"; }
