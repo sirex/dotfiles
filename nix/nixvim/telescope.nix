@@ -26,8 +26,6 @@
 
     # Telescope Settings (Defaults)
     settings.defaults = {
-      path_display = [ "filename_first" ];
-      
       mappings = {
         n = {
           "<C-p>" = { __raw = "require('telescope.actions.layout').toggle_preview"; };
@@ -42,6 +40,17 @@
           "<C-u>" = false;
         };
       };
+
+      path_display = [ "filename_first" ];
+      layout_strategy = "vertical";
+      layout_config = {
+        vertical = {
+          preview_cutoff = 1; 
+          mirror = false;
+          preview_height = 0.4;
+        };
+      };
+      
     };
 
     # Extension Setup
