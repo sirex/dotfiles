@@ -128,4 +128,42 @@ function M.wiki_link_func(opts)
   return opts.id or opts.label
 end
 
+
+-- Notes
+
+ function M.create_note()
+  -- 1. Define and create the directory
+  local dir = vim.fn.expand("~/tmp/notes")
+  if vim.fn.isdirectory(dir) == 0 then
+    vim.fn.mkdir(dir, "p")
+  end
+
+  -- 2. Generate filename: note-YYYY-MM-DD-HHMMSS.md
+  local filename = "note-" .. os.date("%Y-%m-%d-%H%M%S") .. ".md"
+  local full_path = dir .. "/" .. filename
+
+  -- 3. Open the file
+  vim.cmd.edit(full_path)
+end
+
+function M.latest_note()
+  local dir = vim.fn.expand("~/tmp/notes")
+  
+  -- 1. Get list of all matching files (returns a Lua table)
+  local files = vim.fn.glob(dir .. "/note-*.md", false, true)
+  
+  if #files == 0 then
+    vim.notify("No scratch notes found in " .. dir, vim.log.levels.WARN)
+    return
+  end
+  
+  -- 2. Sort files (Timestamp in name ensures alphabetical = chronological)
+  table.sort(files)
+  
+  -- 3. Get the last item (latest date) and open it
+  local latest_file = files[#files]
+  vim.cmd.edit(latest_file)
+end
+
+
 return M
