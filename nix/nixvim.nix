@@ -7,12 +7,10 @@ let
       end
     '';
   };
-
-  link = path:
-    config.lib.file.mkOutOfStoreSymlink
-      "${config.home.homeDirectory}/dotfiles/${path}";
 in
 {
+  _module.args.lua = lua;
+
   imports = [
     ./nixvim/keymaps.nix
     ./nixvim/obsidian.nix

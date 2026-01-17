@@ -1,13 +1,4 @@
-{ config, pkgs, hasNotes ? false, ... }:
-let
-  lua = func: args: {
-    __raw = ''
-      function()
-        return require('utils').${func}(${builtins.concatStringsSep ", " (map builtins.toJSON args)})
-      end
-    '';
-  };
-in
+{ config, lua, hasNotes ? false, ... }:
 {
   programs.nixvim.keymaps = [
     { mode = "n"; key = "<leader>oo"; action = "<cmd>Obsidian today<cr>"; options.desc = "Obsidian daily note"; }
