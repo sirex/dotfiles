@@ -2,7 +2,7 @@
 {
   programs.nixvim.keymaps = [
     { mode = "n"; key = "<leader><leader>"; action = lua "mru" []; options.desc = "[F]ind existing buffers (MRU)"; }
-    { mode = "n"; key = "<leader>sd"; action = lua "search_dir" []; options.desc = "[S]earch [D]irectory"; }
+    { mode = "n"; key = "<leader>fd"; action = lua "search_dir" []; options.desc = "[S]earch [D]irectory"; }
     { mode = "n"; key = "<leader>cc"; action = lua "find" [ "~/dotfiles" ];  options.desc = "[C]onfigure Dotfiles"; }
     { mode = "n"; key = "<leader>cd"; action = lua "find" [ "~/.config" ];  options.desc = "[C]onfigure .config/"; }
   ];
@@ -20,8 +20,8 @@
       "<leader>fr" = { action = "oldfiles"; options.desc = "[F]ind [R]ecent files"; };
       "<leader>f." = { action = "resume"; options.desc = "[F]ind [R]esume"; };
       "<leader>fm" = { action = "man_pages"; options.desc = "[F]ind [M]an pages"; };
-      "<leader>ss" = { action = "live_grep"; options.desc = "[S]earch"; };
-      "<leader>sw" = { action = "grep_string"; options.desc = "[S]ind current [W]ord"; };
+      "<leader>fs" = { action = "live_grep"; options.desc = "[F]ind [S]earch"; };
+      "<leader>fw" = { action = "grep_string"; options.desc = "[F]ind [W]ord"; };
     };
 
     # Telescope Settings (Defaults)
