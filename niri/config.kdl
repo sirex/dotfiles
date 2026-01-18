@@ -77,7 +77,7 @@ layout {
         proportion 1.0
     }
     // You can change the default width of the new windows.
-    default-column-width { fixed 1912; }
+    default-column-width { fixed 1224; }
     // If you leave the brackets empty, the windows themselves will decide their initial width.
     // default-column-width {}
     // By default focus ring and border are rendered as a solid background rectangle
