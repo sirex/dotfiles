@@ -17,6 +17,7 @@ in
     ./nixvim/telescope.nix
     ./nixvim/projects.nix
     ./nixvim/cmp.nix
+    ./nixvim/lsp.nix
     ./nixvim/obsidian.nix
   ];
 
@@ -168,13 +169,6 @@ in
           indent.enable = true;
         };
         nixGrammars = true;
-      };
-
-      lsp = {
-        enable = true;
-        servers = {
-          # You can add language servers here later, e.g., nil_ls = { enable = true; };
-        };
       };
 
       csvview = {

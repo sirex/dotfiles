@@ -7,6 +7,7 @@ in
 {
   imports = [
     ./nix/nixvim.nix
+    # ./nix/nvf.nix
   ];
 
   home.stateVersion = "25.11";
