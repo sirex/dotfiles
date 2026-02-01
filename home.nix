@@ -79,7 +79,7 @@ in
         disabled = false;
         symbol = "✘ ";
         style = "bold red";
-        format = "[$symbol$common_meaning$signal_name$int]($style)\n";
+        format = "[$symbol$int $common_meaning$signal_name]($style)\n";
         map_symbol = true; # Use the symbol ✘
         pipestatus = true; # Show status for all commands in a pipeline
       };
@@ -87,7 +87,7 @@ in
         disabled = false;
         time_format = "%R"; # HH:MM format
         style = "bold blue";
-        format = "\n[$time]($style): ";
+        format = "\n## [$time]($style): ";
       };
       username = {
         show_always = true;
