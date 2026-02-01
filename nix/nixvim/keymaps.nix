@@ -24,10 +24,17 @@ in
     # Window Navigation
     { mode = "n"; key = "<Tab>"; action = "<C-W>p"; options.desc = "Switch to previous window"; }
     { mode = "n"; key = "<C-Tab>"; action = "<C-6>"; options.desc = "Switch to previous buffer"; }
+
     { mode = "n"; key = "<C-h>"; action = "<C-w><C-h>"; options.desc = "Move left"; }
     { mode = "n"; key = "<C-l>"; action = "<C-w><C-l>"; options.desc = "Move right"; }
     { mode = "n"; key = "<C-j>"; action = "<C-w><C-j>"; options.desc = "Move down"; }
     { mode = "n"; key = "<C-k>"; action = "<C-w><C-k>"; options.desc = "Move up"; }
+
+    # { mode = "n"; key = "<C-h>"; action = "<cmd>TmuxNavigateLeft<cr>"; }
+    # { mode = "n"; key = "<C-j>"; action = "<cmd>TmuxNavigateDown<cr>"; }
+    # { mode = "n"; key = "<C-k>"; action = "<cmd>TmuxNavigateUp<cr>"; }
+    # { mode = "n"; key = "<C-l>"; action = "<cmd>TmuxNavigateRight<cr>"; }
+
 
     # Window Resizing
     { mode = "n"; key = "<C-M-n>"; action = "<cmd>vertical resize -5<CR>"; options = { silent = true; desc = "Decrease window width"; }; }
