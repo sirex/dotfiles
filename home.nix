@@ -35,6 +35,7 @@ in
     };
     shellAliases = {
       lg = "lazygit";
+      ld = "lazydocker";
       hms = "home-manager switch --flake ~/dotfiles#${host}";
     };
     oh-my-zsh = {
@@ -48,6 +49,7 @@ in
     enable = true;
     shellAliases = {
       lg = "lazygit";
+      ld = "lazydocker";
       hms = "home-manager switch --flake ~/dotfiles#${host}";
     };
     plugins = with pkgs.nushellPlugins; [
