@@ -192,14 +192,16 @@ in
       set-option -g status-position top
       set-option -g renumber-windows on
 
-      bind S choose-tree
+      bind Space choose-tree
       bind v split-window -h -c "#{pane_current_path}"
       bind s split-window -v -c "#{pane_current_path}"
 
       # Easy config reload
       bind r source-file ~/.config/tmux/tmux.conf \; display "Config reloaded!"
 
-      bind Space copy-mode
+      bind k copy-mode
+      bind-key -T copy-mode-vi M-k send-keys -X halfpage-up
+      bind-key -T copy-mode-vi M-j send-keys -X halfpage-down
       bind-key -T copy-mode-vi v send-keys -X begin-selection
       bind-key -T copy-mode-vi y send-keys -X copy-selection-and-cancel
       bind-key -T copy-mode-vi 'C-v' send-keys -X rectangle-toggle 
@@ -211,6 +213,14 @@ in
       bind -T fzf-tab w run-shell -b "${pkgs.tmuxPlugins.tmux-fzf}/share/tmux-plugins/tmux-fzf/scripts/window.sh switch"
       bind -T fzf-tab p run-shell -b "${pkgs.tmuxPlugins.tmux-fzf}/share/tmux-plugins/tmux-fzf/scripts/pane.sh switch"
       bind -T fzf-tab c run-shell -b "${pkgs.tmuxPlugins.tmux-fzf}/share/tmux-plugins/tmux-fzf/scripts/command.sh"
+
+      set -g status off
+      set-hook -g session-created 'if -F "#{==:#{session_windows},1}" "set status off" "set status on"'
+      set-hook -g window-linked   'if -F "#{==:#{session_windows},1}" "set status off" "set status on"'
+      set-hook -g window-unlinked 'if -F "#{==:#{session_windows},1}" "set status off" "set status on"'
+
+
+
     '';
   };
 
