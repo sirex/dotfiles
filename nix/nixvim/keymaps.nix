@@ -45,6 +45,7 @@ in
     # Scrolling
     { mode = "n"; key = "<A-j>"; action = "<c-d>"; options.desc = "Half page down"; }
     { mode = "n"; key = "<A-k>"; action = "<c-u>"; options.desc = "Half page up"; }
+    { mode = "t"; key = "<A-k>"; action = "<C-\\><C-n><c-u>"; options.desc = "Half page up"; }
 
     # Terminal Mode Navigation
     { mode = "t"; key = "<Esc><Esc>"; action = "<C-\\><C-n>"; options.desc = "Exit terminal mode"; }

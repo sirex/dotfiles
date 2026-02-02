@@ -101,7 +101,7 @@ in
           size = 15;
           open_mapping = "[[<C-Enter>]]";
           direction = "horizontal";
-          shell = "zsh";
+          shell = "nu";
           auto_scroll = true;
           insert_mappings = false;
         };

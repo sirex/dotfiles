@@ -55,6 +55,9 @@ in
     plugins = with pkgs.nushellPlugins; [
       polars
     ];
+    settings = {
+      show_banner = false;
+    };
   };
 
   programs.starship = {
@@ -150,6 +153,8 @@ in
   programs.tmux = {
     enable = true;
 
+    shell = "${pkgs.nushell}/bin/nu";
+
     baseIndex = 1;           # Start window numbering at 1 instead of 0
     escapeTime = 0;          # Fix annoying delay when pressing Esc in Vim
     keyMode = "vi";          # Vi keybindings in copy mode
@@ -205,6 +210,7 @@ in
       bind-key -T copy-mode-vi v send-keys -X begin-selection
       bind-key -T copy-mode-vi y send-keys -X copy-selection-and-cancel
       bind-key -T copy-mode-vi 'C-v' send-keys -X rectangle-toggle 
+      bind-key -T copy-mode-vi i send-keys -X cancel
 
       bind f switch-client -T fzf-tab
       bind -T fzf-tab f run-shell -b "${pkgs.tmuxPlugins.tmux-fzf}/share/tmux-plugins/tmux-fzf/main.sh"
