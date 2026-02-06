@@ -38,6 +38,8 @@ function M.find(path)
     cwd = vim.fn.expand(path),
     prompt_title = "Search: " .. path,
     hidden = true,
+    no_ignore = true,
+    follow = true,
   })
 end
 

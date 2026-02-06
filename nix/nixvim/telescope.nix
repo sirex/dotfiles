@@ -5,7 +5,8 @@
     { mode = "n"; key = "<leader>fd"; action = lua "search_dir" []; options.desc = "[S]earch [D]irectory"; }
     { mode = "n"; key = "<leader>cc"; action = lua "find" [ "~/dotfiles" ];  options.desc = "[C]onfigure Dotfiles"; }
     { mode = "n"; key = "<leader>c."; action = lua "find" [ "~/.config" ];  options.desc = "[C]onfigure .config/"; }
-    { mode = "n"; key = "<leader>cd"; action.__raw = "require('telescope').extensions.zoxide.list"; options.desc = "Change directory (Zoxide)"; }
+    { mode = "n"; key = "<leader>cd"; action.__raw = "require('telescope').extensions.zoxide.list";
+      options.desc = "Change directory (Zoxide)"; }
   ];
 
   programs.nixvim.plugins.telescope = {
@@ -26,7 +27,7 @@
     };
 
     # Telescope Settings (Defaults)
-    settings = {
+    settings.defaults = {
       mappings = {
         n = {
           "<C-p>" = { __raw = "require('telescope.actions.layout').toggle_preview"; };
