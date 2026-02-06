@@ -23,12 +23,15 @@ in
   };
 
   home.packages = with pkgs; [
-    nh
-    fd
-    bat
-    ripgrep
+    nh         # Nix help
+    manix      # Nix help
+    fd         # File searching
+    ripgrep    # Text searching
+    jq         # JSON Query
+    bat        # Cat with colors
     matugen
-    manix
+    poppler    # PDF previews
+    ffmpegthumbnailer # Video thumbnais
   ];
 
   programs.zsh = {

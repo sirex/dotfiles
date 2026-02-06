@@ -35,7 +35,6 @@ in
     { mode = "n"; key = "<C-k>"; action = "<cmd>TmuxNavigateUp<cr>"; }
     { mode = "n"; key = "<C-l>"; action = "<cmd>TmuxNavigateRight<cr>"; }
 
-
     # Window Resizing
     { mode = "n"; key = "<C-M-n>"; action = "<cmd>vertical resize -5<CR>"; options = { silent = true; desc = "Decrease window width"; }; }
     { mode = "n"; key = "<C-M-m>"; action = "<cmd>vertical resize +5<CR>"; options = { silent = true; desc = "Increase window width"; }; }
@@ -72,12 +71,28 @@ in
     # Gitsigns
     { mode = "n"; key = "<leader>gb"; action = "<cmd>Gitsigns blame<cr>"; options.desc = "Git blame (File)"; }
     { mode = "n"; key = "<leader>gB"; action = "<cmd>Gitsigns blame_line<cr>"; options.desc = "Git blame (Line)"; }
-    { mode = "n"; key = "<leader>gd"; action = "<cmd>Gitsigns diffthis<cr>"; options.desc = "Git diff (Against Index)"; }
     { mode = "n"; key = "<leader>ga"; action = "<cmd>Gitsigns stage_hunk<cr>"; options.desc = "Git stage hunk"; }
     { mode = "n"; key = "<leader>g-"; action = "<cmd>Gitsigns undo_stage_hunk<cr>"; options.desc = "Git undo stage hunk"; }
 
+    # Neogit
+    { mode = "n"; key = "<leader>gn"; action = ":Neogit<CR>"; options.desc = "Open Neogit (Status)"; }
+    { mode = "n"; key = "<leader>gc"; action = ":Neogit commit<CR>"; options.desc = "Neogit Commit"; }
+    { mode = "n"; key = "<leader>gp"; action = ":Neogit push<CR>"; options.desc = "Neogit Push"; }
+
+    # Diffview
+    { mode = "n"; key = "<leader>gd"; action = ":DiffviewOpen<CR>"; options.desc = "[G]it [D]iff (Open)"; }
+    { mode = "n"; key = "<leader>gx"; action = ":DiffviewClose<CR>"; options.desc = "[G]it Diff E[x]it"; }
+    { mode = "n"; key = "<leader>gh"; action = ":DiffviewFileHistory %<CR>"; options.desc = "[G]it [H]istory (Current File)"; }
+    { mode = "n"; key = "<leader>gH"; action = ":DiffviewFileHistory<CR>"; options.desc = "[G]it [H]istory (Project)"; }
+
     # Oil
     { mode = "n"; key = "-"; action = "<cmd>Oil<cr>"; options.desc = "Oil: File browser"; }
+
+    # Yazi
+    { mode = "n"; key = "<leader>y"; action = "<cmd>Yazi<CR>"; options.desc = "[Y]azi"; }
+
+    # Neo-tree
+    { mode = "n"; key = "<leader>e"; action = "<cmd>Neotree reveal<CR>"; options.desc = "File [E]xplorer"; }
 
     # CSVView
     { mode = "n"; key = "<leader>st"; action = "<cmd>CsvViewToggle<cr>"; options.desc = "Toggle CSV View"; }
@@ -87,8 +102,9 @@ in
     { mode = "n"; key = "<leader>nn"; action = lua "latest_note" []; options.desc = "[N]ewest [N]ote"; }
 
     # Trouble
-    { key = "<leader>le"; action = "<cmd>Trouble diagnostics toggle focus=true filter.buf=0<cr>"; options.desc = "[L]ist [E]rrors"; }
-    { key = "<leader>ls"; action = "<cmd>Trouble symbols toggle focus=true filter.buf=0<cr>"; options.desc = "[L]ist [S]ymbols"; }
-    { key = "<leader>ld"; action = "<cmd>Trouble lsp toggle focus=true<cr>"; options.desc = "[L]SP [D]definitions/Refs"; }
+    { mode = "n"; key = "<leader>le"; action = "<cmd>Trouble diagnostics toggle focus=true filter.buf=0<cr>"; options.desc = "[L]ist [E]rrors"; }
+    { mode = "n"; key = "<leader>ls"; action = "<cmd>Trouble symbols toggle focus=true filter.buf=0<cr>"; options.desc = "[L]ist [S]ymbols"; }
+    { mode = "n"; key = "<leader>ld"; action = "<cmd>Trouble lsp toggle focus=true<cr>"; options.desc = "[L]SP [D]definitions/Refs"; }
+
   ];
 }

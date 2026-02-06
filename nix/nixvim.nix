@@ -92,6 +92,7 @@ in
 
     # Here is where we add your requested plugins
     plugins = {
+      nui.enable = true;          # UI Component Library
       web-devicons.enable = true;
 
       toggleterm = {
@@ -121,6 +122,18 @@ in
         };
       };
 
+      neogit = {
+        enable = true;
+        settings = {
+          kind = "split";
+          commit_popup.kind = "split";
+        };
+      };
+
+      diffview = {
+        enable = true;
+      };
+
       oil = {
         enable = true;
         settings = {
@@ -138,6 +151,10 @@ in
           };
         };
       };
+
+      yazi.enable = true;
+
+      neo-tree.enable = true;
 
       treesitter = {
         enable = true;
