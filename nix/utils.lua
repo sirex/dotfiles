@@ -43,6 +43,37 @@ function M.find(path)
   })
 end
 
+function M.zoxide()
+  require('telescope').extensions.zoxide.list()
+end
+
+function M.zoxide_find()
+  local telescope = require("telescope")
+  local actions = require("telescope.actions")
+  local action_state = require("telescope.actions.state")
+  local builtin = require("telescope.builtin")
+
+  telescope.extensions.zoxide.list({
+    prompt_title = "[ Pick Directory to Search ]",
+    attach_mappings = function(prompt_bufnr, map)
+      actions.select_default:replace(function()
+        local selection = action_state.get_selected_entry()
+        actions.close(prompt_bufnr)
+        if selection then
+          builtin.find_files({
+            cwd = selection.path,
+            prompt_title = "[ Files in: " .. selection.path .. " ]",
+            hidden = true,
+            no_ignore = true,
+            follow = true,
+          })
+        end
+      end)
+      return true
+    end
+  })
+end
+
 function M.search_dir()
   local actions = require("telescope.actions")
   local action_state = require("telescope.actions.state")
