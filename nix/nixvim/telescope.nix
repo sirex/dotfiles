@@ -4,7 +4,8 @@
     { mode = "n"; key = "<leader><leader>"; action = lua "mru" []; options.desc = "[F]ind existing buffers (MRU)"; }
     { mode = "n"; key = "<leader>fd"; action = lua "search_dir" []; options.desc = "[S]earch [D]irectory"; }
     { mode = "n"; key = "<leader>cc"; action = lua "find" [ "~/dotfiles" ];  options.desc = "[C]onfigure Dotfiles"; }
-    { mode = "n"; key = "<leader>cd"; action = lua "find" [ "~/.config" ];  options.desc = "[C]onfigure .config/"; }
+    { mode = "n"; key = "<leader>c."; action = lua "find" [ "~/.config" ];  options.desc = "[C]onfigure .config/"; }
+    { mode = "n"; key = "<leader>cd"; action.__raw = "require('telescope').extensions.zoxide.list"; options.desc = "Change directory (Zoxide)"; }
   ];
 
   programs.nixvim.plugins.telescope = {
@@ -25,7 +26,7 @@
     };
 
     # Telescope Settings (Defaults)
-    settings.defaults = {
+    settings = {
       mappings = {
         n = {
           "<C-p>" = { __raw = "require('telescope.actions.layout').toggle_preview"; };
@@ -57,6 +58,7 @@
     # Extension Setup
     extensions = {
       fzf-native.enable = true; # Nix handles the build process automatically!
+      zoxide.enable = true;
       ui-select = {
         enable = true;
         settings = {

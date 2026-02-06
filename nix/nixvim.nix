@@ -15,7 +15,6 @@ in
     ./nixvim/keymaps.nix
     ./nixvim/whichkey.nix
     ./nixvim/telescope.nix
-    ./nixvim/projects.nix
     ./nixvim/cmp.nix
     ./nixvim/lsp.nix
     ./nixvim/obsidian.nix
