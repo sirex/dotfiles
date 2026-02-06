@@ -85,7 +85,6 @@ keymap = [
         { on = "S",         run = "search --via=rg",             desc = "Search files by content via ripgrep" },
         { on = "<C-s>",     run = "escape --search",             desc = "Cancel the ongoing search" },
         { on = "z",         run = "plugin zoxide",               desc = "Jump to a directory via zoxide" },
-        { on = "Z",         run = "plugin fzf",                  desc = "Jump to a file/directory via fzf" },
 
         # Linemode
         { on = [ "m", "s" ], run = "linemode size",        desc = "Linemode: size" },
@@ -97,12 +96,14 @@ keymap = [
 
         # Copy
         { on = [ "c", "c" ], run = "copy path",             desc = "Copy the file path" },
-        { on = [ "c", "d" ], run = "copy dirname",          desc = "Copy the directory path" },
+        { on = [ "c", "p" ], run = "copy dirname",          desc = "Copy the directory path" },
         { on = [ "c", "f" ], run = "copy filename",         desc = "Copy the filename" },
         { on = [ "c", "n" ], run = "copy name_without_ext", desc = "Copy the filename without extension" },
+        { on = [ "c", "d" ], run = "cd --interactive",      desc = "Jump interactively" },
 
         # Filter
-        { on = "f", run = "filter --smart", desc = "Filter files" },
+        { on = [ "f", "l" ], run = "filter --smart", desc = "Filter list of files" },
+        { on = [ "f", "f" ], run = "plugin fzf",     desc = "Jump to a file/directory via fzf" },
 
         # Find
         { on = "/", run = "find --smart",            desc = "Find next file" },
