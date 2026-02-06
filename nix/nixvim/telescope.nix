@@ -24,6 +24,11 @@
       "<leader>fm" = { action = "man_pages"; options.desc = "[F]ind [M]an pages"; };
       "<leader>fs" = { action = "live_grep"; options.desc = "[F]ind [S]earch"; };
       "<leader>fw" = { action = "grep_string"; options.desc = "[F]ind [W]ord"; };
+
+      # LSP
+      "<leader>lr" = { action = "lsp_references"; options.desc = "[L]SP [R]eferences"; };
+      "<leader>li" = { action = "lsp_implementations"; options.desc = "[L]SP [I]mplementations"; };
+      "<leader>lw" = { action = "lsp_dynamic_workspace_symbols"; options.desc = "[L]SP [W]orkspace Symbols"; };
     };
 
     # Telescope Settings (Defaults)
@@ -41,6 +46,7 @@
           "<esc>" = "close";
           "<C-u>" = false;
           "<C-f>" = { __raw = "require('telescope.actions').to_fuzzy_refine"; };
+          "<C-t>" = { __raw = "require('trouble.sources.telescope').open"; };
         };
       };
 

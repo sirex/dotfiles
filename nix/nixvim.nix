@@ -184,9 +184,9 @@ in
 
       # 2. Enable Tmux Navigation
       # This automatically sets up the Ctrl-h/j/k/l bindings in Neovim
-      plugins.tmux-navigator = {
-        enable = true;
-      };
+      tmux-navigator.enable = true;
+
+      trouble.enable = true;
 
     };
 

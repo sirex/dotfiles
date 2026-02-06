@@ -37,6 +37,7 @@ in
       HIST_STAMPS = "mm/dd/yyyy"; 
     };
     shellAliases = {
+      vi = "nvim";
       lg = "lazygit";
       ld = "lazydocker";
       hms = "home-manager switch --flake ~/dotfiles#${host}";
@@ -51,6 +52,7 @@ in
   programs.nushell = {
     enable = true;
     shellAliases = {
+      vi = "nvim";
       lg = "lazygit";
       ld = "lazydocker";
       hms = "home-manager switch --flake ~/dotfiles#${host}";

@@ -25,15 +25,15 @@ in
     { mode = "n"; key = "<Tab>"; action = "<C-W>p"; options.desc = "Switch to previous window"; }
     { mode = "n"; key = "<C-Tab>"; action = "<C-6>"; options.desc = "Switch to previous buffer"; }
 
-    { mode = "n"; key = "<C-h>"; action = "<C-w><C-h>"; options.desc = "Move left"; }
-    { mode = "n"; key = "<C-l>"; action = "<C-w><C-l>"; options.desc = "Move right"; }
-    { mode = "n"; key = "<C-j>"; action = "<C-w><C-j>"; options.desc = "Move down"; }
-    { mode = "n"; key = "<C-k>"; action = "<C-w><C-k>"; options.desc = "Move up"; }
+    # { mode = "n"; key = "<C-h>"; action = "<C-w><C-h>"; options.desc = "Move left"; }
+    # { mode = "n"; key = "<C-l>"; action = "<C-w><C-l>"; options.desc = "Move right"; }
+    # { mode = "n"; key = "<C-j>"; action = "<C-w><C-j>"; options.desc = "Move down"; }
+    # { mode = "n"; key = "<C-k>"; action = "<C-w><C-k>"; options.desc = "Move up"; }
 
-    # { mode = "n"; key = "<C-h>"; action = "<cmd>TmuxNavigateLeft<cr>"; }
-    # { mode = "n"; key = "<C-j>"; action = "<cmd>TmuxNavigateDown<cr>"; }
-    # { mode = "n"; key = "<C-k>"; action = "<cmd>TmuxNavigateUp<cr>"; }
-    # { mode = "n"; key = "<C-l>"; action = "<cmd>TmuxNavigateRight<cr>"; }
+    { mode = "n"; key = "<C-h>"; action = "<cmd>TmuxNavigateLeft<cr>"; }
+    { mode = "n"; key = "<C-j>"; action = "<cmd>TmuxNavigateDown<cr>"; }
+    { mode = "n"; key = "<C-k>"; action = "<cmd>TmuxNavigateUp<cr>"; }
+    { mode = "n"; key = "<C-l>"; action = "<cmd>TmuxNavigateRight<cr>"; }
 
 
     # Window Resizing
@@ -85,5 +85,10 @@ in
     # Notes
     { mode = "n"; key = "<leader>nc"; action = lua "create_note" []; options.desc = "[C]reate new [N]ote"; }
     { mode = "n"; key = "<leader>nn"; action = lua "latest_note" []; options.desc = "[N]ewest [N]ote"; }
+
+    # Trouble
+    { key = "<leader>le"; action = "<cmd>Trouble diagnostics toggle focus=true filter.buf=0<cr>"; options.desc = "[L]ist [E]rrors"; }
+    { key = "<leader>ls"; action = "<cmd>Trouble symbols toggle focus=true filter.buf=0<cr>"; options.desc = "[L]ist [S]ymbols"; }
+    { key = "<leader>ld"; action = "<cmd>Trouble lsp toggle focus=true<cr>"; options.desc = "[L]SP [D]definitions/Refs"; }
   ];
 }
