@@ -188,6 +188,8 @@ in
 
       trouble.enable = true;
 
+      nvim-autopairs.enable = true;
+
     };
 
     extraPlugins = [
