@@ -40,10 +40,10 @@
     # For settings not directly supported by Home Manager abstraction
     extraConfig = ''
       # True color support (ensure your terminal supports this)
-      set-option -sa terminal-overrides ",xterm*:Tc"
+      set -sa terminal-overrides ",xterm*:Tc"
 
-      set-option -g status-position top
-      set-option -g renumber-windows on
+      set -g status-position top
+      set -g renumber-windows on
 
       bind Space choose-tree
       bind v split-window -h -c "#{pane_current_path}"
@@ -56,18 +56,18 @@
       # See: https://github.com/christoomey/vim-tmux-navigator
       is_vim="ps -o state= -o comm= -t '#{pane_tty}' \
           | grep -iqE '^[^TXZ ]+ +(\\S+\\/)?g?(view|n?vim?x?)(diff)?$'"
-      bind-key -n 'C-h' if-shell "$is_vim" 'send-keys C-h'  'select-pane -L'
-      bind-key -n 'C-j' if-shell "$is_vim" 'send-keys C-j'  'select-pane -D'
-      bind-key -n 'C-k' if-shell "$is_vim" 'send-keys C-k'  'select-pane -U'
-      bind-key -n 'C-l' if-shell "$is_vim" 'send-keys C-l'  'select-pane -R'
+      bind -n 'C-h' if-shell "$is_vim" 'send-keys C-h'  'select-pane -L'
+      bind -n 'C-j' if-shell "$is_vim" 'send-keys C-j'  'select-pane -D'
+      bind -n 'C-k' if-shell "$is_vim" 'send-keys C-k'  'select-pane -U'
+      bind -n 'C-l' if-shell "$is_vim" 'send-keys C-l'  'select-pane -R'
 
       bind k copy-mode
-      bind-key -T copy-mode-vi M-k send-keys -X halfpage-up
-      bind-key -T copy-mode-vi M-j send-keys -X halfpage-down
-      bind-key -T copy-mode-vi v send-keys -X begin-selection
-      bind-key -T copy-mode-vi y send-keys -X copy-selection-and-cancel
-      bind-key -T copy-mode-vi 'C-v' send-keys -X rectangle-toggle 
-      bind-key -T copy-mode-vi i send-keys -X cancel
+      bind -T copy-mode-vi M-k send-keys -X halfpage-up
+      bind -T copy-mode-vi M-j send-keys -X halfpage-down
+      bind -T copy-mode-vi v send-keys -X begin-selection
+      bind -T copy-mode-vi y send-keys -X copy-selection-and-cancel
+      bind -T copy-mode-vi 'C-v' send-keys -X rectangle-toggle 
+      bind -T copy-mode-vi i send-keys -X cancel
 
       bind f switch-client -T fzf-tab
       bind -T fzf-tab f run-shell -b "${pkgs.tmuxPlugins.tmux-fzf}/share/tmux-plugins/tmux-fzf/main.sh"
