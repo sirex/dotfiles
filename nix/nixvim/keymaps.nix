@@ -1,4 +1,4 @@
-{ config, pkgs, hasNotes ? false, ... }:
+{ config, pkgs, ... }:
 let
   lua = func: args: {
     __raw = ''

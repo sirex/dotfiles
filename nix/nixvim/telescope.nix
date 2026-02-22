@@ -1,4 +1,4 @@
-{ config, lua, hasNotes ? false, ... }:
+{ config, lua, ... }:
 {
   programs.nixvim.keymaps = [
     { mode = "n"; key = "<leader><leader>"; action = lua "mru" []; options.desc = "[F]ind existing buffers (MRU)"; }

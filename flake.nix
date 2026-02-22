@@ -52,5 +52,26 @@
           ];
         }
       ) hosts;
+
+      nixosModules = {
+        home = {
+          imports = [
+            home-manager.nixosModules.home-manager
+          ];
+          home-manager = {
+            extraSpecialArgs = {
+              host = "home";
+              hasNotes = false;
+            };
+            useGlobalPkgs = true;
+            useUserPackages = true;
+            sharedModules = [
+              nixvim.homeModules.nixvim
+              nvf.homeManagerModules.default
+            ];
+            users.sirex = import ./home.nix;
+          };
+        };
+      };
     };
 }
