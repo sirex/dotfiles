@@ -35,7 +35,7 @@ in
 
     globals = {
       mapleader = " ";
-      maplocalleader = " ";
+      maplocalleader = ",";
     };
 
     # The settings you'd usually put in init.lua
@@ -161,6 +161,9 @@ in
       treesitter = {
         enable = true;
         nixvimInjections = true;
+        languageRegister = {
+          markdown = [ "octo" ];
+        };
         ensureInstalled = [ 
           "bash"
           "c"
@@ -212,6 +215,19 @@ in
       colorizer = {
         enable = true;
         settings.user_default_options.names = false;
+      };
+
+      octo = {
+        enable = true;
+        settings = {
+          # Enable Projects V2 timeline events
+          default_to_projects_v2 = true;
+
+          isseus.order_by = {
+            filed = "UPDATED_AT";
+            direction = "DESC";
+          };
+        };
       };
 
     };

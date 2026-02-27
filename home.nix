@@ -32,6 +32,7 @@ in
     matugen
     poppler    # PDF previews
     ffmpegthumbnailer # Video thumbnais
+    gh         # GitHub CLI
   ];
 
   programs.zsh = {

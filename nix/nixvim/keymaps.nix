@@ -85,6 +85,14 @@ in
     { mode = "n"; key = "<leader>gh"; action = ":DiffviewFileHistory %<CR>"; options.desc = "[G]it [H]istory (Current File)"; }
     { mode = "n"; key = "<leader>gH"; action = ":DiffviewFileHistory<CR>"; options.desc = "[G]it [H]istory (Project)"; }
 
+    # Octo (GitHub)
+    { mode = "n"; key = "<leader>hh"; action = "<cmd>Octo issue list<CR>"; options.desc = "List GitHub Issues"; }
+    { mode = "n"; key = "<leader>hc"; action = "<cmd>Octo issue create<CR>"; options.desc = "Create GitHub Issue"; }
+    { mode = "n"; key = "<leader>hp"; action = "<cmd>Octo pr list<CR>"; options.desc = "List GitHub PRs"; }
+    { mode = "n"; key = "<leader>hs"; action = "<cmd>Octo search<CR>"; options.desc = "Search GitHub"; }
+    { mode = "n"; key = "<leader>ha"; action = "<cmd>Octo actions<CR>"; options.desc = "Run Octo Action (Hover menu)"; }
+    { mode = "n"; key = "<leader>hr"; action = lua "pick_octo_repo" []; options.desc = "List Git[H]ub Issues from [R]epo"; }
+
     # Oil
     { mode = "n"; key = "-"; action = "<cmd>Oil<cr>"; options.desc = "Oil: File browser"; }
 

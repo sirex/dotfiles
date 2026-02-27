@@ -97,6 +97,40 @@ function M.search_dir()
   })
 end
 
+function M.pick_octo_repo()
+  local pickers = require("telescope.pickers")
+  local finders = require("telescope.finders")
+  local conf = require("telescope.config").values
+  local actions = require("telescope.actions")
+  local action_state = require("telescope.actions.state")
+
+  local repo_file = vim.fn.expand("~/.config/gh/repos")
+
+  if vim.fn.filereadable(repo_file) == 0 then
+    vim.notify("Repository file not found: " .. repo_file, vim.log.levels.WARN)
+    return
+  end
+
+  local repos = vim.fn.readfile(repo_file)
+
+  pickers.new({}, {
+    prompt_title = "Select GitHub Repository",
+    finder = finders.new_table { results = repos },
+    sorter = conf.generic_sorter({}),
+
+    attach_mappings = function(prompt_bufnr, map)
+      actions.select_default:replace(function()
+        actions.close(prompt_bufnr)
+        local selection = action_state.get_selected_entry()
+        if selection then
+          vim.cmd("Octo issue list " .. selection.value)
+        end
+      end)
+      return true
+    end,
+  }):find()
+end
+
 -- Shortcut for searching your Neovim configuration files
 function M.neovim_configs()
   require("telescope.builtin").find_files({ cwd = vim.fn.expand("~/dotfiles/neovim/.config/nvim") })
