@@ -10,6 +10,7 @@ in
     # ./nix/nvf.nix
     ./nix/starship.nix
     ./nix/tmux.nix
+    ./nix/beancount.nix
   ];
 
   home.stateVersion = "25.11";

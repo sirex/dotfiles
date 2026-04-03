@@ -5,6 +5,7 @@
     servers = {
       pyright.enable = true;
       nixd.enable = true;
+      beancount.enable = true;
     };
     keymaps.lspBuf = {
       "gd" = "definition";
