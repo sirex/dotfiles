@@ -247,5 +247,16 @@ function M.latest_note()
   vim.cmd.edit(latest_file)
 end
 
+function M.toggle(option, enabled, disabled)
+  local current = vim.opt_local[option]:get()
+  local target
+  if enabled ~= nil and disabled ~= nil then
+    target = (current == enabled) and disabled or enabled
+  else
+    target = not current
+  end
+  vim.opt_local[option] = target
+end
+
 
 return M

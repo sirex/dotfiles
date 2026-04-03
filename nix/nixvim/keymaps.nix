@@ -54,6 +54,13 @@ in
     { mode = "t"; key = "<C-j>"; action = "<C-\\><C-n><C-w><C-j>"; options.desc = "Move down (term)"; }
     { mode = "t"; key = "<C-k>"; action = "<C-\\><C-n><C-w><C-k>"; options.desc = "Move up (term)"; }
 
+    # Toggle settings
+    { mode = "n"; key = "<leader>sc"; action = lua "toggle" ["conceallevel" 0 2]; options.desc = "[S]et [C]onceal level (0/2)"; }
+    { mode = "n"; key = "<leader>sw"; action = lua "toggle" ["wrap"]; options.desc = "[S]et [W]rap"; }
+    { mode = "n"; key = "<leader>ss"; action = lua "toggle" ["spell"]; options.desc = "[S]et [S]pell"; }
+    { mode = "n"; key = "<leader>sn"; action = lua "toggle" ["number"]; options.desc = "[S]et [N]umbers"; }
+    { mode = "n"; key = "<leader>sr"; action = lua "toggle" ["relativenumber"]; options.desc = "[S]et [R]elative numbers"; }
+
     # Diagnostics
     { mode = "n"; key = "<leader>q"; action.__raw = "vim.diagnostic.setloclist"; options.desc = "Open diagnostic Quickfix"; }
 
