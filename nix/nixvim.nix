@@ -1,9 +1,12 @@
 { config, pkgs, lib, ... }:
 let
   lua = func: args: {
-    __raw = ''
-      function()
-        return require('utils').${func}(${builtins.concatStringsSep ", " (map builtins.toJSON args)})
+    __raw = let
+      configArgs = builtins.concatStringsSep ", " (map builtins.toJSON args);
+      allArgs = if configArgs == "" then "..." else "${configArgs}, ...";
+    in ''
+      function(...)
+        return require('utils').${func}(${allArgs})
       end
     '';
   };
