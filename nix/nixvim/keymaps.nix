@@ -58,8 +58,10 @@ in
 
     # Toggle Term
     { mode = "n"; key = "<C-Enter>"; action = "<cmd>ToggleTerm<cr>"; options.desc = "Toggle terminal panel"; }
-    { mode = "n"; key = "<C-e>"; action = "<cmd>ToggleTermSendCurrentLine<cr>j"; options.desc = "Send line to terminal"; }
-    { mode = "v"; key = "<C-e>"; action = "<cmd>ToggleTermSendVisualSelection<cr>"; options.desc = "Send selection to terminal"; }
+    # { mode = "n"; key = "<C-e>"; action = "<cmd>ToggleTermSendCurrentLine<cr>j"; options.desc = "Send line to terminal"; }
+    { mode = "n"; key = "<C-e>"; action = lua "send_to_term" ["single_line"]; options.desc = "Send line to terminal"; }
+    # { mode = "v"; key = "<C-e>"; action = "<cmd>ToggleTermSendVisualSelection<cr>"; options.desc = "Send selection to terminal"; }
+    { mode = "v"; key = "<C-e>"; action = lua "send_to_term" ["visual_selection"]; options.desc = "Send selection to terminal"; }
     { mode = "n"; key = "<leader>tm"; action = lua "set_term_cmd" []; options.desc = "[T]erminal [M]ap (Current Line)"; }
     { mode = "n"; key = "<leader>tt"; action = lua "run_term_cmd" []; options.desc = "Execute mapped terminal command"; }
 

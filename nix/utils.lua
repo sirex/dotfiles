@@ -4,6 +4,21 @@ local M = {}
 
 -- Toggle Term
 
+function M.send_to_term(motion_type, opts)
+  -- motion_type: single_line | visual_lines | visual_selection
+  opts = vim.tbl_extend("keep", opts or {}, {
+    trim_spaces = false
+  })
+  require("toggleterm").send_lines_to_terminal(motion_type, opts.trim_spaces, {
+    args = vim.v.count
+  })
+  if motion_type == "single_line" then
+    pcall(function()
+      vim.cmd("normal! j")
+    end)
+  end
+end
+
 function M.set_term_cmd()
   local cmd = vim.api.nvim_get_current_line()
   if cmd ~= "" then
