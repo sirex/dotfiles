@@ -18,29 +18,20 @@
       workspaces = [
         { name = "home"; path = "${config.home.homeDirectory}/notes"; }
         { name = "work"; path = "${config.home.homeDirectory}/ivpk/notes"; }
-        # {
-        #   # https://github.com/obsidian-nvim/obsidian.nvim/issues/418
-        #   name = "auto";
-        #   path.__raw = ''
-        #     function()
-        #       local path = vim.fs.dirname(vim.api.nvim_buf_get_name(0))
-        #       local prev = ""
-        #       while path ~= "" and path ~= prev do
-        #         if vim.uv.fs_stat(path .. "/.obsidian") then
-        #           return path
-        #         end
-        #         prev, path = path, vim.fs.dirname(path)
-        #       end
-        #       return nil
-        #     end
-        #   '';
-        # }
       ];
+
+      templates = {
+        folder = "templates"; # The directory inside your vault
+        date_format = "%Y-%m-%d";
+        time_format = "%H:%M";
+        substitutions = {};
+      };
 
       daily_notes = {
         folder = "timelog";
         date_format = "%Y/%Y-%m-%d";
         alias_format = "%Y-%m-%d";
+        template = "timelog.md";
       };
 
       new_notes_location = "current_dir";
@@ -59,6 +50,7 @@
       note_id_func = lua "note_id" [];
 
       ui.enable = false;
+      footer.enabled = false;
       legacy_commands = false;
 
       completion = {
