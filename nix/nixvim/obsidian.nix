@@ -1,4 +1,4 @@
-{ config, lua, hasNotes ? false, ... }:
+{ config, pkgs, lua, hasNotes ? false, ... }:
 {
   programs.nixvim.keymaps = [
     { mode = "n"; key = "<leader>oo"; action = "<cmd>Obsidian today<cr>"; options.desc = "Obsidian daily note"; }
@@ -10,6 +10,7 @@
     { mode = "n"; key = "<leader>ot"; action = "<cmd>Obsidian toc<cr>"; options.desc = "Obsidian table of content"; }
     { mode = "n"; key = "<leader>oe"; action = "<cmd>Obsidian open<cr>"; options.desc = "Open note in Obsidian app"; }
     { mode = "n"; key = "<leader>os"; action = "<cmd>Obsidian search<cr>"; options.desc = "Search Obsidian note"; }
+    { mode = "v"; key = "<leader>oc"; action = "<cmd>w !copy-obsidian<cr>"; options.desc = "Copy selected text"; }
   ];
 
   programs.nixvim.plugins.obsidian = {
@@ -74,6 +75,36 @@
       StartupNotify=true
       StartupWMClass=obsidian
     '';
+
+    ".config/nvim/markdown.css".text = ''
+      pre.sourceCode {
+        padding: 1em;
+        border-radius: 6px;
+        overflow-x: auto;
+      }
+      blockquote {
+        border-left: 3px solid #ccc;
+        padding-left: 1em;
+        margin-left: 0;
+        color: #555;
+      }
+    '';
   };
+
+  home.packages = with pkgs; [
+    (writeShellScriptBin "copy-obsidian" ''
+      pandoc \
+        -f markdown+wikilinks_title_after_pipe+gfm_auto_identifiers \
+        -t html \
+        --mathjax \
+        --standalone \
+        --css="${config.home.homeDirectory}/.config/nvim/markdown.css" \
+        --embed-resources \
+        --resource-path=.:files \
+        --metadata title=" " \
+        --highlight-style=zenburn \
+        | wl-copy -t text/html
+    '')
+  ];
 
 }
