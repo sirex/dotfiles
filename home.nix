@@ -34,6 +34,7 @@ in
     poppler    # PDF previews
     ffmpegthumbnailer # Video thumbnais
     gh         # GitHub CLI
+    git-annex  # For backups
   ];
 
   programs.zsh = {
