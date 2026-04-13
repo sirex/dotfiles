@@ -53,6 +53,11 @@ in
       custom = "$HOME/.config/zsh";
       theme = "sirex";
     };
+    envExtra = ''
+      if [ -f "$HOME/.env" ]; then
+        export $(grep -v '^#' "$HOME/.env" | xargs)
+      fi
+    '';
   };
 
   programs.nushell = {

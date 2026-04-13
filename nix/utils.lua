@@ -259,4 +259,22 @@ function M.toggle(option, enabled, disabled)
 end
 
 
+function M.dotenv()
+  local env_file = os.getenv("HOME") .. "/.env"
+  local f = io.open(env_file, "r")
+  if f then
+    for line in f:lines() do
+      if not line:match("^%s*#") and line:match("=") then
+        local key, value = line:match("^%s*([^=]+)%s*=%s*(.*)%s*$")
+        if key and value then
+          value = value:gsub("^['\"]", ""):gsub("['\"]$", "")
+          vim.env[key] = value
+        end
+      end
+    end
+    f:close()
+  end
+end
+
+
 return M

@@ -34,6 +34,7 @@ in
     };
 
     extraConfigLua = ''
+      require("utils").dotenv()
       require("snippets")
     '';
 
@@ -218,6 +219,32 @@ in
           isseus.order_by = {
             filed = "UPDATED_AT";
             direction = "DESC";
+          };
+        };
+      };
+
+      codecompanion = {
+        enable = true;
+        settings = {
+          strategies = {
+            chat.adapter = "gemini";
+            inline.adapter = "gemini";
+          };
+          adapters = {
+            gemini.__raw = ''
+              function()
+                return require("codecompanion.adapters").extend("gemini", {
+                  schema = {
+                    model = {
+                      default = "gemini-3-flash"
+                    }
+                  },
+                  env = {
+                    api_key = "GEMINI_API_KEY",
+                  },
+                })
+              end,
+            '';
           };
         };
       };
