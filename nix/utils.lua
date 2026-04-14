@@ -276,5 +276,12 @@ function M.dotenv()
   end
 end
 
+function M.open_mini_files()
+  local MiniFiles = require('mini.files')
+  local buf_name = vim.api.nvim_buf_get_name(0)
+  if not MiniFiles.close() then
+    MiniFiles.open(buf_name)
+  end
+end
 
 return M

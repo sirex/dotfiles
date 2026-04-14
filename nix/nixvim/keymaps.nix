@@ -104,7 +104,7 @@ in
     { mode = "n"; key = "<leader>hr"; action = lua "pick_octo_repo" []; options.desc = "List Git[H]ub Issues from [R]epo"; }
 
     # Oil
-    { mode = "n"; key = "-"; action = "<cmd>Oil<cr>"; options.desc = "Oil: File browser"; }
+    { mode = "n"; key = "-"; action = lua "open_mini_files" []; options.desc = "mini.files: File browser"; }
 
     # Yazi
     { mode = "n"; key = "<leader>y"; action = "<cmd>Yazi<CR>"; options.desc = "[Y]azi"; }

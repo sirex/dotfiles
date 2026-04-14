@@ -141,20 +141,15 @@ in
         enable = true;
       };
 
-      oil = {
+      mini-files = {
         enable = true;
         settings = {
-          delete_to_trash = true;
-          keymaps = {
-            # Complex actions with options require an attribute set
-            "<C-CR>" = { __unkeyed-1 = "actions.select"; opts = { horizontal = true; }; };
-            "<S-CR>" = { __unkeyed-1 = "actions.select"; opts = { vertical = true; }; };
-            "<C-r>" = "actions.refresh";
-
-            # Restore global keymaps inside the Oil buffer
-            "<C-s>" = "<CMD>write<CR>";
-            "<C-h>" = "<C-w><C-h>";
-            "<C-l>" = "<C-w><C-l>";
+          mappings = {
+            go_in_plus = "l";
+            synchronize = "s";
+          };
+          windows = {
+            preview = true;
           };
         };
       };
