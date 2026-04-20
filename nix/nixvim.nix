@@ -244,6 +244,8 @@ in
         };
       };
 
+      treesj.enable = true;
+
     };
 
   };
