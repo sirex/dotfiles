@@ -246,6 +246,14 @@ in
 
       treesj.enable = true;
 
+      flash = {
+        enable = true;
+        settings = {
+          label.uppercase = false;
+          modes.search.enabled = true;
+        };
+      };
+
     };
 
   };

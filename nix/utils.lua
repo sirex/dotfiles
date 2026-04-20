@@ -284,4 +284,16 @@ function M.open_mini_files()
   end
 end
 
+function M.jump()
+  require("flash").jump()
+end
+
+function M.jump_treesitter()
+  require("flash").treesitter()
+end
+
+function M.toggle_jump_search()
+  require("flash").toggle()
+end
+
 return M

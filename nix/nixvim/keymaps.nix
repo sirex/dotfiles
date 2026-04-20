@@ -60,6 +60,7 @@ in
     { mode = "n"; key = "<leader>ss"; action = lua "toggle" ["spell"]; options.desc = "[S]et [S]pell"; }
     { mode = "n"; key = "<leader>sn"; action = lua "toggle" ["number"]; options.desc = "[S]et [N]umbers"; }
     { mode = "n"; key = "<leader>sr"; action = lua "toggle" ["relativenumber"]; options.desc = "[S]et [R]elative numbers"; }
+    { mode = "n"; key = "<leader>sj"; action = lua "toggle_jump_search" []; options.desc = "[S]et [J]ump search"; }
 
     # Diagnostics
     { mode = "n"; key = "<leader>q"; action.__raw = "vim.diagnostic.setloclist"; options.desc = "Open diagnostic Quickfix"; }
@@ -123,6 +124,10 @@ in
     { mode = "n"; key = "<leader>le"; action = "<cmd>Trouble diagnostics toggle focus=true filter.buf=0<cr>"; options.desc = "[L]ist [E]rrors"; }
     { mode = "n"; key = "<leader>ls"; action = "<cmd>Trouble symbols toggle focus=true filter.buf=0<cr>"; options.desc = "[L]ist [S]ymbols"; }
     { mode = "n"; key = "<leader>ld"; action = "<cmd>Trouble lsp toggle focus=true<cr>"; options.desc = "[L]SP [D]definitions/Refs"; }
+
+    # Flash
+    { mode = "n"; key = "f"; action = lua "jump" []; options.desc = "[F]lash jump"; }
+    { mode = "n"; key = "t"; action = lua "jump_treesitter" []; options.desc = "[T]reesitter jump"; }
 
   ];
 }
