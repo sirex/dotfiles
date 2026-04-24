@@ -137,6 +137,13 @@ in
         };
       };
 
+      gitlinker = {
+        enable = true;
+        settings = {
+          mappings = null;
+        };
+      };
+
       diffview = {
         enable = true;
       };

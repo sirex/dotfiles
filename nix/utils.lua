@@ -296,4 +296,11 @@ function M.toggle_jump_search()
   require("flash").toggle()
 end
 
+
+function M.gitlinker(mode)
+  require('gitlinker').get_buf_range_url(mode, {
+    action_callback = require('gitlinker.actions').open_in_browser
+  })
+end
+
 return M

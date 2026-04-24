@@ -96,6 +96,10 @@ in
     { mode = "n"; key = "<leader>gh"; action = ":DiffviewFileHistory %<CR>"; options.desc = "[G]it [H]istory (Current File)"; }
     { mode = "n"; key = "<leader>gH"; action = ":DiffviewFileHistory<CR>"; options.desc = "[G]it [H]istory (Project)"; }
 
+    # gitlinker
+    { mode = "n"; key = "<leader>go"; action = lua "gitlinker" ["n"]; options.desc = "[G]it [O]pen in browser"; }
+    { mode = "v"; key = "<leader>go"; action = lua "gitlinker" ["v"]; options.desc = "[G]it [O]pen in browser"; }
+
     # Octo (GitHub)
     { mode = "n"; key = "<leader>hh"; action = "<cmd>Octo issue list<CR>"; options.desc = "List GitHub Issues"; }
     { mode = "n"; key = "<leader>hc"; action = "<cmd>Octo issue create<CR>"; options.desc = "Create GitHub Issue"; }
