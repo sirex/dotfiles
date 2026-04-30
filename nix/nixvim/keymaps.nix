@@ -125,7 +125,8 @@ in
     { mode = "n"; key = "<leader>nn"; action = lua "latest_note" []; options.desc = "[N]ewest [N]ote"; }
 
     # Trouble
-    { mode = "n"; key = "<leader>le"; action = "<cmd>Trouble diagnostics toggle focus=true filter.buf=0<cr>"; options.desc = "[L]ist [E]rrors"; }
+    { mode = "n"; key = "<leader>le"; action = "<cmd>Trouble diagnostics toggle filter.buf=0 win.position=top follow=true<cr>"; options.desc = "[L]ist [E]rrors"; }
+    { mode = "n"; key = "<leader>ll"; action = "<cmd>lua vim.diagnostic.open_float()<cr>"; options.desc = "[L]ist [L]ine errors"; }
     { mode = "n"; key = "<leader>ls"; action = "<cmd>Trouble symbols toggle focus=true filter.buf=0<cr>"; options.desc = "[L]ist [S]ymbols"; }
     { mode = "n"; key = "<leader>ld"; action = "<cmd>Trouble lsp toggle focus=true<cr>"; options.desc = "[L]SP [D]definitions/Refs"; }
 
