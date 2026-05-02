@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ ... }:
 let
   lua = func: args: {
     __raw = let
@@ -148,6 +148,8 @@ in
         enable = true;
       };
 
+      mini-icons.enable = true;
+
       mini-files = {
         enable = true;
         settings = {
@@ -169,10 +171,13 @@ in
         enable = true;
         highlight.enable = true;
         indent.enable = true;
-        folding.enable = true;
         nixvimInjections = true;
         languageRegister = {
           markdown = [ "octo" ];
+        };
+        settings = {
+          auto_install = false;
+          sync_install = false;
         };
       };
 
@@ -228,7 +233,12 @@ in
         };
       };
 
-      treesj.enable = true;
+      treesj = {
+        enable = true;
+        settings = {
+          use_default_keymaps = false;
+        };
+      };
 
       flash = {
         enable = true;

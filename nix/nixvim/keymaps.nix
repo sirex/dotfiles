@@ -134,5 +134,9 @@ in
     { mode = "n"; key = "f"; action = lua "jump" []; options.desc = "[F]lash jump"; }
     { mode = "n"; key = "t"; action = lua "jump_treesitter" []; options.desc = "[T]reesitter jump"; }
 
+    # Treesj
+    { mode = "n"; key = "gs"; action = "<cmd>TSJSplit<cr>"; options.desc = "[S]plit tree"; }
+    { mode = "n"; key = "gj"; action = "<cmd>TSJJoin<cr>"; options.desc = "[J]oin tree"; }
+
   ];
 }
