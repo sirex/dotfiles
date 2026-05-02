@@ -50,7 +50,7 @@ in
     };
     oh-my-zsh = {
       enable = true;
-      custom = "$HOME/.config/zsh";
+      custom = "${config.home.homeDirectory}/.config/zsh";
       theme = "sirex";
     };
     envExtra = ''
@@ -92,7 +92,7 @@ in
   programs.git = {
     enable = true;
     settings = {
-      user.name = "Mantas";
+      user.name = "sirex";
       user.email = "sirexas@gmail.com";
     };
   };

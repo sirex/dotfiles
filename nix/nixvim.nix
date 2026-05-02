@@ -167,36 +167,13 @@ in
 
       treesitter = {
         enable = true;
+        highlight.enable = true;
+        indent.enable = true;
+        folding.enable = true;
         nixvimInjections = true;
         languageRegister = {
           markdown = [ "octo" ];
         };
-        ensureInstalled = [ 
-          "bash"
-          "c"
-          "diff"
-          "html"
-          "xml"
-          "lua"
-          "luadoc"
-          "markdown"
-          "markdown_inline"
-          "query"
-          "vim"
-          "vimdoc"
-          "python"
-          "nix" 
-          "kdl"
-        ];
-        settings = {
-          auto_install = false;
-          sync_install = false;
-          # parser_install_dir.__raw = "vim.fs.joinpath(vim.fn.stdpath('data'), 'treesitter')";
-          highlight.enable = true;
-          highlight.additional_vim_regex_highlighting = false;
-          indent.enable = true;
-        };
-        nixGrammars = true;
       };
 
       # 2. Enable Tmux Navigation

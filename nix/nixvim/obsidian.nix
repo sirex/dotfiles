@@ -35,9 +35,9 @@
         template = "timelog.md";
       };
 
+
       new_notes_location = "current_dir";
-      preferred_link_style = "wiki";
-      wiki_link_func = "use_alias_only";
+      link.style = "wiki";
 
       attachments = {
         # attachments.img_folder is deprecated, use attachments.folder instead.
