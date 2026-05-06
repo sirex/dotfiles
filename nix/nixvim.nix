@@ -245,6 +245,7 @@ in
         settings = {
           label.uppercase = false;
           modes.search.enabled = true;
+          search.multi_window = false;
         };
       };
 
