@@ -1,146 +1,145 @@
-{ config, pkgs, ... }:
-let
-  lua = func: args: {
-    __raw = ''
-      function()
-        return require('utils').${func}(${builtins.concatStringsSep ", " (map builtins.toJSON args)})
-      end
-    '';
-  };
-in
+{ lua, ... }:
 {
-  programs.nixvim.keymaps = [
-    # Basic
-    { mode = "n"; key = "<Esc>"; action = "<cmd>nohlsearch<CR>"; options.desc = "Clear highlights"; }
-    { mode = ["i" "x" "n" "s"]; key = "<C-s>"; action = "<cmd>up<cr><esc>"; options.desc = "Save File"; }
-    { mode = "n"; key = "<leader>ch"; action = "<cmd>e ~/dotfiles/home.nix<cr>"; options.desc = "[C]onfigure [H]ome.nix"; }
-    { mode = "n"; key = "<leader>cn"; action = "<cmd>e ~/dotfiles/niri/config.kdl<cr>"; options.desc = "[C]onfigure [N]iri"; }
-    { mode = "n"; key = "<leader>cv"; action = lua "neovim_configs" []; options.desc = "[C]onfigure Neo[V]im"; }
+  programs.nixvim = {
+    keymaps = [
+      # Basic
+      { mode = "n"; key = "<Esc>"; action = "<cmd>nohlsearch<CR>"; options.desc = "Clear highlights"; }
+      { mode = ["i" "x" "n" "s"]; key = "<C-s>"; action = "<cmd>up<cr><esc>"; options.desc = "Save File"; }
+      { mode = "n"; key = "<leader>ch"; action = "<cmd>e ~/dotfiles/home.nix<cr>"; options.desc = "[C]onfigure [H]ome.nix"; }
+      { mode = "n"; key = "<leader>cn"; action = "<cmd>e ~/dotfiles/niri/config.kdl<cr>"; options.desc = "[C]onfigure [N]iri"; }
+      { mode = "n"; key = "<leader>cv"; action = lua "neovim_configs" []; options.desc = "[C]onfigure Neo[V]im"; }
 
-    # Movement (better up/down)
-    { mode = ["n" "x"]; key = "j"; action = "v:count == 0 ? 'gj' : 'j'"; options = { expr = true; silent = true; desc = "Down"; }; }
-    { mode = ["n" "x"]; key = "k"; action = "v:count == 0 ? 'gk' : 'k'"; options = { expr = true; silent = true; desc = "Up"; }; }
+      # Movement (better up/down)
+      { mode = ["n" "x"]; key = "j"; action = "v:count == 0 ? 'gj' : 'j'"; options = { expr = true; silent = true; desc = "Down"; }; }
+      { mode = ["n" "x"]; key = "k"; action = "v:count == 0 ? 'gk' : 'k'"; options = { expr = true; silent = true; desc = "Up"; }; }
 
-    # Window Navigation
-    { mode = "n"; key = "<Tab>"; action = "<C-W>p"; options.desc = "Switch to previous window"; }
-    { mode = "n"; key = "<C-Tab>"; action = "<C-6>"; options.desc = "Switch to previous buffer"; }
+      # Window Navigation
+      { mode = "n"; key = "<Tab>"; action = "<C-W>p"; options.desc = "Switch to previous window"; }
+      { mode = "n"; key = "<C-Tab>"; action = "<C-6>"; options.desc = "Switch to previous buffer"; }
 
-    # { mode = "n"; key = "<C-h>"; action = "<C-w><C-h>"; options.desc = "Move left"; }
-    # { mode = "n"; key = "<C-l>"; action = "<C-w><C-l>"; options.desc = "Move right"; }
-    # { mode = "n"; key = "<C-j>"; action = "<C-w><C-j>"; options.desc = "Move down"; }
-    # { mode = "n"; key = "<C-k>"; action = "<C-w><C-k>"; options.desc = "Move up"; }
+      # { mode = "n"; key = "<C-h>"; action = "<C-w><C-h>"; options.desc = "Move left"; }
+      # { mode = "n"; key = "<C-l>"; action = "<C-w><C-l>"; options.desc = "Move right"; }
+      # { mode = "n"; key = "<C-j>"; action = "<C-w><C-j>"; options.desc = "Move down"; }
+      # { mode = "n"; key = "<C-k>"; action = "<C-w><C-k>"; options.desc = "Move up"; }
 
-    { mode = "n"; key = "<C-h>"; action = "<cmd>TmuxNavigateLeft<cr>"; }
-    { mode = "n"; key = "<C-j>"; action = "<cmd>TmuxNavigateDown<cr>"; }
-    { mode = "n"; key = "<C-k>"; action = "<cmd>TmuxNavigateUp<cr>"; }
-    { mode = "n"; key = "<C-l>"; action = "<cmd>TmuxNavigateRight<cr>"; }
+      { mode = "n"; key = "<C-h>"; action = "<cmd>TmuxNavigateLeft<cr>"; }
+      { mode = "n"; key = "<C-j>"; action = "<cmd>TmuxNavigateDown<cr>"; }
+      { mode = "n"; key = "<C-k>"; action = "<cmd>TmuxNavigateUp<cr>"; }
+      { mode = "n"; key = "<C-l>"; action = "<cmd>TmuxNavigateRight<cr>"; }
 
-    # Window Resizing
-    { mode = "n"; key = "<C-M-n>"; action = "<cmd>vertical resize -5<CR>"; options = { silent = true; desc = "Decrease window width"; }; }
-    { mode = "n"; key = "<C-M-m>"; action = "<cmd>vertical resize +5<CR>"; options = { silent = true; desc = "Increase window width"; }; }
-    { mode = "n"; key = "<C-n>"; action = "<cmd>resize -5<CR>"; options = { silent = true; desc = "Decrease window height"; }; }
-    { mode = "n"; key = "<C-m>"; action = "<cmd>resize +5<CR>"; options = { silent = true; desc = "Increase window height"; }; }
+      # Window Resizing
+      { mode = "n"; key = "<C-M-n>"; action = "<cmd>vertical resize -5<CR>"; options = { silent = true; desc = "Decrease window width"; }; }
+      { mode = "n"; key = "<C-M-m>"; action = "<cmd>vertical resize +5<CR>"; options = { silent = true; desc = "Increase window width"; }; }
+      { mode = "n"; key = "<C-n>"; action = "<cmd>resize -5<CR>"; options = { silent = true; desc = "Decrease window height"; }; }
+      { mode = "n"; key = "<C-m>"; action = "<cmd>resize +5<CR>"; options = { silent = true; desc = "Increase window height"; }; }
 
-    # Scrolling
-    { mode = "n"; key = "<A-j>"; action = "<c-d>"; options.desc = "Half page down"; }
-    { mode = "n"; key = "<A-k>"; action = "<c-u>"; options.desc = "Half page up"; }
-    { mode = "t"; key = "<A-k>"; action = "<C-\\><C-n><c-u>"; options.desc = "Half page up"; }
-    { mode = "n"; key = "zZ"; action = "zszH"; options.desc = "Center screen horizontally"; }
+      # Scrolling
+      { mode = "n"; key = "<A-j>"; action = "<c-d>"; options.desc = "Half page down"; }
+      { mode = "n"; key = "<A-k>"; action = "<c-u>"; options.desc = "Half page up"; }
+      { mode = "t"; key = "<A-k>"; action = "<C-\\><C-n><c-u>"; options.desc = "Half page up"; }
+      { mode = "n"; key = "zZ"; action = "zszH"; options.desc = "Center screen horizontally"; }
 
-    # Terminal Mode Navigation
-    { mode = "t"; key = "<Esc><Esc>"; action = "<C-\\><C-n>"; options.desc = "Exit terminal mode"; }
-    { mode = "t"; key = "<C-h>"; action = "<C-\\><C-n><C-w><C-h>"; options.desc = "Move left (term)"; }
-    { mode = "t"; key = "<C-l>"; action = "<C-\\><C-n><C-w><C-l>"; options.desc = "Move right (term)"; }
-    { mode = "t"; key = "<C-j>"; action = "<C-\\><C-n><C-w><C-j>"; options.desc = "Move down (term)"; }
-    { mode = "t"; key = "<C-k>"; action = "<C-\\><C-n><C-w><C-k>"; options.desc = "Move up (term)"; }
+      # Terminal Mode Navigation
+      { mode = "t"; key = "<Esc><Esc>"; action = "<C-\\><C-n>"; options.desc = "Exit terminal mode"; }
+      { mode = "t"; key = "<C-h>"; action = "<C-\\><C-n><C-w><C-h>"; options.desc = "Move left (term)"; }
+      { mode = "t"; key = "<C-l>"; action = "<C-\\><C-n><C-w><C-l>"; options.desc = "Move right (term)"; }
+      { mode = "t"; key = "<C-j>"; action = "<C-\\><C-n><C-w><C-j>"; options.desc = "Move down (term)"; }
+      { mode = "t"; key = "<C-k>"; action = "<C-\\><C-n><C-w><C-k>"; options.desc = "Move up (term)"; }
 
-    # Toggle settings
-    { mode = "n"; key = "<leader>sc"; action = lua "toggle" ["conceallevel" 0 2]; options.desc = "[S]et [C]onceal level (0/2)"; }
-    { mode = "n"; key = "<leader>sw"; action = lua "toggle" ["wrap"]; options.desc = "[S]et [W]rap"; }
-    { mode = "n"; key = "<leader>ss"; action = lua "toggle" ["spell"]; options.desc = "[S]et [S]pell"; }
-    { mode = "n"; key = "<leader>sn"; action = lua "toggle" ["number"]; options.desc = "[S]et [N]umbers"; }
-    { mode = "n"; key = "<leader>sr"; action = lua "toggle" ["relativenumber"]; options.desc = "[S]et [R]elative numbers"; }
-    { mode = "n"; key = "<leader>sj"; action = lua "toggle_jump_search" []; options.desc = "[S]et [J]ump search"; }
+      # Toggle settings
+      { mode = "n"; key = "<leader>sc"; action = lua "toggle" ["conceallevel" 0 2]; options.desc = "[S]et [C]onceal level (0/2)"; }
+      { mode = "n"; key = "<leader>sw"; action = lua "toggle" ["wrap"]; options.desc = "[S]et [W]rap"; }
+      { mode = "n"; key = "<leader>ss"; action = lua "toggle" ["spell"]; options.desc = "[S]et [S]pell"; }
+      { mode = "n"; key = "<leader>sn"; action = lua "toggle" ["number"]; options.desc = "[S]et [N]umbers"; }
+      { mode = "n"; key = "<leader>sr"; action = lua "toggle" ["relativenumber"]; options.desc = "[S]et [R]elative numbers"; }
+      { mode = "n"; key = "<leader>sj"; action = lua "toggle_jump_search" []; options.desc = "[S]et [J]ump search"; }
 
-    # Diagnostics
-    { mode = "n"; key = "<leader>q"; action.__raw = "vim.diagnostic.setloclist"; options.desc = "Open diagnostic Quickfix"; }
+      # Diagnostics
+      { mode = "n"; key = "<leader>q"; action.__raw = "vim.diagnostic.setloclist"; options.desc = "Open diagnostic Quickfix"; }
 
-    # Toggle Term
-    { mode = "n"; key = "<C-Enter>"; action = "<cmd>ToggleTerm<cr>"; options.desc = "Toggle terminal panel"; }
-    # { mode = "n"; key = "<C-e>"; action = "<cmd>ToggleTermSendCurrentLine<cr>j"; options.desc = "Send line to terminal"; }
-    { mode = "n"; key = "<C-e>"; action = lua "term_send_lines" ["single_line"]; options.desc = "Send line to terminal"; }
-    # { mode = "v"; key = "<C-e>"; action = "<cmd>ToggleTermSendVisualSelection<cr>"; options.desc = "Send selection to terminal"; }
-    { mode = "v"; key = "<C-e>"; action = lua "term_send_lines" ["visual_selection"]; options.desc = "Send selection to terminal"; }
-    { mode = "n"; key = "<leader>tm"; action = lua "term_set_cmd" []; options.desc = "[T]erminal [M]ap (Current Line)"; }
-    { mode = "n"; key = "<leader>tt"; action = lua "term_run_cmd" []; options.desc = "Execute mapped terminal command"; }
-    { mode = "n"; key = "<leader>tn"; action = lua "term_new" []; options.desc = "[T]erm [N]ew"; }
-    { mode = "n"; key = "<leader>ts"; action = lua "term_select" []; options.desc = "[T]erm [S]elect"; }
-    { mode = "n"; key = "<leader>tN"; action = lua "term_set_name" []; options.desc = "[T]erm Set [N]ame"; }
-    { mode = "n"; key = "<leader>ta"; action = "<cmd>ToggleTermToggleAll<cr>"; options.desc = "[T]erm toggle [A]ll"; }
+      # Toggle Term
+      { mode = "n"; key = "<C-Enter>"; action = "<cmd>ToggleTerm<cr>"; options.desc = "Toggle terminal panel"; }
+      # { mode = "n"; key = "<C-e>"; action = "<cmd>ToggleTermSendCurrentLine<cr>j"; options.desc = "Send line to terminal"; }
+      { mode = "n"; key = "<C-e>"; action = lua "term_send_lines" ["single_line"]; options.desc = "Send line to terminal"; }
+      # { mode = "v"; key = "<C-e>"; action = "<cmd>ToggleTermSendVisualSelection<cr>"; options.desc = "Send selection to terminal"; }
+      { mode = "v"; key = "<C-e>"; action = lua "term_send_lines" ["visual_selection"]; options.desc = "Send selection to terminal"; }
+      { mode = "n"; key = "<leader>tm"; action = lua "term_set_cmd" []; options.desc = "[T]erminal [M]ap (Current Line)"; }
+      { mode = "n"; key = "<leader>tt"; action = lua "term_run_cmd" []; options.desc = "Execute mapped terminal command"; }
+      { mode = "n"; key = "<leader>tn"; action = lua "term_new" []; options.desc = "[T]erm [N]ew"; }
+      { mode = "n"; key = "<leader>ts"; action = lua "term_select" []; options.desc = "[T]erm [S]elect"; }
+      { mode = "n"; key = "<leader>tN"; action = lua "term_set_name" []; options.desc = "[T]erm Set [N]ame"; }
+      { mode = "n"; key = "<leader>ta"; action = "<cmd>ToggleTermToggleAll<cr>"; options.desc = "[T]erm toggle [A]ll"; }
 
-    # LazyGit
-    { mode = "n"; key = "<leader>gg"; action = "<cmd>LazyGitCurrentFile<cr>"; options.desc = "LazyGit (Current File)"; }
-    { mode = "n"; key = "<leader>gl"; action = "<cmd>LazyGitFilterCurrentFile<cr>"; options.desc = "LazyGit Log (Current File)"; }
-    { mode = "n"; key = "<leader>gL"; action = "<cmd>LazyGitFilter<cr>"; options.desc = "LazyGit Log (Project)"; }
+      # LazyGit
+      { mode = "n"; key = "<leader>gg"; action = "<cmd>LazyGitCurrentFile<cr>"; options.desc = "LazyGit (Current File)"; }
+      { mode = "n"; key = "<leader>gl"; action = "<cmd>LazyGitFilterCurrentFile<cr>"; options.desc = "LazyGit Log (Current File)"; }
+      { mode = "n"; key = "<leader>gL"; action = "<cmd>LazyGitFilter<cr>"; options.desc = "LazyGit Log (Project)"; }
 
-    # Gitsigns
-    { mode = "n"; key = "<leader>gb"; action = "<cmd>Gitsigns blame<cr>"; options.desc = "Git blame (File)"; }
-    { mode = "n"; key = "<leader>gB"; action = "<cmd>Gitsigns blame_line<cr>"; options.desc = "Git blame (Line)"; }
-    { mode = "n"; key = "<leader>ga"; action = "<cmd>Gitsigns stage_hunk<cr>"; options.desc = "Git stage hunk"; }
-    { mode = "n"; key = "<leader>g-"; action = "<cmd>Gitsigns undo_stage_hunk<cr>"; options.desc = "Git undo stage hunk"; }
+      # Gitsigns
+      { mode = "n"; key = "<leader>gb"; action = "<cmd>Gitsigns blame<cr>"; options.desc = "Git blame (File)"; }
+      { mode = "n"; key = "<leader>gB"; action = "<cmd>Gitsigns blame_line<cr>"; options.desc = "Git blame (Line)"; }
+      { mode = "n"; key = "<leader>ga"; action = "<cmd>Gitsigns stage_hunk<cr>"; options.desc = "Git stage hunk"; }
+      { mode = "n"; key = "<leader>g-"; action = "<cmd>Gitsigns undo_stage_hunk<cr>"; options.desc = "Git undo stage hunk"; }
 
-    # Neogit
-    { mode = "n"; key = "<leader>gs"; action = ":Neogit<CR>"; options.desc = "Neo[G]it [S]tatus"; }
-    { mode = "n"; key = "<leader>gc"; action = ":Neogit commit<CR>"; options.desc = "Neogit Commit"; }
-    { mode = "n"; key = "<leader>gp"; action = ":Neogit push<CR>"; options.desc = "Neogit Push"; }
+      # Neogit
+      { mode = "n"; key = "<leader>gs"; action = ":Neogit<CR>"; options.desc = "Neo[G]it [S]tatus"; }
+      { mode = "n"; key = "<leader>gc"; action = ":Neogit commit<CR>"; options.desc = "Neogit Commit"; }
+      { mode = "n"; key = "<leader>gp"; action = ":Neogit push<CR>"; options.desc = "Neogit Push"; }
 
-    # Diffview
-    { mode = "n"; key = "<leader>gd"; action = ":DiffviewOpen<CR>"; options.desc = "[G]it [D]iff (Open)"; }
-    { mode = "n"; key = "<leader>gx"; action = ":DiffviewClose<CR>"; options.desc = "[G]it Diff E[x]it"; }
-    { mode = "n"; key = "<leader>gh"; action = ":DiffviewFileHistory %<CR>"; options.desc = "[G]it [H]istory (Current File)"; }
-    { mode = "n"; key = "<leader>gH"; action = ":DiffviewFileHistory<CR>"; options.desc = "[G]it [H]istory (Project)"; }
+      # Diffview
+      { mode = "n"; key = "<leader>gd"; action = ":DiffviewOpen<CR>"; options.desc = "[G]it [D]iff (Open)"; }
+      { mode = "n"; key = "<leader>gx"; action = ":DiffviewClose<CR>"; options.desc = "[G]it Diff E[x]it"; }
+      { mode = "n"; key = "<leader>gh"; action = ":DiffviewFileHistory %<CR>"; options.desc = "[G]it [H]istory (Current File)"; }
+      { mode = "n"; key = "<leader>gH"; action = ":DiffviewFileHistory<CR>"; options.desc = "[G]it [H]istory (Project)"; }
 
-    # gitlinker
-    { mode = "n"; key = "<leader>go"; action = lua "gitlinker" ["n"]; options.desc = "[G]it [O]pen in browser"; }
-    { mode = "v"; key = "<leader>go"; action = lua "gitlinker" ["v"]; options.desc = "[G]it [O]pen in browser"; }
+      # gitlinker
+      { mode = "n"; key = "<leader>go"; action = lua "gitlinker" ["n"]; options.desc = "[G]it [O]pen in browser"; }
+      { mode = "v"; key = "<leader>go"; action = lua "gitlinker" ["v"]; options.desc = "[G]it [O]pen in browser"; }
 
-    # Octo (GitHub)
-    { mode = "n"; key = "<leader>hh"; action = "<cmd>Octo issue list<CR>"; options.desc = "List GitHub Issues"; }
-    { mode = "n"; key = "<leader>hc"; action = "<cmd>Octo issue create<CR>"; options.desc = "Create GitHub Issue"; }
-    { mode = "n"; key = "<leader>hp"; action = "<cmd>Octo pr list<CR>"; options.desc = "List GitHub PRs"; }
-    { mode = "n"; key = "<leader>hs"; action = "<cmd>Octo search<CR>"; options.desc = "Search GitHub"; }
-    { mode = "n"; key = "<leader>ha"; action = "<cmd>Octo actions<CR>"; options.desc = "Run Octo Action (Hover menu)"; }
-    { mode = "n"; key = "<leader>hr"; action = lua "pick_octo_repo" []; options.desc = "List Git[H]ub Issues from [R]epo"; }
+      # Octo (GitHub)
+      { mode = "n"; key = "<leader>hh"; action = "<cmd>Octo issue list<CR>"; options.desc = "List GitHub Issues"; }
+      { mode = "n"; key = "<leader>hc"; action = "<cmd>Octo issue create<CR>"; options.desc = "Create GitHub Issue"; }
+      { mode = "n"; key = "<leader>hp"; action = "<cmd>Octo pr list<CR>"; options.desc = "List GitHub PRs"; }
+      { mode = "n"; key = "<leader>hs"; action = "<cmd>Octo search<CR>"; options.desc = "Search GitHub"; }
+      { mode = "n"; key = "<leader>ha"; action = "<cmd>Octo actions<CR>"; options.desc = "Run Octo Action (Hover menu)"; }
+      { mode = "n"; key = "<leader>hr"; action = lua "pick_octo_repo" []; options.desc = "List Git[H]ub Issues from [R]epo"; }
 
-    # Oil
-    { mode = "n"; key = "-"; action = lua "open_mini_files" []; options.desc = "mini.files: File browser"; }
+      # Oil
+      { mode = "n"; key = "-"; action = lua "open_mini_files" []; options.desc = "mini.files: File browser"; }
 
-    # Yazi
-    { mode = "n"; key = "<leader>y"; action = "<cmd>Yazi<CR>"; options.desc = "[Y]azi"; }
+      # Yazi
+      { mode = "n"; key = "<leader>y"; action = "<cmd>Yazi<CR>"; options.desc = "[Y]azi"; }
 
-    # Neo-tree
-    { mode = "n"; key = "<leader>e"; action = "<cmd>Neotree reveal<CR>"; options.desc = "File [E]xplorer"; }
+      # Neo-tree
+      { mode = "n"; key = "<leader>e"; action = "<cmd>Neotree reveal<CR>"; options.desc = "File [E]xplorer"; }
 
-    # CSVView
-    { mode = "n"; key = "<leader>st"; action = "<cmd>CsvViewToggle<cr>"; options.desc = "Toggle CSV View"; }
+      # CSVView
+      { mode = "n"; key = "<leader>st"; action = "<cmd>CsvViewToggle<cr>"; options.desc = "Toggle CSV View"; }
 
-    # Notes
-    { mode = "n"; key = "<leader>nc"; action = lua "create_note" []; options.desc = "[C]reate new [N]ote"; }
-    { mode = "n"; key = "<leader>nn"; action = lua "latest_note" []; options.desc = "[N]ewest [N]ote"; }
+      # Notes
+      { mode = "n"; key = "<leader>nc"; action = lua "create_note" []; options.desc = "[C]reate new [N]ote"; }
+      { mode = "n"; key = "<leader>nn"; action = lua "latest_note" []; options.desc = "[N]ewest [N]ote"; }
 
-    # Trouble
-    { mode = "n"; key = "<leader>le"; action = "<cmd>Trouble diagnostics toggle filter.buf=0 win.position=top follow=true<cr>"; options.desc = "[L]ist [E]rrors"; }
-    { mode = "n"; key = "<leader>ll"; action = "<cmd>lua vim.diagnostic.open_float()<cr>"; options.desc = "[L]ist [L]ine errors"; }
-    { mode = "n"; key = "<leader>ls"; action = "<cmd>Trouble symbols toggle focus=true filter.buf=0<cr>"; options.desc = "[L]ist [S]ymbols"; }
-    { mode = "n"; key = "<leader>ld"; action = "<cmd>Trouble lsp toggle focus=true<cr>"; options.desc = "[L]SP [D]definitions/Refs"; }
+      # Trouble
+      { mode = "n"; key = "<leader>le"; action = "<cmd>Trouble diagnostics toggle filter.buf=0 win.position=top follow=true<cr>"; options.desc = "[L]ist [E]rrors"; }
+      { mode = "n"; key = "<leader>ll"; action = "<cmd>lua vim.diagnostic.open_float()<cr>"; options.desc = "[L]ist [L]ine errors"; }
+      { mode = "n"; key = "<leader>ls"; action = "<cmd>Trouble symbols toggle focus=true filter.buf=0<cr>"; options.desc = "[L]ist [S]ymbols"; }
+      { mode = "n"; key = "<leader>ld"; action = "<cmd>Trouble lsp toggle focus=true<cr>"; options.desc = "[L]SP [D]definitions/Refs"; }
 
-    # Flash
-    { mode = "n"; key = "f"; action = lua "jump" []; options.desc = "[F]lash jump"; }
-    { mode = "n"; key = "t"; action = lua "jump_treesitter" []; options.desc = "[T]reesitter jump"; }
+      # Flash
+      { mode = "n"; key = "f"; action = lua "jump" []; options.desc = "[F]lash jump"; }
+      { mode = "n"; key = "t"; action = lua "jump_treesitter" []; options.desc = "[T]reesitter jump"; }
 
-    # Treesj
-    { mode = "n"; key = "gs"; action = "<cmd>TSJSplit<cr>"; options.desc = "[S]plit tree"; }
-    { mode = "n"; key = "gj"; action = "<cmd>TSJJoin<cr>"; options.desc = "[J]oin tree"; }
+      # Treesj
+      { mode = "n"; key = "gs"; action = "<cmd>TSJSplit<cr>"; options.desc = "[S]plit tree"; }
+      { mode = "n"; key = "gj"; action = "<cmd>TSJJoin<cr>"; options.desc = "[J]oin tree"; }
 
-  ];
+    ];
+
+    autoGroups.Overrides.clear = true;
+
+    autoCmd = [
+      { event = [ "TermOpen" ]; group = "Overrides"; callback = lua "term_gf" []; }
+    ];
+  };
 }

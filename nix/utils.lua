@@ -138,6 +138,34 @@ function M.term_set_name()
   end)
 end
 
+function _jump_to_line(line)
+  local lnum = string.match(line, "line (%d+)")
+  if not lnum then
+    lnum = string.match(line, ":(%d+)")
+  end
+
+  if lnum then
+    local line_number = tonumber(lnum)
+    pcall(vim.api.nvim_win_set_cursor, 0, { line_number, 0 })
+    vim.cmd('normal! zz')
+  end
+end
+
+function M.term_gf(opts)
+  vim.keymap.set('n', 'gf', function()
+    local file = vim.fn.expand('<cfile>')
+    local line = vim.api.nvim_get_current_line()
+
+    if file ~= "" then
+      vim.cmd('wincmd p')
+      vim.cmd('edit ' .. vim.fn.fnameescape(file))
+      _jump_to_line(line)
+    else
+      vim.notify("No file under cursor", vim.log.levels.WARN)
+    end
+  end, { buffer = opts.buf, desc = "gf in previous window" })
+end
+
 -- Telescope
 
 function M.projects()
