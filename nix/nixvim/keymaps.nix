@@ -86,7 +86,7 @@ in
     { mode = "n"; key = "<leader>g-"; action = "<cmd>Gitsigns undo_stage_hunk<cr>"; options.desc = "Git undo stage hunk"; }
 
     # Neogit
-    { mode = "n"; key = "<leader>gn"; action = ":Neogit<CR>"; options.desc = "Open Neogit (Status)"; }
+    { mode = "n"; key = "<leader>gs"; action = ":Neogit<CR>"; options.desc = "Neo[G]it [S]tatus"; }
     { mode = "n"; key = "<leader>gc"; action = ":Neogit commit<CR>"; options.desc = "Neogit Commit"; }
     { mode = "n"; key = "<leader>gp"; action = ":Neogit push<CR>"; options.desc = "Neogit Push"; }
 

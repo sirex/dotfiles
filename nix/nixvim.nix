@@ -97,6 +97,10 @@ in
       };
     };
 
+    autoCmd = [
+      { event = ["FileType"]; pattern = ["help"]; command = "wincmd K"; }
+    ];
+
     # Here is where we add your requested plugins
     plugins = {
       nui.enable = true;          # UI Component Library
@@ -132,8 +136,8 @@ in
       neogit = {
         enable = true;
         settings = {
-          kind = "split";
-          commit_popup.kind = "split";
+          kind = "split_above_all";
+          commit_popup.kind = "split_below_all";
         };
       };
 
