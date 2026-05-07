@@ -4,33 +4,138 @@ local M = {}
 
 -- Toggle Term
 
-function M.send_to_term(motion_type, opts)
-  -- motion_type: single_line | visual_lines | visual_selection
-  opts = vim.tbl_extend("keep", opts or {}, {
-    trim_spaces = false
-  })
-  require("toggleterm").send_lines_to_terminal(motion_type, opts.trim_spaces, {
-    args = vim.v.count
-  })
-  if motion_type == "single_line" then
-    pcall(function()
-      vim.cmd("normal! j")
+function _get_term_name(term)
+    return string.format("%d: %s", term.id, term:_display_name())
+end
+
+function _get_term_id(callback)
+  local all_terms = require("toggleterm.terminal").get_all()
+  local open_terms = {}
+
+  for _, term in pairs(all_terms) do
+    if term:is_open() then
+      table.insert(open_terms, term)
+    end
+  end
+
+  if #open_terms == 1 then
+    callback(open_terms[1].id)
+  elseif #open_terms > 1 then
+    vim.ui.select(open_terms, {
+      prompt = "Select terminal: ",
+      format_item = _get_term_name
+    }, function(choice) 
+        if choice then callback(choice.id) end 
+      end)
+  elseif #all_terms == 1 then
+    callback(all_terms[1].id)
+  elseif #all_terms > 1 then
+    vim.ui.select(all_terms, {
+      prompt = "Select terminal: ",
+      format_item = _get_term_name
+    }, function(choice) 
+        if choice then callback(choice.id) end 
+      end)
+  else
+    callback(1)
+  end
+end
+
+function _term_close_others(target_id)
+  if target_id then
+    local terminals = require("toggleterm.terminal").get_all()
+    for _, term in pairs(terminals) do
+      if term.id ~= target_id and term:is_open() then
+        term:close()
+      end
+    end
+  end
+end
+
+function M.term_send_lines(motion_type, opts)
+  local current_win = vim.api.nvim_get_current_win()
+  _get_term_id(function (id)
+    if id then
+      -- motion_type: single_line | visual_lines | visual_selection
+      opts = vim.tbl_extend("keep", opts or {}, {
+        trim_spaces = false
+      })
+      require("toggleterm").send_lines_to_terminal(motion_type, opts.trim_spaces, {
+        args = id
+      })
+      if motion_type == "single_line" then
+        pcall(function()
+          vim.cmd("normal! j")
+        end)
+      end
+    end
+  end)
+end
+
+function M.term_set_cmd()
+  local cmd = vim.api.nvim_get_current_line()
+  if cmd ~= "" then
+    vim.g.last_terminal_command = cmd
+    _get_term_id(function (id) 
+      vim.g.last_terminal_id = id
     end)
   end
 end
 
-function M.set_term_cmd()
-  local cmd = vim.api.nvim_get_current_line()
-  if cmd ~= "" then
-    vim.g.last_terminal_command = cmd
+function M.term_run_cmd()
+  local cmd = vim.g.last_terminal_command
+  if cmd and cmd ~= "" then
+    _term_close_others(vim.g.last_terminal_id)
+    require("toggleterm").exec(cmd, vim.g.last_terminal_id)
   end
 end
 
-function M.run_term_cmd()
-  local cmd = vim.g.last_terminal_command
-  if cmd and cmd ~= "" then
-    require("toggleterm").exec(cmd)
+function M.term_new()
+  local current_win = vim.api.nvim_get_current_win()
+  for _, term in pairs(require("toggleterm.terminal").get_all()) do
+    term:close()
   end
+  vim.cmd("TermNew")
+  vim.api.nvim_set_current_win(current_win)
+  vim.cmd("stopinsert")
+end
+
+function M.term_select()
+  local current_win = vim.api.nvim_get_current_win()
+  local terms = require("toggleterm.terminal").get_all()
+  vim.ui.select(terms, {
+    prompt = "Select terminal: ",
+    format_item = _get_term_name
+  }, function(term) 
+    if term then 
+      _term_close_others(term.id)
+      if term:is_open() then
+        term:focus()
+      else
+        term:open()
+      end
+      vim.api.nvim_set_current_win(current_win)
+      vim.cmd("stopinsert")
+    end 
+  end)
+end
+
+function M.term_set_name()
+  _get_term_id(function(id)
+    if id then
+      vim.ui.input({ prompt = "Set terminal name: " }, function(new_name)
+        if not new_name or new_name == "" then 
+          return
+        end
+
+        local term = require("toggleterm.terminal").get(id)
+        if term then
+          term.display_name = new_name
+          vim.notify("Terminal " .. id .. " renamed to: " .. new_name)
+        end
+      end)
+    end
+  end)
 end
 
 -- Telescope

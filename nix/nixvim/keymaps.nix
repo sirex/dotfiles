@@ -68,11 +68,15 @@ in
     # Toggle Term
     { mode = "n"; key = "<C-Enter>"; action = "<cmd>ToggleTerm<cr>"; options.desc = "Toggle terminal panel"; }
     # { mode = "n"; key = "<C-e>"; action = "<cmd>ToggleTermSendCurrentLine<cr>j"; options.desc = "Send line to terminal"; }
-    { mode = "n"; key = "<C-e>"; action = lua "send_to_term" ["single_line"]; options.desc = "Send line to terminal"; }
+    { mode = "n"; key = "<C-e>"; action = lua "term_send_lines" ["single_line"]; options.desc = "Send line to terminal"; }
     # { mode = "v"; key = "<C-e>"; action = "<cmd>ToggleTermSendVisualSelection<cr>"; options.desc = "Send selection to terminal"; }
-    { mode = "v"; key = "<C-e>"; action = lua "send_to_term" ["visual_selection"]; options.desc = "Send selection to terminal"; }
-    { mode = "n"; key = "<leader>tm"; action = lua "set_term_cmd" []; options.desc = "[T]erminal [M]ap (Current Line)"; }
-    { mode = "n"; key = "<leader>tt"; action = lua "run_term_cmd" []; options.desc = "Execute mapped terminal command"; }
+    { mode = "v"; key = "<C-e>"; action = lua "term_send_lines" ["visual_selection"]; options.desc = "Send selection to terminal"; }
+    { mode = "n"; key = "<leader>tm"; action = lua "term_set_cmd" []; options.desc = "[T]erminal [M]ap (Current Line)"; }
+    { mode = "n"; key = "<leader>tt"; action = lua "term_run_cmd" []; options.desc = "Execute mapped terminal command"; }
+    { mode = "n"; key = "<leader>tn"; action = lua "term_new" []; options.desc = "[T]erm [N]ew"; }
+    { mode = "n"; key = "<leader>ts"; action = lua "term_select" []; options.desc = "[T]erm [S]elect"; }
+    { mode = "n"; key = "<leader>tN"; action = lua "term_set_name" []; options.desc = "[T]erm Set [N]ame"; }
+    { mode = "n"; key = "<leader>ta"; action = "<cmd>ToggleTermToggleAll<cr>"; options.desc = "[T]erm toggle [A]ll"; }
 
     # LazyGit
     { mode = "n"; key = "<leader>gg"; action = "<cmd>LazyGitCurrentFile<cr>"; options.desc = "LazyGit (Current File)"; }
