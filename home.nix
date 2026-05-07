@@ -99,6 +99,22 @@ in
 
   programs.lazygit.enable = true;
 
+  programs.lazydocker = {
+    enable = true;
+    settings = {
+      gui.returnImmediately = true;
+      customCommands = {
+        services = [
+          {
+            name = "bash";
+            attach = true;
+            command = "docker compose run --rm {{ .Service.Name }} bash";
+          }
+        ];
+      };
+    };
+  };
+
   programs.fzf = {
     enable = true;
     enableZshIntegration = true;
