@@ -29,7 +29,6 @@ in
     fd         # File searching
     ripgrep    # Text searching
     jq         # JSON Query
-    bat        # Cat with colors
     matugen
     poppler    # PDF previews
     ffmpegthumbnailer # Video thumbnais
@@ -134,6 +133,26 @@ in
     shellWrapperName = "y";
     enableZshIntegration = true;
     enableNushellIntegration = true;
+  };
+
+  programs.bat = {
+    enable = true;
+    config = {
+      theme = "tokyonight";
+      style = "plain";
+      paging = "never";
+    };
+    themes = {
+      tokyonight = {
+        src = pkgs.fetchFromGitHub {
+          owner = "folke";
+          repo = "tokyonight.nvim";
+          rev = "main";
+          sha256 = "sha256-a9iRWue7DB7s/wNdxqqB51Jya5P9X6sDftqhdmKggU0=";
+        };
+        file = "extras/sublime/tokyonight_night.tmTheme";
+      };
+    };
   };
 
   home.file = {
