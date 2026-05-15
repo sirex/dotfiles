@@ -138,6 +138,7 @@ in
         settings = {
           kind = "split_above_all";
           commit_popup.kind = "split_below_all";
+          treesitter_diff_highlight = true;
         };
       };
 
