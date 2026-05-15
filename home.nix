@@ -112,6 +112,11 @@ in
             attach = true;
             command = "docker compose run --rm {{ .Service.Name }} bash";
           }
+          {
+            name = "bash (root)";
+            attach = true;
+            command = "docker compose run --rm --user root {{ .Service.Name }} bash";
+          }
         ];
       };
     };
