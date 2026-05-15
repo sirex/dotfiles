@@ -74,6 +74,9 @@ in
     settings = {
       show_banner = false;
     };
+    extraConfig = ''
+      source ~/.config/nushell/scripts.nu
+    '';
   };
 
   programs.eza = {
@@ -143,5 +146,6 @@ in
     "yazi".source = link "yazi";
     "kanshi".source = link "kanshi";
     "lazygit".source = link "lazygit";
+    "nushell/scripts.nu".source =link "nushell/scripts.nu";
   };
 }
