@@ -248,7 +248,7 @@ in
         enable = true;
         settings = {
           label.uppercase = false;
-          modes.search.enabled = true;
+          modes.search.enabled = false;
           search.multi_window = false;
         };
       };
