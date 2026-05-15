@@ -99,7 +99,35 @@ in
     };
   };
 
-  programs.lazygit.enable = true;
+  programs.delta = {
+    enable = true;
+    enableGitIntegration = true;
+    options = {
+      line-numbers = true;
+      hunk-header-style = "omit";
+      dark = true;
+      syntax-theme = "tokyonight";
+    };
+  };
+
+  programs.lazygit = {
+    enable = true;
+    settings = {
+      notARepository = "skip";
+      git = {
+        pagers = [
+          {
+            pager = "delta --dark --paging=never";
+            colorArg = "always";
+          }
+        ];
+      };
+      gui.theme = {
+        selectedRangeBgColor = [ "#292e42" ];
+        selectedLineBgColor = [ "#292e42" ];
+      };
+    };
+  };
 
   programs.lazydocker = {
     enable = true;
@@ -169,7 +197,6 @@ in
     "niri".source = link "niri";
     "yazi".source = link "yazi";
     "kanshi".source = link "kanshi";
-    "lazygit".source = link "lazygit";
     "nushell/scripts.nu".source =link "nushell/scripts.nu";
   };
 }
