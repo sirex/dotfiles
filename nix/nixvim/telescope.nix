@@ -1,4 +1,4 @@
-{ config, lua, ... }:
+{ lua, ... }:
 {
   programs.nixvim.keymaps = [
     { mode = "n"; key = "<leader><leader>"; action = lua "mru" []; options.desc = "[F]ind existing buffers (MRU)"; }
@@ -7,6 +7,7 @@
     { mode = "n"; key = "<leader>cd"; action = lua "zoxide" []; options.desc = "[C]hange [D]irectory (Zoxide)"; }
     { mode = "n"; key = "<leader>fd";  action = lua "zoxide_find" []; options.desc = "[F]ind in a [D]irectory"; }
     { mode = "n"; key = "<leader>sd"; action = lua "search_dir" []; options.desc = "[S]earch [D]irectory"; }
+    { mode = "n"; key = "<leader>fc"; action = lua "git_commits" []; options.desc = "[F]ind git [C]ommits"; }
   ];
 
   programs.nixvim.plugins.telescope = {

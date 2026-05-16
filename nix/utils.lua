@@ -436,4 +436,10 @@ function M.gitlinker(mode)
   })
 end
 
+function M.git_commits(mode)
+  require('telescope.builtin').git_commits({
+    cwd = vim.fn.expand('%:p:h'),
+    git_command = { "git", "log", "--no-color", "--format=%h %as: %an | %s", "--" },
+  })
+end
 return M
