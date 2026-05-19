@@ -108,7 +108,7 @@
       { mode = "n"; key = "-"; action = lua "open_mini_files" []; options.desc = "mini.files: File browser"; }
 
       # Yazi
-      { mode = "n"; key = "<leader>y"; action = "<cmd>Yazi<CR>"; options.desc = "[Y]azi"; }
+      { mode = "n"; key = "<leader>d"; action = "<cmd>Yazi<CR>"; options.desc = "Yazi [D]ir"; }
 
       # Neo-tree
       { mode = "n"; key = "<leader>e"; action = "<cmd>Neotree reveal<CR>"; options.desc = "File [E]xplorer"; }
