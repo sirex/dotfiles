@@ -178,7 +178,10 @@ in
         indent.enable = true;
         nixvimInjections = true;
         languageRegister = {
-          markdown = [ "octo" ];
+          markdown = [
+            "octo"
+            "gitcommit"
+          ];
         };
         settings = {
           auto_install = false;
