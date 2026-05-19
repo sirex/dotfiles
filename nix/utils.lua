@@ -442,4 +442,68 @@ function M.git_commits(mode)
     git_command = { "git", "log", "--no-color", "--format=%h %as: %an | %s", "--" },
   })
 end
+
+
+function M.restart()
+  local session = vim.fn.stdpath('state') .. '/restart.vim'
+  vim.cmd('mksession! ' .. vim.fn.fnameescape(session))
+  vim.cmd('restart source ' .. vim.fn.fnameescape(session))
+end
+
+
+function M.help()
+  local ft = vim.bo.filetype
+  local cword = vim.fn.expand('<cword>')
+
+  if ft == 'markdown' then
+    vim.cmd('normal! K')
+  elseif ft == 'lua' then
+    vim.cmd('help ' .. cword)
+  else
+    if next(vim.lsp.get_clients({ bufnr = 0 })) then
+      vim.lsp.buf.hover()
+    else
+      vim.cmd('normal! K')
+    end
+  end
+
+end
+
+function M.eval_lua()
+  local line = vim.api.nvim_get_current_line()
+  _eval_lua(line)
+end
+
+function M.eval_lua_sel()
+  local lines = vim.fn.getregion(vim.fn.getpos("v"), vim.fn.getpos("."))
+  local code = table.concat(lines, "\n")
+  vim.cmd("normal! \27")
+  _eval_lua(code)
+end
+
+function _eval_lua(code)
+  -- Try evaluating as an expression first by prepending 'return'
+  local func, err = loadstring("return " .. code)
+  if not func then
+      -- If it's a statement (e.g. 'local x = 1'), 'return' fails, so load normally
+      func, err = loadstring(code)
+  end
+
+  if func then
+      local success, result = pcall(func)
+      if success and result ~= nil then
+          vim.print(result)
+      elseif not success then
+          vim.api.nvim_err_writeln("Error: " .. tostring(result))
+      end
+  else
+      vim.api.nvim_err_writeln("Parsing Error: " .. tostring(err))
+  end
+end
+
+function M.toggle_errors()
+  local current_setting = vim.diagnostic.config().virtual_text
+  vim.diagnostic.config({ virtual_text = not current_setting })
+end
+
 return M

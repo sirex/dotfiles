@@ -8,6 +8,7 @@
       { mode = "n"; key = "<leader>ch"; action = "<cmd>e ~/dotfiles/home.nix<cr>"; options.desc = "[C]onfigure [H]ome.nix"; }
       { mode = "n"; key = "<leader>cn"; action = "<cmd>e ~/dotfiles/niri/config.kdl<cr>"; options.desc = "[C]onfigure [N]iri"; }
       { mode = "n"; key = "<leader>cv"; action = lua "neovim_configs" []; options.desc = "[C]onfigure Neo[V]im"; }
+      { mode = "n"; key = "<leader>r"; action = lua "restart" []; options.desc = "[R]estart Neovim"; }
 
       # Movement (better up/down)
       { mode = ["n" "x"]; key = "j"; action = "v:count == 0 ? 'gj' : 'j'"; options = { expr = true; silent = true; desc = "Down"; }; }
@@ -33,6 +34,12 @@
       { mode = "n"; key = "<C-n>"; action = "<cmd>resize -5<CR>"; options = { silent = true; desc = "Decrease window height"; }; }
       { mode = "n"; key = "<C-m>"; action = "<cmd>resize +5<CR>"; options = { silent = true; desc = "Increase window height"; }; }
 
+      # Tab Management
+      { mode = "n"; key = "<C-t>c"; action = "<cmd>tabclose<CR>"; options = { silent = true; desc = "Close Tab"; }; }
+      { mode = "n"; key = "<C-t>j"; action = "<cmd>tabprevious<CR>"; options = { silent = true; desc = "Previous Tab"; }; }
+      { mode = "n"; key = "<C-t>k"; action = "<cmd>tabnext<CR>"; options = { silent = true; desc = "Next Tab"; }; }
+      { mode = "n"; key = "<C-t>n"; action = "<cmd>tabnew<CR>"; options = { silent = true; desc = "New Tab"; }; }
+
       # Scrolling
       { mode = "n"; key = "<A-j>"; action = "<c-d>"; options.desc = "Half page down"; }
       { mode = "n"; key = "<A-k>"; action = "<c-u>"; options.desc = "Half page up"; }
@@ -53,6 +60,7 @@
       { mode = "n"; key = "<leader>sn"; action = lua "toggle" ["number"]; options.desc = "[S]et [N]umbers"; }
       { mode = "n"; key = "<leader>sr"; action = lua "toggle" ["relativenumber"]; options.desc = "[S]et [R]elative numbers"; }
       { mode = "n"; key = "<leader>sj"; action = lua "toggle_jump_search" []; options.desc = "[S]et [J]ump search"; }
+      { mode = "n"; key = "<leader>se"; action = lua "toggle_errors" []; options.desc = "[S]et [E]errors"; }
 
       # Diagnostics
       { mode = "n"; key = "<leader>q"; action.__raw = "vim.diagnostic.setloclist"; options.desc = "Open diagnostic Quickfix"; }
@@ -69,6 +77,11 @@
       { mode = "n"; key = "<leader>ts"; action = lua "term_select" []; options.desc = "[T]erm [S]elect"; }
       { mode = "n"; key = "<leader>tN"; action = lua "term_set_name" []; options.desc = "[T]erm Set [N]ame"; }
       { mode = "n"; key = "<leader>ta"; action = "<cmd>ToggleTermToggleAll<cr>"; options.desc = "[T]erm toggle [A]ll"; }
+
+      # Lua{
+      { mode = "n"; key = "<M-e>"; action = lua "eval_lua" []; options.desc = "Execute current line as Lua"; }
+      { mode = "v"; key = "<M-e>"; action = lua "eval_lua_sel" []; options.desc = "Execute visual selection as Lua";
+      }
 
       # LazyGit
       { mode = "n"; key = "<leader>gg"; action = "<cmd>LazyGitCurrentFile<cr>"; options.desc = "LazyGit (Current File)"; }
@@ -140,6 +153,12 @@
 
     autoCmd = [
       { event = [ "TermOpen" ]; group = "Overrides"; callback = lua "term_gf" []; }
+      { event = [ "FileType" ]; pattern = [ "help" "man" "qf" "lspinfo" ]; callback.__raw = ''
+        function(event)
+          vim.keymap.set('n', 'q', '<cmd>close<cr>', { buffer = event.buf, desc = "Close window" })
+        end
+      ''; }
+
     ];
   };
 }
