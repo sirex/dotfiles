@@ -43,7 +43,11 @@
         format = "@[$hostname]($style):";
       };
 
-      directory.style = "bold blue";
+      directory = {
+        style = "bold blue";
+        truncation_length = 0;
+        truncate_to_repo = false;
+      };
 
       character = {
         # Normal User Symbol
