@@ -506,4 +506,10 @@ function M.toggle_errors()
   vim.diagnostic.config({ virtual_text = not current_setting })
 end
 
+function M.copy(what)
+  local path = vim.fn.expand(what)
+  vim.fn.setreg('+', path)
+  print('Copied: ' .. path)
+end
+
 return M

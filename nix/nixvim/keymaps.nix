@@ -46,6 +46,10 @@
       { mode = "t"; key = "<A-k>"; action = "<C-\\><C-n><c-u>"; options.desc = "Half page up"; }
       { mode = "n"; key = "zZ"; action = "zszH"; options.desc = "Center screen horizontally"; }
 
+      # Copy
+      { mode = "n"; key = "<leader>yy"; action = lua "copy" ["%"]; options.desc = "Copy relative file path"; }
+      { mode = "n"; key = "<leader>yf"; action = lua "copy" ["%:t"]; options.desc = "Copy file name"; }
+
       # Terminal Mode Navigation
       { mode = "t"; key = "<Esc><Esc>"; action = "<C-\\><C-n>"; options.desc = "Exit terminal mode"; }
       { mode = "t"; key = "<C-h>"; action = "<C-\\><C-n><C-w><C-h>"; options.desc = "Move left (term)"; }
