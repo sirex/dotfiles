@@ -258,3 +258,5 @@ include "dms/colors.kdl"
 include "dms/layout.kdl"
 include "dms/alttab.kdl"
 include "binds.kdl"
+
+include "dms/outputs.kdl"
