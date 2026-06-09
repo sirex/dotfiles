@@ -10,6 +10,7 @@
     { mode = "n"; key = "<leader>ot"; action = "<cmd>Obsidian toc<cr>"; options.desc = "Obsidian table of content"; }
     { mode = "n"; key = "<leader>oe"; action = "<cmd>Obsidian open<cr>"; options.desc = "Open note in Obsidian app"; }
     { mode = "n"; key = "<leader>os"; action = "<cmd>Obsidian search<cr>"; options.desc = "Search Obsidian note"; }
+    { mode = "n"; key = "<leader>on"; action = "<cmd>Obsidian new<cr>"; options.desc = "New Obsidian note"; }
     { mode = "v"; key = "<leader>oc"; action = "<cmd>w !copy-obsidian<cr>"; options.desc = "Copy selected text"; }
   ];
 
