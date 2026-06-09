@@ -87,6 +87,9 @@
       { mode = "v"; key = "<M-e>"; action = lua "eval_lua_sel" []; options.desc = "Execute visual selection as Lua";
       }
 
+      # OpenCode
+      { mode = "n"; key = "<leader>i"; action = lua "opencode_open" []; options.desc = "A[I] (opencode)"; }
+
       # LazyGit
       { mode = "n"; key = "<leader>gg"; action = "<cmd>LazyGitCurrentFile<cr>"; options.desc = "LazyGit (Current File)"; }
       { mode = "n"; key = "<leader>gl"; action = "<cmd>LazyGitFilterCurrentFile<cr>"; options.desc = "LazyGit Log (Current File)"; }

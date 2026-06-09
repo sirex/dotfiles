@@ -138,6 +138,31 @@ function M.term_set_name()
   end)
 end
 
+
+-- OpenCode
+local _opencode_bufs = {}  -- cwd -> bufnr
+
+function M.opencode_open()
+  local cwd = vim.fn.getcwd()
+  local buf = _opencode_bufs[cwd]
+
+  -- Reuse existing opencode buffer for this cwd if still valid.
+  if buf and vim.api.nvim_buf_is_valid(buf) then
+    vim.api.nvim_set_current_buf(buf)
+    vim.cmd("startinsert")
+    return
+  end
+
+  -- Otherwise spawn a fresh opencode terminal buffer in the current window.
+  vim.cmd("enew")                       -- new empty buffer in current window
+  vim.fn.jobstart({ "opencode" }, {
+    term = true,
+    cwd = cwd,
+  })
+  _opencode_bufs[cwd] = vim.api.nvim_get_current_buf()
+  vim.cmd("startinsert")
+end
+
 function _jump_to_line(line)
   local lnum = string.match(line, "line (%d+)")
   if not lnum then
