@@ -188,6 +188,16 @@ in
     };
   };
 
+  programs.opencode = {
+    enable = true;
+    settings = {
+      autoupdate = false;
+    };
+    tui = {
+      theme = "tokyonight";
+    };
+  };
+
   home.file = {
     ".config/zsh/themes/sirex.zsh-theme".source = ./zsh/themes/sirex.zsh-theme;
   };
