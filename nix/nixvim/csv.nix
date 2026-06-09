@@ -14,7 +14,7 @@
         };
       };
 
-      treesitter.settings.highlight.disable = [
+      treesitter.highlight.disable = [
         "csv"
         "tsv"
       ];
