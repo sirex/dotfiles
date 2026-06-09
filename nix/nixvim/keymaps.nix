@@ -17,6 +17,7 @@
       # Window Navigation
       { mode = "n"; key = "<Tab>"; action = "<C-W>p"; options.desc = "Switch to previous window"; }
       { mode = "n"; key = "<C-Tab>"; action = "<C-6>"; options.desc = "Switch to previous buffer"; }
+      { mode = "t"; key = "<C-Tab>"; action = "<C-\\><C-n><C-6>"; options.desc = "Switch to previous buffer (term)"; }
 
       { mode = "n"; key = "<C-h>"; action = "<C-w><C-h>"; options.desc = "Move left"; }
       { mode = "n"; key = "<C-l>"; action = "<C-w><C-l>"; options.desc = "Move right"; }
