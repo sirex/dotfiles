@@ -208,5 +208,6 @@ in
     "yazi".source = link "yazi";
     "kanshi".source = link "kanshi";
     "nushell/scripts.nu".source =link "nushell/scripts.nu";
+    "opencode/agents".source = link "opencode/agents";
   };
 }
