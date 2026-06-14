@@ -53,6 +53,10 @@
         }
       ) hosts;
 
+      homeModules = {
+        home = import ./home.nix;
+      };
+
       nixosModules = {
         home = {
           imports = [
