@@ -11,6 +11,7 @@ in
     ./nix/starship.nix
     ./nix/tmux.nix
     ./nix/beancount.nix
+    ./nix/nsxiv.nix
   ];
 
   home.stateVersion = "25.11";
@@ -210,5 +211,44 @@ in
     "kanshi".source = link "kanshi";
     "nushell/scripts.nu".source =link "nushell/scripts.nu";
     "opencode/agents".source = link "opencode/agents";
+  };
+
+  xdg.mimeApps = {
+    enable = true;
+    defaultApplications = {
+      "text/html" = "chromium.desktop";
+      "application/pdf" = "chromium.desktop";
+      "x-scheme-handler/http" = "chromium.desktop";
+      "x-scheme-handler/https" = "chromium.desktop";
+      "x-scheme-handler/about" = "chromium.desktop";
+      "x-scheme-handler/unknown" = "chromium.desktop";
+
+      "text/plain" = "nvim.desktop";
+      "text/markdown" = "nvim.desktop";
+      "application/json" = "nvim.desktop";
+      "text/turtle" = "nvim.desktop";
+      "text/calendar" = "nvim.desktop";
+      "application/yaml" = "nvim.desktop";
+      "application/rdf+xml" = "nvim.desktop";
+
+      "application/octet-stream" = "org.keepassxc.KeePassXC.desktop";
+
+      "x-scheme-handler/tonsite" = "org.telegram.desktop.desktop";
+    };
+    associations.added = {
+      "x-scheme-handler/http" = "xfce4-web-browser.desktop";
+      "x-scheme-handler/https" = "xfce4-web-browser.desktop";
+      "x-scheme-handler/ftp" = "userapp-Pale Moon.desktop";
+      "x-scheme-handler/chrome" = "userapp-Pale Moon.desktop";
+      "text/html" = "userapp-Pale Moon.desktop";
+      "application/x-extension-htm" = "userapp-Pale Moon.desktop";
+      "application/x-extension-html" = "userapp-Pale Moon.desktop";
+      "application/x-extension-shtml" = "userapp-Pale Moon.desktop";
+      "application/xhtml+xml" = "userapp-Pale Moon.desktop";
+      "application/x-extension-xhtml" = "userapp-Pale Moon.desktop";
+      "application/x-extension-xht" = "userapp-Pale Moon.desktop";
+      "image/jpeg" = [ "org.gnome.gThumb.desktop" "viewnior.desktop" "gpicview.desktop" ];
+      "image/png" = [ "org.gnome.gThumb.desktop" "viewnior.desktop" "gpicview.desktop" ];
+    };
   };
 }
