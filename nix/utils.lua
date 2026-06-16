@@ -350,6 +350,20 @@ function M.img_name()
 end
 
 -- programs.nixvim.plugins.obsidian.settings.wiki_link_func = lua "wiki_link_func";
+function M.wiki_link_word()
+  vim.api.nvim_feedkeys(
+    vim.api.nvim_replace_termcodes('ciw[[<C-r>"]]<Esc>', true, false, true),
+    'n', false
+  )
+end
+
+function M.wiki_link_sel()
+  vim.api.nvim_feedkeys(
+    vim.api.nvim_replace_termcodes('c[[<C-r>"]]<Esc>', true, false, true),
+    'n', false
+  )
+end
+
 function M.wiki_link_func(opts)
   -- DEBUG: Print to :messages so we know it runs
   vim.print("Obsidian Link Check: ", opts) 
