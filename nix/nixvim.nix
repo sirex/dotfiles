@@ -168,10 +168,6 @@ in
         };
       };
 
-      yazi.enable = true;
-
-      neo-tree.enable = true;
-
       treesitter = {
         enable = true;
         highlight.enable = true;

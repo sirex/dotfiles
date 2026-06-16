@@ -551,4 +551,14 @@ function M.copy(what)
   print('Copied: ' .. path)
 end
 
+function M.open_yazi()
+    local file = vim.fn.expand("%:p")
+    local cwd = vim.fn.getcwd()
+    local args = { "kitty", "--detach", "-e", "yazi" }
+    if file ~= "" then
+        table.insert(args, file)
+    end
+    vim.fn.jobstart(args, { cwd = cwd })
+end
+
 return M
