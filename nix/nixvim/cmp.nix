@@ -86,12 +86,15 @@
         sources =
           (lib.optionals config.programs.nixvim.plugins.obsidian.enable [
             { name = "obsidian"; }
-            { name = "obsidian_new"; }
           ])
           ++ [
           { name = "nvim_lsp"; }
           { name = "luasnip"; }
-          { name = "path"; }
+          { name = "path"; option = { get_cwd.__raw = ''
+            function(params)
+              return vim.fn.getcwd()
+            end
+          ''; }; }
           { name = "nvim_lsp_signature_help"; }
         ];
       };
