@@ -253,6 +253,19 @@ in
         };
       };
 
+      nvim-surround = {
+        enable = true;
+        settings = {
+          surrounds = {
+            w = {
+              add = [ "[[" "]]" ];
+              find = "%[%[.-%]%]";
+              delete = "^(%[%[)().-()(%]%])$";
+            };
+          };
+        };
+      };
+
     };
 
   };
