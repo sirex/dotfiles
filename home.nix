@@ -36,6 +36,7 @@ in
     p7zip      # Archive extraction (yazi built-in extract plugin)
     gh         # GitHub CLI
     git-annex  # For backups
+    pandoc     # For documument conversion
   ];
 
   programs.zsh = {
