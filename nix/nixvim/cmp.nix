@@ -83,11 +83,7 @@
           '';
         };
 
-        sources =
-          (lib.optionals config.programs.nixvim.plugins.obsidian.enable [
-            { name = "obsidian"; }
-          ])
-          ++ [
+        sources = [
           { name = "nvim_lsp"; }
           { name = "luasnip"; }
           { name = "path"; option = { get_cwd.__raw = ''
