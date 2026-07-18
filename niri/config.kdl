@@ -228,8 +228,7 @@ window-rule {
 }
 window-rule {
     match app-id="mpv"
-    match app-id="viewnior"
-    match app-id="Nsxiv"
+    match app-id="imv"
     match app-id="Gkbd-keyboard-display"
     open-floating true
     geometry-corner-radius 0
@@ -261,3 +260,4 @@ include "dms/alttab.kdl"
 include "binds.kdl"
 
 include "dms/outputs.kdl"
+include "dms/windowrules.kdl"

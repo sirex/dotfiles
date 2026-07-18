@@ -1,0 +1,7 @@
+[binds]
+<space>   = next
+<Tab>     = prev
+<Return>  = toggle_playing
+d         = exec setsid kitty -e yazi "$imv_current_file" </dev/null >/dev/null 2>&1 &
+e         = exec setsid gthumb "$imv_current_file" </dev/null >/dev/null 2>&1 &
+,         = overlay

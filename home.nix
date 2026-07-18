@@ -18,7 +18,7 @@ in
     ./nix/starship.nix
     ./nix/tmux.nix
     ./nix/beancount.nix
-    ./nix/viewnior.nix
+    ./nix/imv.nix
   ];
 
   home.stateVersion = "25.11";
@@ -227,6 +227,7 @@ in
     "kitty".source = link "kitty";
     "niri".source = link "niri";
     "yazi".source = link "yazi";
+    "imv".source = link "imv";
     "kanshi".source = link "kanshi";
     "nushell/scripts.nu".source =link "nushell/scripts.nu";
     "opencode/agents".source = link "opencode/agents";
