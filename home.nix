@@ -18,7 +18,7 @@ in
     ./nix/starship.nix
     ./nix/tmux.nix
     ./nix/beancount.nix
-    ./nix/nsxiv.nix
+    ./nix/viewnior.nix
   ];
 
   home.stateVersion = "25.11";
