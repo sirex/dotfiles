@@ -195,6 +195,13 @@ in
     enable = true;
     settings = {
       autoupdate = false;
+      mcp = {
+        chrome-devtools = {
+          type = "local";
+          command = [ "npx" "-y" "chrome-devtools-mcp@latest" "--slim" "-e" "/usr/bin/chromium" ];
+          enabled = true;
+        };
+      };
     };
     tui = {
       theme = "tokyonight";

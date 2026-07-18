@@ -17,8 +17,7 @@ home-manager switch --flake ~/dotfiles#home  # explicit host
 Hosts are defined in `flake.nix` (`hosts`): `home` and `server`. `#home` has
 notes-related config; `#server` is leaner.
 
-There is no test suite, linter, or CI. To validate a change builds without
-activating it: `nix flake check` or `home-manager build --flake ~/dotfiles#home`.
+There is no test suite, linter, or CI. Before activating any changes with `hms` or `switch`, always validate them by running `nix flake check` and then `home-manager build --flake ~/dotfiles#home` to ensure the configuration compiles cleanly. Only run the switch/activation step once these checks pass.
 
 ## Two config mechanisms (important distinction)
 
