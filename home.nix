@@ -221,6 +221,17 @@ in
     "opencode/agents".source = link "opencode/agents";
   };
 
+  xdg.desktopEntries = {
+    syncthing = {
+      name = "Syncthing";
+      genericName = "File Synchronisation";
+      comment = "Open Syncthing Web UI in browser";
+      exec = "xdg-open http://localhost:8384/";
+      icon = ./icons/syncthing.png;
+      categories = [ "Network" "FileTransfer" ];
+    };
+  };
+
   xdg.mimeApps = {
     enable = true;
     defaultApplications = {
