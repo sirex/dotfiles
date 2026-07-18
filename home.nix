@@ -3,6 +3,13 @@ let
   link = path:
     config.lib.file.mkOutOfStoreSymlink
       "${config.home.homeDirectory}/dotfiles/${path}";
+
+  # fzf 0.74.0's `--nushell` output still uses the deprecated `str downcase`
+  # (removed in a future nushell release). Generate the integration script and
+  # patch it to use `str lowercase` so no deprecation warning is emitted.
+  fzfNushellIntegration = pkgs.runCommand "nushell-fzf-integration.nu" { } ''
+    ${pkgs.lib.getExe pkgs.fzf} --nushell | sed 's/str downcase/str lowercase/g' > $out
+  '';
 in
 {
   imports = [
@@ -78,6 +85,7 @@ in
     };
     extraConfig = ''
       source ~/.config/nushell/scripts.nu
+      source ${fzfNushellIntegration}
     '';
   };
 
@@ -156,6 +164,9 @@ in
   programs.fzf = {
     enable = true;
     enableZshIntegration = true;
+    # HM sources the unpatched `fzf --nushell` output, which uses the deprecated
+    # `str downcase`. We source a patched copy via nushell.extraConfig instead.
+    enableNushellIntegration = false;
   };
 
   programs.zoxide = {
